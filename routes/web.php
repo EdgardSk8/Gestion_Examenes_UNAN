@@ -39,6 +39,7 @@ Route::get('/departamentos', [DepartamentoController::class, 'ObtenerDepartament
 Route::get('/carreras', [CarreraController::class, 'ObtenerCarreraPorDepartamento']);
 Route::get('/equipos', [EquipoController::class, 'ObtenerTodosLosEquipos']);
 Route::get('/profesor', [ProfesorController::class, 'ObtenerProfesor']);
+Route::get('/profesorPorDepartamento', [ProfesorController::class, 'ObtenerProfesorPorDepartamento']);
 
 Route::post('/equipos', [EquipoController::class, 'CrearNuevoEquipo']);
 

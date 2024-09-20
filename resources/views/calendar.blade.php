@@ -23,6 +23,7 @@
     @vite(['resources/js/tables/departamento.js']) <!-- archivo js personalizado -->
     @vite(['resources/js/tables/carreras.js']) <!-- archivo js personalizado -->
     @vite(['resources/js/tables/equipo.js']) <!-- archivo js personalizado -->
+    @vite(['resources/js/tables/profesor.js']) <!-- archivo js personalizado -->
     @vite(['resources/js/tables/agregar/agregarequipo.js']) <!-- archivo js personalizado -->
 
     <!-- Importaciones de archivos css y javascript -->
