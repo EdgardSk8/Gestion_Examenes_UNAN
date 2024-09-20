@@ -7,9 +7,6 @@
     box-sizing: border-box; /* Asegura que el padding y los bordes se incluyan en el tamaño */
 }
 
-
-
-
 .radio-inputs {
     position: relative;
     display: flex;
