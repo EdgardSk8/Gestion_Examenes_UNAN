@@ -35,8 +35,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-
-
 document.addEventListener('DOMContentLoaded', function() {
 
     var areaEquipo = document.getElementById('area-equipo');
