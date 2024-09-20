@@ -8,6 +8,7 @@ use App\Http\Controllers\AreaConocimientoController;
 use App\Http\Controllers\DepartamentoController;
 use App\Http\Controllers\CarreraController;
 use App\Http\Controllers\EquipoController;
+use App\Http\Controllers\EstudianteController;
 use App\Http\Controllers\ProfesorController;
 
 /*          ----- Controladores -----             */
@@ -40,6 +41,7 @@ Route::get('/carreras', [CarreraController::class, 'ObtenerCarreraPorDepartament
 Route::get('/equipos', [EquipoController::class, 'ObtenerTodosLosEquipos']);
 Route::get('/profesor', [ProfesorController::class, 'ObtenerProfesor']);
 Route::get('/profesorPorDepartamento', [ProfesorController::class, 'ObtenerProfesorPorDepartamento']);
+Route::get('/estudiante', [EstudianteController::class, 'ObtenerEstudiantePorCarrera']);
 
 Route::post('/equipos', [EquipoController::class, 'CrearNuevoEquipo']);
 
