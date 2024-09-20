@@ -1,0 +1,52 @@
+/* Contenedor principal para equipos-list */
+#equipos-list {
+  margin: 5px;
+  background-color: #ceaef3;
+  padding: 5px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 25vw; /* Usa el 25% del ancho de la vista */
+  height: calc(100vh - 10px); /* Ajusta la altura para ocupar el resto de la vista menos márgenes */
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box; /* Asegura que el padding y el border se incluyan en el tamaño total */
+  overflow: hidden; /* Evita el desbordamiento de contenido */
+}
+
+/* Alinea el título al centro */
+#equipos-list h2 {
+  margin-top: 0;
+  text-align: center;
+  font-size: 1.5rem; /* Ajusta el tamaño del texto de acuerdo con la pantalla */
+  flex-shrink: 0; /* Asegura que el título no se reduzca más allá de su tamaño natural */
+}
+
+/* Estilo para cada equipo */
+.equipo {
+  background-color: #0f77bd;
+  padding: 10px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  cursor: grab;
+  border: 1px solid #000;
+  text-align: center;
+  word-wrap: break-word; /* Asegura que el texto se ajuste dentro del contenedor */
+  font-size: 10px; /* Ajuste responsivo del tamaño de la fuente */
+  color: white;
+  flex-shrink: 0; /* Evita que los equipos se encojan */
+}
+
+/* Cambio de cursor al arrastrar */
+.equipo:active {
+  cursor: grabbing;
+}
+
+/* Contenedor para los equipos con tamaño fijo y scroll */
+#equipos-container {
+  margin-top: 5px;
+  padding: 5px;
+  border: 1px solid #000;
+  height: 278px; /* Tamaño fijo del contenedor */
+  overflow-y: auto; /* Habilita el scroll cuando los equipos exceden el espacio disponible */
+  box-sizing: border-box; /* Asegura que el padding y los bordes se incluyan en el tamaño */
+}

@@ -1,0 +1,22 @@
+.btn {
+  width: 80px; /* Ancho del botón */
+  height: 25px; /* Altura del botón */
+  font-size: 12px; /* Tamaño de la fuente para alinearlo con los select */
+  cursor: pointer;
+  background-color: #4b72df; /* Color de fondo */
+  color: #fff; /* Color del texto */
+  border: 1px solid #ccc; /* Borde del botón, similar al select */
+  border-radius: 4px; /* Bordes redondeados, igual que el select */
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1); /* Sombra interna */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.4s ease; /* Transiciones suaves */
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+/* Estilo cuando el botón está en foco o se hace hover */
+.btn:hover {
+  background-color: #2226ff; /* Color del fondo al hacer hover/foco */
+  border-color: #3844f1; /* Color del borde al hacer hover/foco */
+  outline: none; /* Elimina el borde por defecto del foco */
+  box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25); /* Sombra externa */
+}

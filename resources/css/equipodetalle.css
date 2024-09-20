@@ -1,0 +1,30 @@
+#equipo-detalle{
+    margin-top: 5px;
+    padding: 5px;
+    border: 1px solid #000;
+    height: 427px; /* Tamaño fijo del contenedor */
+    overflow-y: auto; /* Habilita el scroll cuando los equipos exceden el espacio disponible */
+    box-sizing: border-box; /* Asegura que el padding y los bordes se incluyan en el tamaño */
+}
+
+/* equipodetalle.css */
+#equipo-detalle {
+    margin-top: 5px;
+    background-color: #e6e5e5;
+}
+
+.equipos-table {
+    border-collapse: collapse;
+}
+
+.equipos-table th, .equipos-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+    font-size: 10px;
+}
+
+.equipos-table th {
+    background-color: #4a8bc2;
+    color: #fff;
+}

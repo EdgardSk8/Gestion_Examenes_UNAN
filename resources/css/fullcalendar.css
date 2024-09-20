@@ -1,0 +1,42 @@
+/* Contenedor principal del calendario */
+#calendar-container {
+  display: flex;
+  height: 100vh; /* Usa toda la altura de la vista */
+}
+
+/* Estilo del calendario */
+#calendar {
+  flex: 3; /* Ocupa el 75% del ancho del contenedor */
+  margin: 5px;
+  background-color: #4a8bc2;
+  border-radius: 5px;
+  border: 2px solid #bab9ff;
+  overflow: hidden; /* Asegura que el contenido no se desborde */
+}
+
+/* Estilo de los días en el calendario */
+.fc-daygrid-day {
+  background-color: #c9ddca;
+}
+
+/* Estilo de los botones en la barra de herramientas */
+.fc-header-toolbar .fc-toolbar-chunk button {
+  border-radius: 20px;
+  padding: 5px 15px;
+  margin: 5px;
+  font-size: 0.9rem; /* Ajusta el tamaño del texto para que sea más legible en diferentes dispositivos */
+}
+
+/* Estilo general de los eventos dentro del calendario */
+.fc-event {
+  border-radius: 4px; /* Bordes redondeados */
+  padding: 3px; /* Espaciado interno */
+  font-size: 0.75rem; /* Tamaño del texto dentro del evento */
+  color: #ffffff; /* Color del texto */
+  transition: all 0.1s ease; /* Transición suave al interactuar */
+}
+
+/* Estilo específico para los eventos en la vista dayGrid */
+.fc-daygrid-event {
+  white-space: normal; /* Permite que el texto se ajuste en varias líneas */
+}

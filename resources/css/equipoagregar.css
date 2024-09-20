@@ -1,0 +1,50 @@
+.contenedor-agregar{
+    margin-top: 5px;
+    padding: 5px;
+    border: 1px solid #000;
+    height: 412px; /* Tamaño fijo del contenedor */
+    overflow-y: auto; /* Habilita el scroll cuando los equipos exceden el espacio disponible */
+    box-sizing: border-box; /* Asegura que el padding y los bordes se incluyan en el tamaño */
+}
+
+
+
+
+.radio-inputs {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    border-radius: 0.5rem;
+    background-color: #e6e5e5;
+    box-sizing: border-box;
+    box-shadow: 0 0 0px 1px rgba(0, 0, 0, 0.06);
+    padding: 0.25rem;
+    width: auto;
+    font-size: 10px;
+  }
+  
+  .radio-inputs .radio {
+    flex: 2 1 auto;
+    text-align: center;
+  }
+  
+  .radio-inputs .radio input {
+    display: none;
+  }
+  
+  .radio-inputs .radio .name {
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5rem;
+    border: none;
+    padding: .5rem 0;
+    color: rgba(51, 65, 85, 1);
+    transition: all .15s ease-in-out;
+  }
+  
+  .radio-inputs .radio input:checked + .name {
+    background-color: #e5b9d5;
+    font-weight: 600;
+  }
