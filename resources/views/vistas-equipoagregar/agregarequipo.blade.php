@@ -1,12 +1,10 @@
 <p>agregar equipo</p>
 
-
-
-                    <select id="area-select">
+                    <select id="area-equipo">
                         <!-- Area -->
                     </select>
 
-                    
+
                     <select id="departamento-select">
                         <!-- Departamentos -->
                     </select>

@@ -55,12 +55,12 @@ php artisan optimize:clear
                         <!-- Area -->
                     </select>
 
-                    <label for="departamento-select">Departamento:</label>
+                    <label>Departamento:</label>
                     <select id="departamento-select">
                         <!-- Departamentos -->
                     </select>
 
-                    <label for="carrera-select">Carrera:</label>
+                    <label>Carrera:</label>
                     <select id="carrera-select">
                         <!-- Carreras -->
                     </select>
