@@ -1,6 +1,6 @@
 /* Estilo general para los selectores */
 select {
-    width: 250px; /* Ancho del select */
+    width: calc(100% - 5px); /* Ancho del select */
     padding: 3px; /* Espaciado interno */
     font-size: 12px; /* Tamaño de la fuente */
     border: 1px solid #ccc; /* Borde del select */

@@ -3,6 +3,8 @@
 @vite(['resources/css/equipodetalle.css']) <!-- Integracion de archivo de estilo css-->
 @vite(['resources/js/tables/equipodetalle.js'])<!-- Integracion de la logica JS -->
 
+<label>Detalles de Equipos</label>
+
 <div id="equipo-detalle">
 
     <div style="display: flex; justify-content: center; align-items: center; height: 100%;" id="vista-inicio">

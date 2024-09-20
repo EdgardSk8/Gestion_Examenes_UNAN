@@ -1,0 +1,18 @@
+input {
+    border: 2px solid transparent;
+    width: calc(100% - 15px); /* Ajusta el ancho al 100% del contenedor */
+    padding: 3px; /* Espaciado interno */
+    font-size: 12px; /* Tamaño de fuente relativo */
+    outline: none; /* Sin contorno por defecto */
+    background-color: #F3F3F3; /* Color de fondo */
+    border-radius: 5px; /* Bordes redondeados */
+    transition: all 0.5s; /* Transición suave */
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+input:hover, input:focus {
+  border: 2px solid #4A9DEC;
+  box-shadow: 0px 0px 0px 7px rgb(74, 157, 236, 20%);
+  background-color: white;
+}

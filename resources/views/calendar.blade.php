@@ -16,6 +16,7 @@
     @vite(['resources/css/selectstyle.css']) <!-- archivo css personalizado -->
     @vite(['resources/css/equipos.css']) <!-- archivo css personalizado -->
     @vite(['resources/css/btn.css']) <!-- archivo css personalizado -->
+    @vite(['resources/css/inputstyle.css']) <!-- archivo css personalizado -->
 
     @vite(['resources/js/fullcalendar.js']) <!-- js del fullcalendar -->
     @vite(['resources/js/tables/area_conocimiento.js']) <!-- archivo js personalizado -->
@@ -31,6 +32,11 @@
 
 <!--
 php artisan optimize:clear
+
+git add .
+git commit -m "Cambios realizados"
+git push
+
 -->
 
 <body>
@@ -49,31 +55,10 @@ php artisan optimize:clear
                 <!-- Contenedores para las diferentes vistas -->
 
                 <div id="vista-equipos" class="vista" style="display: none">
-
-                    <label>Áreas de Conocimiento</label>
-                    <select id="area-select">
-                        <!-- Area -->
-                    </select>
-
-                    <label>Departamento:</label>
-                    <select id="departamento-select">
-                        <!-- Departamentos -->
-                    </select>
-
-                    <label>Carrera:</label>
-                    <select id="carrera-select">
-                        <!-- Carreras -->
-                    </select>
-
-                    <label for="equipo-container">Equipos:</label>
-                    <div id="equipos-container">
-                        <!-- Equipos -->
-                    </div>
-                    
+                    @include('cuadro-equipos.equipo')
                 </div>
 
                 <div id="vista-detalles" class="vista" style="display: none"> <!-- mover el style al div que desea mostrar al cargar la pagina -->
-                    <label>Detalles de Equipos</label>
                     @include('cuadro-equipos.equipodetalle') <!-- /views/cuadro-equipos/equipodetalle.blade.php -->
                 </div>
 
