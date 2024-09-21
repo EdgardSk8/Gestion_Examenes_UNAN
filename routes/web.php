@@ -51,6 +51,9 @@ Route::get('/tipoexamen', [TipoExamenController::class, 'ObtenerTipoExamen']);
 
 
 
-Route::post('/equipos', [EquipoController::class, 'CrearNuevoEquipo']);
+//Route::post('/equipos', [EquipoController::class, 'CrearNuevoEquipo']);
+//Route::post('/equipo/crear', [EquipoController::class, 'CrearNuevoEquipo'])->name('crearEquipo');
+Route::post('/equipo', [EquipoController::class, 'CrearNuevoEquipo']);
+
 
 

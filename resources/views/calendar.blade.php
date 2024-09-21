@@ -22,7 +22,7 @@
     @vite(['resources/js/tables/area_conocimiento.js']) <!-- archivo js personalizado -->
     @vite(['resources/js/tables/departamento.js']) <!-- archivo js personalizado -->
     @vite(['resources/js/tables/carreras.js']) <!-- archivo js personalizado -->
-    @vite(['resources/js/tables/equipo.js']) <!-- archivo js personalizado -->
+   
     @vite(['resources/js/tables/profesor.js']) <!-- archivo js personalizado -->
     @vite(['resources/js/tables/estudiante.js']) <!-- archivo js personalizado -->
     @vite(['resources/js/tables/edificio.js']) <!-- archivo js personalizado -->
@@ -35,7 +35,7 @@
     <!-- Importaciones de archivos css y javascript -->
 
     <meta name="csrf-token" content="{{ csrf_token() }}"> <!-- Token CSRF para proteger solicitudes no autorizadas -->
-
+    
 </head>
 
 <!--

@@ -22,6 +22,8 @@ class EquipoController extends Controller
             $validatedData = $request->validate
             ([
                 'Titulo' => 'required|string|max:255',
+                'ID_Area_Conocimiento' => 'required|integer|exists:area_conocimiento,ID_Area_Conocimiento',
+                'ID_Departamento' => 'required|integer|exists:departamentos,ID_Departamento',
                 'Integrante1' => 'required|integer|exists:estudiantes,ID_Estudiante',
                 'Integrante2' => 'nullable|integer|exists:estudiantes,ID_Estudiante',
                 'Integrante3' => 'nullable|integer|exists:estudiantes,ID_Estudiante',
