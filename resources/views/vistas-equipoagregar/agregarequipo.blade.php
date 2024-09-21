@@ -37,6 +37,9 @@
         <label for="hora_fin">Hora de Fin:</label>
         <input type="time" id="hora_fin" name="Hora_Fin" required>
 
+        <select id="edificio" required>
+        </select>
+
         <select id="aula" required>
         </select>
 

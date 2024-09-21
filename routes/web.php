@@ -10,6 +10,8 @@ use App\Http\Controllers\CarreraController;
 use App\Http\Controllers\EquipoController;
 use App\Http\Controllers\EstudianteController;
 use App\Http\Controllers\ProfesorController;
+use App\Http\Controllers\EdificioController;
+use App\Http\Controllers\AulaController;
 
 /*          ----- Controladores -----             */
 
@@ -42,6 +44,10 @@ Route::get('/equipos', [EquipoController::class, 'ObtenerTodosLosEquipos']);
 Route::get('/profesor', [ProfesorController::class, 'ObtenerProfesor']);
 Route::get('/profesorPorDepartamento', [ProfesorController::class, 'ObtenerProfesorPorDepartamento']);
 Route::get('/estudiante', [EstudianteController::class, 'ObtenerEstudiantePorCarrera']);
+Route::get('/edificio', [EdificioController::class, 'ObtenerEdificioPorArea']);
+Route::get('/aula', [AulaController::class, 'ObtenerAulaPorEdificio']);
+
+
 
 Route::post('/equipos', [EquipoController::class, 'CrearNuevoEquipo']);
 
