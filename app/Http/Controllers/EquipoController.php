@@ -16,14 +16,13 @@ class EquipoController extends Controller
 
     public function CrearNuevoEquipo(Request $request)
     {
-        if($request->isMethod('post'))
-        {
-
-            $validatedData = $request->validate
-            ([
+        try {
+            // Validar los datos recibidos
+            $validatedData = $request->validate([
                 'Titulo' => 'required|string|max:255',
                 'ID_Area_Conocimiento' => 'required|integer|exists:area_conocimiento,ID_Area_Conocimiento',
-                'ID_Departamento' => 'required|integer|exists:departamentos,ID_Departamento',
+                'ID_Departamento' => 'required|integer|exists:departamento,ID_Departamento',
+                'ID_Carrera' => 'required|integer|exists:carrera,ID_Carrera',
                 'Integrante1' => 'required|integer|exists:estudiantes,ID_Estudiante',
                 'Integrante2' => 'nullable|integer|exists:estudiantes,ID_Estudiante',
                 'Integrante3' => 'nullable|integer|exists:estudiantes,ID_Estudiante',
@@ -37,12 +36,18 @@ class EquipoController extends Controller
                 'Tutor_ID' => 'required|integer|exists:profesores,ID_Profesor',
                 'Juez1_ID' => 'nullable|integer|exists:profesores,ID_Profesor',
                 'Juez2_ID' => 'nullable|integer|exists:profesores,ID_Profesor',
-                'Juez3_ID' => 'nullable|integer|exists:profesores,ID_Profesor',
-                'ID_Carrera' => 'required|integer|exists:carreras,ID_Carrera'
+                'Juez3_ID' => 'nullable|integer|exists:profesores,ID_Profesor'
+                
             ]);
-            $equipo = Equipo::create($validatedData);
-            return redirect()->back()->with('success', 'Equipo Creado Correctamente');
 
+            // Crear el equipo en la base de datos
+            $equipo = Equipo::create($validatedData);
+
+            // Retornar respuesta JSON
+            return response()->json(['message' => 'Equipo creado correctamente', 'equipo' => $equipo], 201);
+        } catch (\Exception $e) {
+            // Manejar errores y devolver un mensaje adecuado
+            return response()->json(['error' => $e->getMessage()], 500);
         }
     }
     

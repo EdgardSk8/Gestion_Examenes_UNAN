@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function () {
             Juez1_ID: document.getElementById('juez1').value || null,
             Juez2_ID: document.getElementById('juez2').value || null,
             Juez3_ID: document.getElementById('juez3').value || null,
-            ID_Carrera: document.getElementById('carrera-select').value,
+            //ID_Carrera: document.getElementById('carrera-select').value,
             ID_Area_Conocimiento: document.getElementById('area-select').value, // Añadido
             ID_Departamento: document.getElementById('departamento-select').value // Añadido
         };
