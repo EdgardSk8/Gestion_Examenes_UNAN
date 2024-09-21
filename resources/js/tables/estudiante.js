@@ -21,8 +21,8 @@ document.addEventListener('DOMContentLoaded', function () {
         if (estudiantesDisponibles.length > 0) {
             estudiantesDisponibles.forEach(estudiante => {
                 let option = document.createElement('option');
-                option.value = estudiante.ID_Estudiante; // Llave primaria del estudiante
-                option.textContent = estudiante.Nombre_Completo; // Nombre del estudiante
+                option.value = estudiante.ID_Estudiante;
+                option.textContent = estudiante.Nombre_Completo;
                 selectElement.appendChild(option);
             });
         }
@@ -31,7 +31,6 @@ document.addEventListener('DOMContentLoaded', function () {
     // Función para cargar estudiantes según la carrera seleccionada
     function cargarEstudiantesPorCarrera(carreraId) {
         if (!carreraId) {
-            // Mostrar mensaje de "Seleccione Carrera" si no hay carrera seleccionada
             llenarSelectEstudiante(integrante1Select, [], 'Seleccione Carrera');
             llenarSelectEstudiante(integrante2Select, [], 'Seleccione Carrera');
             llenarSelectEstudiante(integrante3Select, [], 'Seleccione Carrera');
@@ -41,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function () {
         fetch(`/estudiante?carreraId=${encodeURIComponent(carreraId)}`)
             .then(response => response.json())
             .then(data => {
-                estudiantes = data; // Guardar los datos de los estudiantes
+                estudiantes = data;
                 if (estudiantes.length === 0) {
                     llenarSelectEstudiante(integrante1Select, [], 'Sin Estudiantes');
                     llenarSelectEstudiante(integrante2Select, [], 'Sin Estudiantes');
@@ -57,6 +56,26 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     }
 
+    // Función para actualizar los selects
+    function actualizarSelects() {
+        const seleccionados = [
+            integrante1Select.value,
+            integrante2Select.value,
+            integrante3Select.value
+        ];
+
+        // Actualizamos las opciones en los selects de integrantes
+        [integrante1Select, integrante2Select, integrante3Select].forEach(select => {
+            Array.from(select.options).forEach(option => {
+                if (seleccionados.includes(option.value) && option.value !== '') {
+                    option.style.display = 'none'; // Ocultar opciones seleccionadas
+                } else {
+                    option.style.display = ''; // Mostrar opciones no seleccionadas
+                }
+            });
+        });
+    }
+
     // Event listener para cuando se cambie la carrera seleccionada
     carreraSelect.addEventListener('change', function () {
         var carreraId = carreraSelect.value;
@@ -67,4 +86,9 @@ document.addEventListener('DOMContentLoaded', function () {
     llenarSelectEstudiante(integrante1Select, [], 'Seleccione Carrera');
     llenarSelectEstudiante(integrante2Select, [], 'Seleccione Carrera');
     llenarSelectEstudiante(integrante3Select, [], 'Seleccione Carrera');
+
+    // Event listeners para mostrar selección y actualizar los selects
+    integrante1Select.addEventListener('change', actualizarSelects);
+    integrante2Select.addEventListener('change', actualizarSelects);
+    integrante3Select.addEventListener('change', actualizarSelects);
 });

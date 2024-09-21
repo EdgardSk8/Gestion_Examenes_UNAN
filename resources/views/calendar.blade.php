@@ -27,9 +27,10 @@
     @vite(['resources/js/tables/estudiante.js']) <!-- archivo js personalizado -->
     @vite(['resources/js/tables/edificio.js']) <!-- archivo js personalizado -->
     @vite(['resources/js/tables/aula.js']) <!-- archivo js personalizado -->
+    @vite(['resources/js/tables/tipoexamen.js']) <!-- archivo js personalizado -->
 
 
-    @vite(['resources/js/tables/agregar/agregarequipo.js']) <!-- archivo js personalizado -->
+    @vite(['resources/js/agregar/agregarequipo.js']) <!-- archivo js personalizado -->
 
     <!-- Importaciones de archivos css y javascript -->
 

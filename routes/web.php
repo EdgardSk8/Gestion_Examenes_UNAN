@@ -12,6 +12,7 @@ use App\Http\Controllers\EstudianteController;
 use App\Http\Controllers\ProfesorController;
 use App\Http\Controllers\EdificioController;
 use App\Http\Controllers\AulaController;
+use App\Http\Controllers\TipoExamenController;
 
 /*          ----- Controladores -----             */
 
@@ -46,6 +47,7 @@ Route::get('/profesorPorDepartamento', [ProfesorController::class, 'ObtenerProfe
 Route::get('/estudiante', [EstudianteController::class, 'ObtenerEstudiantePorCarrera']);
 Route::get('/edificio', [EdificioController::class, 'ObtenerEdificioPorArea']);
 Route::get('/aula', [AulaController::class, 'ObtenerAulaPorEdificio']);
+Route::get('/tipoexamen', [TipoExamenController::class, 'ObtenerTipoExamen']);
 
 
 
