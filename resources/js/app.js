@@ -1,43 +1,40 @@
 //Script para mostrar las vistas de los botones en calendar.blade.php
+
 document.addEventListener('DOMContentLoaded', function() {
 
     // Asignar eventos a los botones
     document.getElementById('equipos-btn').addEventListener('click', function() {
         mostrarVista('vista-equipos');
-        mostrarCalendar();    // Mostrar el calendario al presionar "Equipos"
-        ocultarBotones();     // Ocultar los "botones" al presionar "Equipos"
+        mostrarCalendar();
+        ocultarBotones();
     });
 
     document.getElementById('detalles-btn').addEventListener('click', function() {
         mostrarVista('vista-detalles');
-        mostrarCalendar();    // Mostrar el calendario al presionar "Detalles"
-        ocultarBotones();     // Ocultar los "botones" al presionar "Detalles"
+        mostrarCalendar();
+        ocultarBotones();
     });
 
     document.getElementById('agregar-btn').addEventListener('click', function() {
         mostrarVista('vista-agregar');
-        ocultarCalendar();    // Ocultar el calendario al presionar "Agregar"
-        mostrarBotones();     // Mostrar los "botones" al presionar "Agregar"
+        ocultarCalendar();
+        mostrarBotones();
     });
+
 
     // Función para mostrar la vista seleccionada y ocultar las demás
     function mostrarVista(vistaId) {
-        // Ocultar todas las vistas
         document.querySelectorAll('.vista').forEach(function(vista) {
-            vista.style.display = 'none';
+            vista.style.display = 'none'; // Ocultar todas las vistas
         });
-
-        // Mostrar la vista seleccionada
-        document.getElementById(vistaId).style.display = 'block';
+        document.getElementById(vistaId).style.display = 'block'; // Mostrar la vista seleccionada
     }
 
-    // Función para ocultar el calendario
-    function ocultarCalendar() {
+    function ocultarCalendar() { // Función para ocultar el calendario
         document.getElementById('calendar').style.display = 'none';
     }
 
-    // Función para mostrar el calendario
-    function mostrarCalendar() {
+    function mostrarCalendar() { // Función para mostrar el calendario
         document.getElementById('calendar').style.display = 'block';
     }
 

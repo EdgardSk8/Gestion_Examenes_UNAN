@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
         };
 
         // Enviar los datos al servidor usando fetch
-        fetch('/equipo', {
+        fetch('/equipo/crear', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
