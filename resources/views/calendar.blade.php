@@ -51,14 +51,20 @@ git push
 <body>
 
     <div id='calendar-container'> <!-- Obtenido de fullcalendar.css -->
-        <div id='calendar'></div> <!-- Obtenido de fullcalendar.css -->
+         <!-- Obtenido de fullcalendar.css -->
 
-        <div id='equipos-list' style="border: 1px solid #000000;"> <!-- Obtenido de equipos.css -->
+        <div id="vista-agregar" class="vista" style="display: none" >
+            @include('cuadro-equipos.equipoagregar') <!-- /views/cuadro-equipos/equipodetalle.blade.php -->
+        </div>
 
-                <div style="margin: 5px">
-                    <button id="equipos-btn" class="btn">Equipos</button> <!-- Obtenido de equipos.css -->
-                    <button id="detalles-btn" class="btn">Detalles</button> <!-- Obtenido de equipos.css -->
-                    <button id="agregar-btn" class="btn">Agregar</button> <!-- Obtenido de equipos.css -->
+        <div id='calendar' class="vista-principal"></div>
+
+        <div id='equipos-list'> <!-- Obtenido de equipos.css -->
+
+                <div style="display: flex; width: 100%; gap: 1px">
+                    <button id="equipos-btn" class="btn" style="flex: 2;">Equipos</button> <!-- Obtenido de equipos.css -->
+                    <button id="detalles-btn" class="btn" style="flex: 3;">Detalles</button> <!-- Obtenido de equipos.css -->
+                    <button id="agregar-btn" class="btn" style="flex: 2;">Agregar</button> <!-- Obtenido de equipos.css -->
                 </div>
 
                 <!-- Contenedores para las diferentes vistas -->
@@ -67,13 +73,23 @@ git push
                     @include('cuadro-equipos.equipo')
                 </div>
 
-                <div id="vista-detalles" class="vista" style="display: none"> <!-- mover el style al div que desea mostrar al cargar la pagina -->
+                <div id="vista-detalles" class="vista" > <!-- mover el style al div que desea mostrar al cargar la pagina -->
                     @include('cuadro-equipos.equipodetalle') <!-- /views/cuadro-equipos/equipodetalle.blade.php -->
                 </div>
 
-                <div id="vista-agregar" class="vista" >
-                    @include('cuadro-equipos.equipoagregar') <!-- /views/cuadro-equipos/equipodetalle.blade.php -->
+                <div class="botones-agregar" style="display: none;">
+                    <div class="radio-inputs">
+                        <label class="radio">
+                          <input id="radio-agregar-equipo" type="radio" name="radio" checked="">
+                          <span class="name">Agregar Equipo</span>
+                        </label>
+                        <label class="radio">
+                          <input id="radio-agregar-datos" type="radio" name="radio">
+                          <span class="name">Agregar Nuevos Datos</span>
+                        </label>
+                    </div>
                 </div>
+                
 
             
             

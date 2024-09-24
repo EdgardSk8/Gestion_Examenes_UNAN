@@ -1,20 +1,16 @@
 #equipo-detalle{
-    margin-top: 5px;
-    padding: 5px;
-    border: 1px solid #000;
-    height: 427px; /* Tamaño fijo del contenedor */
+    margin-top: 5px; /* Espacio superior */
+    padding: 5px; /* Espacio interno */
+    border: 1px solid #000; /* Bordes del contenedor */
+    background-color: #e6e5e5; /* Color de fondo */
     overflow-y: auto; /* Habilita el scroll cuando los equipos exceden el espacio disponible */
+    height: 570px; /* Ajusta la altura para ocupar el resto del espacio dentro de equipos-list */
     box-sizing: border-box; /* Asegura que el padding y los bordes se incluyan en el tamaño */
-}
-
-/* equipodetalle.css */
-#equipo-detalle {
-    margin-top: 5px;
-    background-color: #e6e5e5;
 }
 
 .equipos-table {
     border-collapse: collapse;
+    width: 100%;
 }
 
 .equipos-table th, .equipos-table td {

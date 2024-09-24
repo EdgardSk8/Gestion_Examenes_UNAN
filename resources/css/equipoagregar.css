@@ -1,11 +1,87 @@
-.contenedor-agregar{
-    margin-top: 5px;
-    padding: 5px;
-    border: 1px solid #000;
-    height: 412px; /* Tamaño fijo del contenedor */
-    overflow-y: auto; /* Habilita el scroll cuando los equipos exceden el espacio disponible */
-    box-sizing: border-box; /* Asegura que el padding y los bordes se incluyan en el tamaño */
+
+#vista-agregar{
+  flex: 3; /* Ocupa el 75% del ancho del contenedor */
+  margin: 5px;
+  border: 2px solid #000000;
+  overflow: hidden; /* Asegura que el contenido no se desborde */
+  display: flex; /* Usamos flex para que los elementos hijos se ajusten automáticamente */
+  flex-direction: column; /* Apilar los elementos de arriba a abajo */
 }
+
+.contenedor-agregar{
+  padding: 5px;
+  height: 100%; /* Tamaño fijo del contenedor */
+  overflow-y: auto; /* Habilita el scroll cuando los equipos exceden el espacio disponible */
+  display: flex; /* Flex para hacer que el contenido se ajuste */
+  flex-direction: column; /* Mantiene el contenido en una columna */
+  flex-grow: 1; /* Permite que el contenedor crezca para llenar el espacio */
+}
+
+
+#equipo-form{
+  width: 100%; /* Asegura que el form ocupe todo el ancho del contenedor */
+  box-sizing: border-box; /* Incluir padding y border dentro del tamaño total */
+}
+
+/* BOTON GUARDAR */
+
+.button {
+  font-size: 12px;
+  padding: 1em 2.7em;
+  font-weight: 500;
+  background: #1f2937;
+  color: white;
+  border: none;
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.6em;
+  cursor: pointer;
+}
+
+.gradient {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  border-radius: 0.6em;
+  margin-top: -0.25em;
+  background-image: linear-gradient(
+    rgba(0, 0, 0, 0),
+    rgba(0, 0, 0, 0),
+    rgba(0, 0, 0, 0.3)
+  );
+}
+
+.label {
+  position: relative;
+  top: -1px;
+}
+
+.transition {
+  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  transition-duration: 500ms;
+  background-color: rgba(16, 185, 129, 0.6);
+  border-radius: 9999px;
+  width: 0;
+  height: 0;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.button:hover .transition {
+  width: 14em;
+  height: 14em;
+}
+
+.button:active {
+  transform: scale(0.97);
+}
+/* BOTON GUARDAR */
+
+/* RADIO DE BOTON */
 
 .radio-inputs {
     position: relative;
@@ -45,3 +121,4 @@
     background-color: #e5b9d5;
     font-weight: 600;
   }
+  /* RADIO DE BOTON */
