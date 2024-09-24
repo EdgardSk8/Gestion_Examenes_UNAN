@@ -78,19 +78,87 @@ git push
                 </div>
 
                 <div class="botones-agregar" style="display: none;">
+
                     <div class="radio-inputs">
+
                         <label class="radio">
                           <input id="radio-agregar-equipo" type="radio" name="radio" checked="">
                           <span class="name">Agregar Equipo</span>
                         </label>
+
                         <label class="radio">
                           <input id="radio-agregar-datos" type="radio" name="radio">
                           <span class="name">Agregar Nuevos Datos</span>
                         </label>
-                    </div>
-                </div>
-                
 
+                    </div>
+
+                </div>
+
+                <div class="btn-agregar-datos" style="margin-top: 30px">
+
+                    <div class="radio-inputs" style="flex-direction: column">
+
+                        <label class="radio">
+                            <input id="radio-area-conocimiento" type="radio" name="radio-area" checked="">
+                            <span class="name">Área de Conocimiento</span>
+                        </label>
+                
+                        <label class="radio">
+                            <input id="radio-departamento" type="radio" name="radio-area">
+                            <span class="name">Departamento</span>
+                        </label>
+                
+                        <label class="radio">
+                            <input id="radio-carrera" type="radio" name="radio-area">
+                            <span class="name">Carrera</span>
+                        </label>
+
+                        <label class="radio">
+                            <input id="radio-estudiante" type="radio" name="radio-area">
+                            <span class="name">Estudiante</span>
+                        </label>
+                
+                        <label class="radio">
+                            <input id="radio-profesor" type="radio" name="radio-area">
+                            <span class="name">Profesor</span>
+                        </label>
+
+                        <label class="radio">
+                            <input id="radio-localidades" type="radio" name="radio-area">
+                            <span class="name">Localidad</span>
+                        </label>
+                
+                        <label class="radio">
+                            <input id="radio-edificio" type="radio" name="radio-area">
+                            <span class="name">Edificio</span>
+                        </label>
+                
+                        <label class="radio">
+                            <input id="radio-aula" type="radio" name="radio-area">
+                            <span class="name">Aula</span>
+                        </label>
+                
+                        <label class="radio">
+                            <input id="radio-tipo-examen" type="radio" name="radio-area">
+                            <span class="name">Tipo de Examen</span>
+                        </label>
+
+                        <label class="radio">
+                            <input id="radio-rol" type="radio" name="radio-area">
+                            <span class="name">Rol</span>
+                        </label>
+
+                        <label class="radio">
+                            <input id="radio-perfil" type="radio" name="radio-area">
+                            <span class="name">Perfil</span>
+                        </label>
+                
+                    </div>
+                
+                </div>
+
+               
             
             
         </div>

@@ -7,18 +7,21 @@ document.addEventListener('DOMContentLoaded', function() {
         mostrarVista('vista-equipos');
         mostrarCalendar();
         ocultarBotones();
+        ocultarAgregardatos();
     });
 
     document.getElementById('detalles-btn').addEventListener('click', function() {
         mostrarVista('vista-detalles');
         mostrarCalendar();
         ocultarBotones();
+        ocultarAgregardatos();
     });
 
     document.getElementById('agregar-btn').addEventListener('click', function() {
         mostrarVista('vista-agregar');
         ocultarCalendar();
         mostrarBotones();
+        mostrarAgregardatos();
     });
 
 
@@ -47,4 +50,21 @@ document.addEventListener('DOMContentLoaded', function() {
     function ocultarBotones() {
         document.querySelector('.botones-agregar').style.display = 'none';  // Ocultar los "botones" de agregar
     }
+
+    // Función para ocultar los botones 
+    function ocultarAgregardatos() {
+        document.querySelector('.btn-agregar-datos').style.display = 'none';  // Ocultar los "botones" de agregar
+    }
+
+    // Función para Mostrar los botones
+    function mostrarAgregardatos() {
+        const radioAgregarDatos = document.getElementById('radio-agregar-datos');
+    
+        if (radioAgregarDatos.checked) {
+            document.querySelector('.btn-agregar-datos').style.display = 'block';  // Mostrar los "botones" de agregar
+        } else {
+            document.querySelector('.btn-agregar-datos').style.display = 'none';  // Ocultar los "botones" de agregar
+        }
+    }
+
 });
