@@ -5,48 +5,74 @@
         @include('vistas-equipoagregar.agregarequipo')
     </div>
 
-    <div id="agregar-datos"> <!-- Mostrará la vista para agregar nuevos datos a la base de datos -->
-        @include('vistas-equipoagregar.agregardatos')
-    </div>
+    <div id="agregar-datos"> 
+        <!-- Las vistas se cargarán aquí dinámicamente -->
+    </div> <!-- Mostrará la vista para agregar nuevos datos a la base de datos -->
 </div>
-
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-
-        const radioAgregarEquipo = document.getElementById('radio-agregar-equipo');
-        const radioAgregarDatos = document.getElementById('radio-agregar-datos');
-        const agregarEquipoDiv = document.getElementById('agregar-equipo');
+        // Obtener referencias a los elementos necesarios
+        const radios = document.querySelectorAll('input[type="radio"]'); // Obtener todos los radio-buttons
+        const agregarEquipoDiv = document.getElementById('agregar-equipo'); 
         const agregarDatosDiv = document.getElementById('agregar-datos');
+        const btnAgregarDatos = document.querySelector('.btn-agregar-datos'); // Botón de agregar datos
 
-        // Función para ocultar los botones 
-        function ocultarAgregardatos() {
-            document.querySelector('.btn-agregar-datos').style.display = 'none';  // Ocultar los "botones" de agregar
+        // Función para cargar una vista mediante AJAX
+        function cargarVista(url) {
+            fetch(url) // Hacer una solicitud AJAX al servidor
+                .then(response => response.text()) // Convertir la respuesta en texto (HTML)
+                .then(html => {
+                    agregarDatosDiv.innerHTML = html; // Insertar la vista en el div agregar-datos
+                })
+                .catch(error => console.error('Error al cargar la vista:', error)); // Manejar errores
         }
 
-        function mostrarAgregardatos() {
-            document.querySelector('.btn-agregar-datos').style.display = 'block';  // Mostrar los "botones" de agregar
-        }
+        // Función para mostrar u ocultar las vistas basadas en el radio-button seleccionado
+        function actualizarVista() {
+            if (document.getElementById('radio-agregar-equipo').checked) {
+                agregarEquipoDiv.style.display = 'block'; // Mostrar vista de equipo
+                agregarDatosDiv.innerHTML = ''; // Limpiar contenido de agregar-datos
+                agregarDatosDiv.style.display = 'none'; // Ocultar vista de datos
+                btnAgregarDatos.style.display = 'none'; // Ocultar botón de agregar datos
+            } else {
+                agregarEquipoDiv.style.display = 'none'; // Ocultar vista de equipo
+                agregarDatosDiv.style.display = 'block'; // Mostrar vista de datos
+                btnAgregarDatos.style.display = 'block'; // Mostrar botón de agregar datos
 
-        // Función para mostrar la vista correspondiente dependiendo del radio-button seleccionado
-        function mostrarVista() {
-            if (radioAgregarEquipo.checked) {
-                agregarEquipoDiv.style.display = 'block';
-                agregarDatosDiv.style.display = 'none';
-                ocultarAgregardatos();
-            } else if (radioAgregarDatos.checked) {
-                agregarEquipoDiv.style.display = 'none';
-                agregarDatosDiv.style.display = 'block';
-                mostrarAgregardatos();
+                // Cargar la vista correspondiente según el radio-button seleccionado
+                if (document.getElementById('radio-area-conocimiento').checked) {
+                    cargarVista('/vista-area-conocimiento');
+                } else if (document.getElementById('radio-departamento').checked) {
+                    cargarVista('/vista-departamento');
+                } else if (document.getElementById('radio-carrera').checked) {
+                    cargarVista('/vista-carrera');
+                } else if (document.getElementById('radio-estudiante').checked) {
+                    cargarVista('/vista-estudiante');
+                } else if (document.getElementById('radio-profesor').checked) {
+                    cargarVista('/vista-profesor');
+                } else if (document.getElementById('radio-localidades').checked) {
+                    cargarVista('/vista-localidades');
+                } else if (document.getElementById('radio-edificio').checked) {
+                    cargarVista('/vista-edificio');
+                } else if (document.getElementById('radio-aula').checked) {
+                    cargarVista('/vista-aula');
+                } else if (document.getElementById('radio-tipo-examen').checked) {
+                    cargarVista('/vista-tipo-examen');
+                } else if (document.getElementById('radio-rol').checked) {
+                    cargarVista('/vista-rol');
+                } else if (document.getElementById('radio-perfil').checked) {
+                    cargarVista('/vista-perfil');
+                }
             }
         }
 
-        // Ejecutar al cargar la página
-        mostrarVista();
+        // Escuchar los cambios en los radio-buttons y actualizar la vista cuando cambien
+        radios.forEach(function(radio) {
+            radio.addEventListener('change', actualizarVista);
+        });
 
-        // Cambiar la vista cuando se selecciona un radio-button
-        radioAgregarEquipo.addEventListener('change', mostrarVista);
-        radioAgregarDatos.addEventListener('change', mostrarVista);
-
+        // Llamar a la función una vez para establecer la vista inicial al cargar la página
+        actualizarVista();
     });
 </script>

@@ -95,68 +95,55 @@ git push
 
                 </div>
 
-                <div class="btn-agregar-datos" style="margin-top: 30px">
-
-                    <div class="radio-inputs" style="flex-direction: column">
-
-                        <label class="radio">
-                            <input id="radio-area-conocimiento" type="radio" name="radio-area" checked="">
-                            <span class="name">Área de Conocimiento</span>
-                        </label>
-                
-                        <label class="radio">
-                            <input id="radio-departamento" type="radio" name="radio-area">
-                            <span class="name">Departamento</span>
-                        </label>
-                
-                        <label class="radio">
-                            <input id="radio-carrera" type="radio" name="radio-area">
-                            <span class="name">Carrera</span>
-                        </label>
-
-                        <label class="radio">
-                            <input id="radio-estudiante" type="radio" name="radio-area">
-                            <span class="name">Estudiante</span>
-                        </label>
-                
-                        <label class="radio">
-                            <input id="radio-profesor" type="radio" name="radio-area">
-                            <span class="name">Profesor</span>
-                        </label>
-
-                        <label class="radio">
-                            <input id="radio-localidades" type="radio" name="radio-area">
-                            <span class="name">Localidad</span>
-                        </label>
-                
-                        <label class="radio">
-                            <input id="radio-edificio" type="radio" name="radio-area">
-                            <span class="name">Edificio</span>
-                        </label>
-                
-                        <label class="radio">
-                            <input id="radio-aula" type="radio" name="radio-area">
-                            <span class="name">Aula</span>
-                        </label>
-                
-                        <label class="radio">
-                            <input id="radio-tipo-examen" type="radio" name="radio-area">
-                            <span class="name">Tipo de Examen</span>
-                        </label>
-
-                        <label class="radio">
-                            <input id="radio-rol" type="radio" name="radio-area">
-                            <span class="name">Rol</span>
-                        </label>
-
-                        <label class="radio">
-                            <input id="radio-perfil" type="radio" name="radio-area">
-                            <span class="name">Perfil</span>
-                        </label>
-                
-                    </div>
-                
+                <div class="btn-agregar-datos radio-inputs" style="margin-top: 30px">
+                    <label class="radio">
+                        <input type="radio" id="radio-area-conocimiento" name="radio-agregardatos">
+                        <span class="name">Área de Conocimiento</span>
+                    </label>
+                    <label class="radio">
+                        <input type="radio" id="radio-departamento" name="radio-agregardatos">
+                        <span class="name">Departamento</span>
+                    </label>
+                    <label class="radio">
+                        <input type="radio" id="radio-carrera" name="radio-agregardatos">
+                        <span class="name">Carrera</span>
+                    </label>
+                    <label class="radio">
+                        <input type="radio" id="radio-estudiante" name="radio-agregardatos">
+                        <span class="name">Estudiante</span>
+                    </label>
+                    <label class="radio">
+                        <input type="radio" id="radio-profesor" name="radio-agregardatos">
+                        <span class="name">Profesor</span>
+                    </label>
+                    <label class="radio">
+                        <input type="radio" id="radio-localidades" name="radio-agregardatos">
+                        <span class="name">Localidad</span>
+                    </label>
+                    <label class="radio">
+                        <input type="radio" id="radio-edificio" name="radio-agregardatos">
+                        <span class="name">Edificio</span>
+                    </label>
+                    <label class="radio">
+                        <input type="radio" id="radio-aula" name="radio-agregardatos">
+                        <span class="name">Aula</span>
+                    </label>
+                    <label class="radio">
+                        <input type="radio" id="radio-tipo-examen" name="radio-agregardatos">
+                        <span class="name">Tipo de Examen</span>
+                    </label>
+                    <label class="radio">
+                        <input type="radio" id="radio-rol" name="radio-agregardatos">
+                        <span class="name">Rol</span>
+                    </label>
+                    <label class="radio">
+                        <input type="radio" id="radio-perfil" name="radio-agregardatos">
+                        <span class="name">Perfil</span>
+                    </label>
                 </div>
+                
+                
+                
 
                
             

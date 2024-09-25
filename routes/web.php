@@ -56,4 +56,50 @@ Route::post('/equipo/crear', [EquipoController::class, 'CrearNuevoEquipo'])->nam
 //Route::post('/crear-equipo', [EquipoController::class, 'CrearNuevoEquipo']);
 
 
+// Rutas para cargar vistas dinámicamente de agregar equipos
+Route::get('/vista-area-conocimiento', function() {
+    return view('vistas-equipoagregar.agregardatos.radio-area-conocimiento');
+});
+
+Route::get('/vista-departamento', function() {
+    return view('vistas-equipoagregar.agregardatos.radio-departamento');
+});
+
+Route::get('/vista-carrera', function() {
+    return view('vistas-equipoagregar.agregardatos.radio-carrera');
+});
+
+Route::get('/vista-estudiante', function() {
+    return view('vistas-equipoagregar.agregardatos.radio-estudiante');
+});
+
+Route::get('/vista-profesor', function() {
+    return view('vistas-equipoagregar.agregardatos.radio-profesor');
+});
+
+Route::get('/vista-localidades', function() {
+    return view('vistas-equipoagregar.agregardatos.radio-localidades');
+});
+
+Route::get('/vista-edificio', function() {
+    return view('vistas-equipoagregar.agregardatos.radio-edificio');
+});
+
+Route::get('/vista-aula', function() {
+    return view('vistas-equipoagregar.agregardatos.radio-aula');
+});
+
+Route::get('/vista-tipo-examen', function() {
+    return view('vistas-equipoagregar.agregardatos.radio-tipo-examen');
+});
+
+Route::get('/vista-rol', function() {
+    return view('vistas-equipoagregar.agregardatos.radio-rol');
+});
+
+Route::get('/vista-perfil', function() {
+    return view('vistas-equipoagregar.agregardatos.radio-perfil');
+});
+
+
 
