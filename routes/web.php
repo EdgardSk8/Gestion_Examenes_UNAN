@@ -13,6 +13,8 @@ use App\Http\Controllers\ProfesorController;
 use App\Http\Controllers\EdificioController;
 use App\Http\Controllers\AulaController;
 use App\Http\Controllers\LocalidadController;
+use App\Http\Controllers\PerfilController;
+use App\Http\Controllers\RolController;
 use App\Http\Controllers\TipoExamenController;
 
 /*          ----- Controladores -----             */
@@ -51,9 +53,14 @@ Route::get('/profesorPorDepartamento', [ProfesorController::class, 'ObtenerProfe
 Route::get('/estudiante', [EstudianteController::class, 'ObtenerEstudiantePorCarrera']);
 Route::get('/edificio', [EdificioController::class, 'ObtenerEdificioPorArea']);
 Route::get('/aula', [AulaController::class, 'ObtenerAulaPorEdificio']);
+
 Route::get('/tipoexamen', [TipoExamenController::class, 'ObtenerTipoExamen']);
+Route::post('/tipoexamen/agregar', [TipoExamenController::class, 'AgregarTipoExamen'])->name('tipoexamen.agregar');
+
 
 Route::post('/localidad/agregar', [LocalidadController::class, 'AgregarLocalidad'])->name('localidad.agregar');
+Route::post('/rol/agregar', [RolController::class, 'AgregarRol'])->name('rol.agregar');
+Route::post('/perfil/agregar', [PerfilController::class, 'AgregarPerfil'])->name('perfil.agregar');
 
 
 

@@ -1,14 +1,16 @@
 <!-- resources/views/vistas-equipoagregar/agregardatos/radio-area-conocimiento.blade.php -->
 
+
 <div class="agregar-area">
+
     <h2 style="text-align: center">Agregar Área de Conocimiento</h2>
 
-    <!-- El formulario ahora envía datos a la ruta 'area-conocimiento/agregar' -->
-    <form action="{{ route('area-conocimiento.agregar') }}" method="POST">
+    <form action="{{ route('area-conocimiento.agregar') }}" method="POST"> <!-- El formulario envía datos a la ruta 'area-conocimiento/agregar' -->
+
         @csrf <!-- Token de protección contra CSRF -->
 
         <div>
-            <label for="nombre">Nombre del Área de Conocimiento:</label>
+            <label>Nombre del Área de Conocimiento:</label>
             <input type="text" id="nombre" name="Nombre" required>
         </div>
 
@@ -17,6 +19,5 @@
 </div>
 
 
-
- <!-- Agregar Area de Conocimiento funciona correctamente -->
+<!-- Agregar Area de Conocimiento funciona correctamente -->
 <!-- Revisar mensaje usando ventanas dinamicas -->

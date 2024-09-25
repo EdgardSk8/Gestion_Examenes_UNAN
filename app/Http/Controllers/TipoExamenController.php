@@ -12,4 +12,20 @@ class TipoExamenController extends Controller
         $tipoexamen = TipoExamen::all();
         return response()->json($tipoexamen);
     }
+
+    public function AgregarTipoExamen(Request $request)
+    {
+        // Validar los datos
+        $request->validate([
+            'Nombre' => 'required|string|max:255', // Asegurarse de que el campo Nombre sea requerido
+        ]);
+
+        // Crear una nuevo Tipo de Examen
+        $tipoexamen = new TipoExamen();
+        $tipoexamen->Nombre = $request->Nombre;// Asignar el nombre desde el formulario
+        $tipoexamen->save(); // Guardar el nuevo registro en la base de datos
+
+        // Redirigir o devolver una respuesta
+        return redirect()->back()->with('success', 'Tipo de Examen agregada exitosamente.');
+    }
 }
