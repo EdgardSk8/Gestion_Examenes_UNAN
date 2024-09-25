@@ -35,7 +35,7 @@
     <!-- Importaciones de archivos css y javascript -->
 
     <meta name="csrf-token" content="{{ csrf_token() }}"> <!-- Token CSRF para proteger solicitudes no autorizadas -->
-    
+
 </head>
 
 <!--
@@ -97,7 +97,7 @@ git push
 
                 <div class="btn-agregar-datos radio-inputs" style="margin-top: 30px">
                     <label class="radio">
-                        <input type="radio" id="radio-area-conocimiento" name="radio-agregardatos">
+                        <input type="radio" id="radio-area-conocimiento" name="radio-agregardatos" checked>
                         <span class="name">Área de Conocimiento</span>
                     </label>
                     <label class="radio">
@@ -141,15 +141,12 @@ git push
                         <span class="name">Perfil</span>
                     </label>
                 </div>
-                
-                
-                
-
-               
-            
+        
             
         </div>
     </div>
+
+    
 
 </body>
 

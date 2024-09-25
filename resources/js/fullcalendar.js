@@ -61,6 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     document.getElementById('vista-inicio').style.display = 'none'; // Oculta la vista de inicio
                     document.querySelector('.equipos-table').style.display = 'table'; // Muestra la tabla
 
+                    document.getElementById('vista-equipos').style.display = 'none';
                     document.getElementById('vista-detalles').style.display = 'block'; // Muestra la vista de detalles
                     //Quitar en caso de errores con las demas vistas
                 })

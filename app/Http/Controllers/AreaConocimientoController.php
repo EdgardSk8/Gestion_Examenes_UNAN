@@ -14,4 +14,22 @@ class AreaConocimientoController extends Controller
         $areas = AreaConocimiento::all(); // Obtener todas las areas de conocimiento
         return response()->json($areas);// Retorna los datos en formato JSON
     }
+
+    // Función para agregar una nueva área de conocimiento
+    public function AgregarAreaConocimiento(Request $request)
+    {
+        // Validar los datos
+        $request->validate([
+            'Nombre' => 'required|string|max:255', // Asegurarse de que el campo Nombre sea requerido
+        ]);
+
+        // Crear una nueva área de conocimiento
+        $area = new AreaConocimiento();
+        $area->Nombre = $request->Nombre; // Asignar el nombre desde el formulario
+        $area->save(); // Guardar el nuevo registro en la base de datos
+
+        // Redirigir o devolver una respuesta
+        return redirect()->back()->with('success', 'Área de Conocimiento agregada exitosamente.');
+    }
+
 }
