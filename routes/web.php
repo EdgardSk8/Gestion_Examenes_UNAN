@@ -12,6 +12,7 @@ use App\Http\Controllers\EstudianteController;
 use App\Http\Controllers\ProfesorController;
 use App\Http\Controllers\EdificioController;
 use App\Http\Controllers\AulaController;
+use App\Http\Controllers\LocalidadController;
 use App\Http\Controllers\TipoExamenController;
 
 /*          ----- Controladores -----             */
@@ -42,6 +43,7 @@ Route::get('/area-conocimiento', [AreaConocimientoController::class, 'ObtenerAre
 Route::post('/area-conocimiento/agregar', [AreaConocimientoController::class, 'AgregarAreaConocimiento'])->name('area-conocimiento.agregar');
 
 Route::get('/departamentos', [DepartamentoController::class, 'ObtenerDepartamentoPorArea']);
+
 Route::get('/carreras', [CarreraController::class, 'ObtenerCarreraPorDepartamento']);
 Route::get('/equipos', [EquipoController::class, 'ObtenerTodosLosEquipos']);
 Route::get('/profesor', [ProfesorController::class, 'ObtenerProfesor']);
@@ -50,6 +52,9 @@ Route::get('/estudiante', [EstudianteController::class, 'ObtenerEstudiantePorCar
 Route::get('/edificio', [EdificioController::class, 'ObtenerEdificioPorArea']);
 Route::get('/aula', [AulaController::class, 'ObtenerAulaPorEdificio']);
 Route::get('/tipoexamen', [TipoExamenController::class, 'ObtenerTipoExamen']);
+
+Route::post('/localidad/agregar', [LocalidadController::class, 'AgregarLocalidad'])->name('localidad.agregar');
+
 
 
 

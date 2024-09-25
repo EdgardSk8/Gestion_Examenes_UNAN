@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Departamento;
+use App\Models\AreaConocimiento;
 
 class DepartamentoController extends Controller
 {
@@ -18,4 +19,9 @@ class DepartamentoController extends Controller
         }
         return response()->json([]);  // Si no se proporciona un ID de area, retorna un array vacío en formato JSON
     }
+
+    
+
+   
+
 }
