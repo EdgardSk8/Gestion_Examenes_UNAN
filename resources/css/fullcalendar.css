@@ -32,7 +32,8 @@
   border-radius: 4px; /* Bordes redondeados */
   padding: 3px; /* Espaciado interno */
   font-size: 0.75rem; /* Tamaño del texto dentro del evento */
-  color: #ffffff; /* Color del texto */
+  color: #000000; /* Color del texto */
+  background-color: rgb(247, 188, 146);
   transition: all 0.1s ease; /* Transición suave al interactuar */
 }
 

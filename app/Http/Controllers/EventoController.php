@@ -14,23 +14,32 @@ class EventoController extends Controller
             return [  // Para cada equipo, retorna un arreglo con los campos relevantes para el calendario
                 'id' => $equipo->ID_Equipo,
                 'title' => $equipo->Titulo,
-                'start' => $equipo->Fecha_Asignada,
+                'start' => $equipo->Fecha_Asignada . 'T' . $equipo->Hora_Inicio, // Combina fecha y hora de inicio
+                'end' => $equipo->Fecha_Asignada . 'T' . $equipo->Hora_Fin, // Combina fecha y hora de fin
             ];
         });
-        return response()->json($equipos); // Retorna la colección de equipos en formato JSON para que pueda ser utilizada en el calendario
+        return response()->json(data: $equipos); // Retorna la colección de equipos en formato JSON para que pueda ser utilizada en el calendario
     }
 
-    public function ActualizarEventoEnCalendario(Request $request, $id)  // Funcion Actualizar Fecha Asignada
-    {
-        $equipo = Equipo::find($id);  // Encuentra el equipo por ID
+
+    public function ActualizarEventoEnCalendario(Request $request, $id) { // Funcion Actualizar Fecha Asignada
+        $equipo = Equipo::find($id); // Encuentra el equipo por ID
         if ($equipo) {
-            $startDate = $request->input(key: 'start'); // Obtiene la fecha del evento desde la solicitud HTTP
-            $start = \Carbon\Carbon::parse($startDate); // Convierte la fecha de inicio a un objeto Carbon para manipulación de fechas
-            $equipo->Fecha_Asignada = $start->format('Y-m-d'); // Actualiza la columna 'Fecha_Asignada' en la tabla 'equipos' con el nuevo valor
-            $equipo->save();  // Guarda los cambios en la base de datos
-            return response()->json(['message' => 'Evento actualizado correctamente']);
+
+            $startDate = $request->input('start'); // Obtiene la fecha y hora Inicio del evento desde la solicitud HTTP
+            $endDate = $request->input('end'); // Obtiene la nueva fecha y hora de fin del evento, si está disponible
+    
+            $equipo->Fecha_Asignada = \Carbon\Carbon::parse($startDate)->format('Y-m-d'); // Convierte la fecha de inicio a un objeto Carbon para manipulación de fechas
+            $equipo->Hora_Inicio = \Carbon\Carbon::parse($startDate)->format('H:i'); // Convierte la fecha y hora de inicio en un objeto de tipo Carbon y actualiza solo la hora de inicio (formato 'H:i')
+    
+            if ($endDate) { // Si se proporciona la fecha y hora de fin
+                $equipo->Hora_Fin = \Carbon\Carbon::parse($endDate)->format('H:i');  // Convierte la fecha y hora de fin en un objeto de tipo Carbon y actualiza la hora de fin (formato 'H:i')
+            }
+    
+            $equipo->save();// Guarda los cambios en la base de datos
+            return response()->json(['message' => 'Evento actualizado correctamente']);  // Retorna una respuesta JSON indicando que el evento fue actualizado con éxito
         }
-        return response()->json(['message' => 'Evento no encontrado'], 404);
+        return response()->json(['message' => 'Evento no encontrado'], 404); // Si el equipo no fue encontrado, retorna un mensaje de error con código 404
     }
 
     public function MostrarDetallesPorId($id) // Funcion show para mostrar los datos en los td y tr de la vista de detalles detalles-btn

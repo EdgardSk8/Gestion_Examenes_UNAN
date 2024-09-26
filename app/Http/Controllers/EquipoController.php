@@ -44,10 +44,10 @@ class EquipoController extends Controller
             $equipo = Equipo::create($validatedData);
 
             // Retornar respuesta JSON
-            return response()->json(['message' => 'Equipo creado correctamente', 'equipo' => $equipo], 201);
+            return redirect()->back()->with('success', 'Equipo creado correctamente');
         } catch (\Exception $e) {
             // Manejar errores y devolver un mensaje adecuado
-            return response()->json(['error' => $e->getMessage()], 500);
+            return redirect()->back()->with('error', $e->getMessage());
         }
     }
     

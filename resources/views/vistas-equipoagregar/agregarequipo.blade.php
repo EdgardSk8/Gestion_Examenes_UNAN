@@ -133,4 +133,24 @@
         </button>
     </div>
 
+    @if (session('success'))
+    <script>
+        window.onload = function() {
+            window.alert('{{ session('success') }}');
+        };
+    </script>
+@endif
+
+@if (session('error'))
+    <script>
+        window.onload = function() {
+            window.alert('{{ session('error') }}');
+        };
+    </script>
+@endif
+    
+
 </form>
+
+
+

@@ -72,23 +72,24 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log('Evento recibido:', info.event); //Muestra si se recibió el evento traido del exterior
         },
         eventDrop: function (info) {
-            console.log('Evento movido:', info.event); //Muestra mensaje si se movió o arrastró un elemento del calendario
-
-            const newStartDate = info.event.start.toISOString(); // Obtener la nueva fecha de inicio del evento
-
-            // Envia solicitud al servidor para actualizar la fecha
+            console.log('Evento movido:', info.event);
+        
+            const newStartDate = info.event.start.toISOString(); // Obtener la nueva fecha de inicio
+            const newEndDate = info.event.end ? info.event.end.toISOString() : null; // Obtener la nueva fecha de fin, si está disponible
+        
             fetch(`/events/${info.event.id}`, {
-                method: 'PUT', // Usar PUT para la actualización
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                 },
                 body: JSON.stringify({
-                    start: newStartDate
+                    start: newStartDate,
+                    end: newEndDate // Enviar la nueva fecha de fin
                 })
             })
             .then(response => response.json())
-            .then(data => { console.log('Respuesta del servidor:', data);})
+            .then(data => { console.log('Respuesta del servidor:', data); })
             .catch(error => { console.error('Error:', error); });
         }
     });
