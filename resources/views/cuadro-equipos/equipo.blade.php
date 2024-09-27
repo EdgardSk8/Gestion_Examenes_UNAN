@@ -13,6 +13,10 @@
 <p>8- Creacion de Login </p>
 <p>9- Usar los Perfiles</p>
 
+<p>agregar evento de doble click para reasignar las horas</p>
+<p>validaciones para evitar choques entre horas y aulas</p>
+<p>Login para que el profesor al entrar pueda entrar a su departamento automanticamente</p>
+
 </div>
 
 
