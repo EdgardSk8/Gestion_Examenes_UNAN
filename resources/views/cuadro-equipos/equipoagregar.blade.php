@@ -1,4 +1,4 @@
-@vite(['resources/css/equipoagregar.css'])
+@vite(['resources/css/Vista_Principal/contenedoragregar.css'])
 
 <div class="contenedor-agregar"> <!-- Contenedor Principal -->
     <div id="agregar-equipo"> <!-- Mostrará la vista para agregar equipos -->
@@ -9,7 +9,7 @@
         <!-- Las vistas se cargarán aquí dinámicamente -->
     </div> <!-- Mostrará la vista para agregar nuevos datos a la base de datos -->
 </div>
-
+<!--
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         // Obtener referencias a los elementos necesarios

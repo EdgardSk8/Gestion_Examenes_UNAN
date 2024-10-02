@@ -17,7 +17,9 @@
         <button type="submit" class="btn">Agregar</button>
     </form>
 </div>
-
+<script>
+    window.alert("Bienvenido a nuestro sitio web");
+</script>
 
 <!-- Agregar Area de Conocimiento funciona correctamente -->
 <!-- Revisar mensaje usando ventanas dinamicas -->

@@ -11,18 +11,18 @@
 
     <!-- Importaciones de archivos css y javascript  -->
 
-    @vite(['resources/css/app.css', 'resources/js/app.js']) <!-- archivo css y js -->
-    @vite(['resources/css/fullcalendar.css']) <!-- archivo css fullcalendar -->
-    @vite(['resources/css/selectstyle.css']) <!-- archivo css personalizado -->
-    @vite(['resources/css/equipos.css']) <!-- archivo css personalizado -->
-    @vite(['resources/css/btn.css']) <!-- archivo css personalizado -->
-    @vite(['resources/css/inputstyle.css']) <!-- archivo css personalizado -->
+    @vite(['resources/css/Vista_Principal/app.css', 'resources/js/app.js']) <!-- archivo css y js -->
+    @vite(['resources/css/Vista_Principal/fullcalendar.css']) <!-- archivo css fullcalendar -->
+    @vite(['resources/css/Vista_Principal/equipos.css']) <!-- archivo css personalizado -->
+
+    @vite(['resources/css/Recursos/btn.css']) <!-- archivo de recursos css personalizado -->
+    @vite(['resources/css/Recursos/selectstyle.css']) <!-- archivo de recursos css personalizado -->
+    @vite(['resources/css/Recursos/inputstyle.css']) <!-- archivo de recursos css personalizado -->
 
     @vite(['resources/js/fullcalendar.js']) <!-- js del fullcalendar -->
     @vite(['resources/js/tables/area_conocimiento.js']) <!-- archivo js personalizado -->
     @vite(['resources/js/tables/departamento.js']) <!-- archivo js personalizado -->
     @vite(['resources/js/tables/carreras.js']) <!-- archivo js personalizado -->
-   
     @vite(['resources/js/tables/profesor.js']) <!-- archivo js personalizado -->
     @vite(['resources/js/tables/estudiante.js']) <!-- archivo js personalizado -->
     @vite(['resources/js/tables/edificio.js']) <!-- archivo js personalizado -->
@@ -141,6 +141,12 @@ git push
                         <span class="name">Perfil</span>
                     </label>
                 </div>
+
+                <!-- Nueva Vista -->
+                <form action="{{ route('VistaAgregarDatos') }}" method="GET">
+                    <button type="submit" class="btn">Ir a Agregar Datos</button>
+                </form>
+                
         
             
         </div>

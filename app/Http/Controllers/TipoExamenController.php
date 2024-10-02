@@ -26,6 +26,6 @@ class TipoExamenController extends Controller
         $tipoexamen->save(); // Guardar el nuevo registro en la base de datos
 
         // Redirigir o devolver una respuesta
-        return redirect()->back()->with('success', 'Tipo de Examen agregada exitosamente.');
+        return redirect()->back()->with('success', 'Tipo de Examen: '.$tipoexamen->Nombre.' agregada exitosamente.');
     }
 }

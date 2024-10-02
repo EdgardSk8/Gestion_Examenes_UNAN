@@ -31,6 +31,7 @@ use App\Http\Controllers\TipoExamenController;
 */
 
 Route::get('/', function () { return view('calendar'); }); //Vista Principal
+Route::get('/VistaAgregarDatos', function () { return view('VistaAgregarDatos'); })->name('VistaAgregarDatos');
 
 Route::get('/events', action: [EventoController::class, 'MostrarEquiposEnCalendario']); //Muestra los equipos en el FullCalendar
 Route::get('/events/{id}', [EventoController::class, 'MostrarDetallesPorId']); //Muestra los detalles de cada Evento

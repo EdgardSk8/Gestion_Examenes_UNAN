@@ -29,7 +29,7 @@ class AreaConocimientoController extends Controller
         $area->save(); // Guardar el nuevo registro en la base de datos
 
         // Redirigir o devolver una respuesta
-        return redirect()->back()->with('success', 'Área de Conocimiento agregada exitosamente.');
+        return redirect()->route('VistaAgregarDatos')->with('success', 'Área '. $area->Nombre. ' agregada exitosamente: ' );
     }
 
 }
