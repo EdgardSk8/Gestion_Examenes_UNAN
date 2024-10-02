@@ -20,6 +20,6 @@ class PerfilController extends Controller
         $perfil->save(); // Guardar el nuevo registro en la base de datos
 
         // Redirigir o devolver una respuesta
-        return redirect()->back()->with('success', 'Perfil agregado exitosamente.');
+        return redirect()->back()->with('success', 'Perfil '.$perfil->Nombre.' agregado exitosamente.');
     }
 }

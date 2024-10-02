@@ -20,6 +20,6 @@ class LocalidadController extends Controller
         $localidad->save(); // Guardar el nuevo registro en la base de datos
 
         // Redirigir o devolver una respuesta
-        return redirect()->back()->with('success', 'Localidad agregada exitosamente.');
+        return redirect()->back()->with('success', 'Localidad '.$localidad->Nombre.' agregada exitosamente.');
     }
 }
