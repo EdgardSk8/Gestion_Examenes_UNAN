@@ -14,86 +14,74 @@
     @vite(['resources/css/Recursos/btnstyle.css']) <!-- archivo css personalizado -->
 
     @vite(['resources/css/Vista_Secundaria/equipoagregar.css'])
-
-
-
-
 </head>
 
 <body>
 
     <div class="vista-principal-2"> <!-- Obtenido de fullcalendar.css -->
-        
-
         <div class="mostrar-vistas">
-
-
+            <!-- Aquí se cargarán las vistas -->
         </div>
 
         <div class="lista-vista"> <!-- Obtenido de equipos.css -->
+            <div class="radio-inputs">
+                <label class="radio">
+                    <input type="radio" id="radio-area-conocimiento" name="radio-agregardatos" checked>
+                    <span class="name">Área de Conocimiento</span>
+                </label>
+                <label class="radio">
+                    <input type="radio" id="radio-departamento" name="radio-agregardatos">
+                    <span class="name">Departamento</span>
+                </label>
+                <label class="radio">
+                    <input type="radio" id="radio-carrera" name="radio-agregardatos">
+                    <span class="name">Carrera</span>
+                </label>
+                <label class="radio">
+                    <input type="radio" id="radio-estudiante" name="radio-agregardatos">
+                    <span class="name">Estudiante</span>
+                </label>
+                <label class="radio">
+                    <input type="radio" id="radio-profesor" name="radio-agregardatos">
+                    <span class="name">Profesor</span>
+                </label>
+                <label class="radio">
+                    <input type="radio" id="radio-localidades" name="radio-agregardatos">
+                    <span class="name">Localidad</span>
+                </label>
+                <label class="radio">
+                    <input type="radio" id="radio-edificio" name="radio-agregardatos">
+                    <span class="name">Edificio</span>
+                </label>
+                <label class="radio">
+                    <input type="radio" id="radio-aula" name="radio-agregardatos">
+                    <span class="name">Aula</span>
+                </label>
+                <label class="radio">
+                    <input type="radio" id="radio-tipo-examen" name="radio-agregardatos">
+                    <span class="name">Tipo de Examen</span>
+                </label>
+                <label class="radio">
+                    <input type="radio" id="radio-rol" name="radio-agregardatos">
+                    <span class="name">Rol</span>
+                </label>
+                <label class="radio">
+                    <input type="radio" id="radio-perfil" name="radio-agregardatos">
+                    <span class="name">Perfil</span>
+                </label>
+            </div> 
 
-                <div class="radio-inputs">
-
-                    <label class="radio">
-                        <input type="radio" id="radio-area-conocimiento" name="radio-agregardatos" checked>
-                        <span class="name">Área de Conocimiento</span>
-                    </label>
-                    <label class="radio">
-                        <input type="radio" id="radio-departamento" name="radio-agregardatos">
-                        <span class="name">Departamento</span>
-                    </label>
-                    <label class="radio">
-                        <input type="radio" id="radio-carrera" name="radio-agregardatos">
-                        <span class="name">Carrera</span>
-                    </label>
-                    <label class="radio">
-                        <input type="radio" id="radio-estudiante" name="radio-agregardatos">
-                        <span class="name">Estudiante</span>
-                    </label>
-                    <label class="radio">
-                        <input type="radio" id="radio-profesor" name="radio-agregardatos">
-                        <span class="name">Profesor</span>
-                    </label>
-                    <label class="radio">
-                        <input type="radio" id="radio-localidades" name="radio-agregardatos">
-                        <span class="name">Localidad</span>
-                    </label>
-                    <label class="radio">
-                        <input type="radio" id="radio-edificio" name="radio-agregardatos">
-                        <span class="name">Edificio</span>
-                    </label>
-                    <label class="radio">
-                        <input type="radio" id="radio-aula" name="radio-agregardatos">
-                        <span class="name">Aula</span>
-                    </label>
-                    <label class="radio">
-                        <input type="radio" id="radio-tipo-examen" name="radio-agregardatos">
-                        <span class="name">Tipo de Examen</span>
-                    </label>
-                    <label class="radio">
-                        <input type="radio" id="radio-rol" name="radio-agregardatos">
-                        <span class="name">Rol</span>
-                    </label>
-                    <label class="radio">
-                        <input type="radio" id="radio-perfil" name="radio-agregardatos">
-                        <span class="name">Perfil</span>
-                    </label>
-                </div> 
-
-                <form action="{{ url('/') }}" method="GET">
-                    <div style="text-align: center; margin-top: 10px; margin-bottom: 20px">
-                        <button type="submit" class="button">
-                            <span class="label">Cerrar Sesion</span>
-                            <span class="gradient"></span>
-                            <span class="transition"></span>
-                        </button>
-                    </div>
-                </form>
-                
-            
+            <form action="{{ url('/') }}" method="GET">
+                <div style="text-align: center; margin-top: 10px; margin-bottom: 20px">
+                    <button type="submit" class="button">
+                        <span class="label">Cerrar Sesion</span>
+                        <span class="gradient"></span>
+                        <span class="transition"></span>
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
-
 
     @if (session('success'))
     <script>
@@ -101,73 +89,68 @@
             alert("{{ session('success') }}");
         };
     </script>
-@endif
-    
-
+    @endif
 </body>
-
 </html>
 
 <script>
-    
-   
-
     document.addEventListener('DOMContentLoaded', function() {
-    const mostrarVistas = document.querySelector('.mostrar-vistas');
-
-    // Función para cargar la vista
-    function cargarVista(url) {
-        // Realiza la petición fetch para obtener la vista
-        fetch(url)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Error en la red: ' + response.statusText);
-                }
-                return response.text();
-            })
-            .then(data => {
-                mostrarVistas.innerHTML = data; // Inserta la vista en el contenedor
-            })
-            .catch(error => {
-                console.error('Hubo un problema con la petición Fetch:', error);
-                mostrarVistas.innerHTML = '<p>Error al cargar la vista.</p>';
-            });
-    }
-
-    // Muestra la vista correspondiente al botón de radio seleccionado
-    function mostrarVista() {
-        if (document.getElementById('radio-area-conocimiento').checked) {
-            cargarVista('/vista-area-conocimiento');
-        } else if (document.getElementById('radio-departamento').checked) {
-            cargarVista('/vista-departamento');
-        } else if (document.getElementById('radio-carrera').checked) {
-            cargarVista('/vista-carrera');
-        } else if (document.getElementById('radio-estudiante').checked) {
-            cargarVista('/vista-estudiante');
-        } else if (document.getElementById('radio-profesor').checked) {
-            cargarVista('/vista-profesor');
-        } else if (document.getElementById('radio-localidades').checked) {
-            cargarVista('/vista-localidades');
-        } else if (document.getElementById('radio-edificio').checked) {
-            cargarVista('/vista-edificio');
-        } else if (document.getElementById('radio-aula').checked) {
-            cargarVista('/vista-aula');
-        } else if (document.getElementById('radio-tipo-examen').checked) {
-            cargarVista('/vista-tipo-examen');
-        } else if (document.getElementById('radio-rol').checked) {
-            cargarVista('/vista-rol');
-        } else if (document.getElementById('radio-perfil').checked) {
-            cargarVista('/vista-perfil');
+        const mostrarVistas = document.querySelector('.mostrar-vistas');
+        
+        // Función para cargar la vista
+        function cargarVista(url) {
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Error en la red: ' + response.statusText);
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    mostrarVistas.innerHTML = data; // Inserta la vista en el contenedor
+                })
+                .catch(error => {
+                    console.error('Hubo un problema con la petición Fetch:', error);
+                    mostrarVistas.innerHTML = '<p>Error al cargar la vista.</p>';
+                });
         }
-    }
 
-    // Asigna el evento change a cada botón de radio
-    document.querySelectorAll('input[name="radio-agregardatos"]').forEach(radio => {
-        radio.addEventListener('change', mostrarVista);
+        // Función para mostrar solo la vista correspondiente
+        function mostrarVista() {
+            // Limpia el contenedor antes de cargar la nueva vista
+            mostrarVistas.innerHTML = '';
+
+            if (document.getElementById('radio-area-conocimiento').checked) {
+                cargarVista('/vista-area-conocimiento');
+            } else if (document.getElementById('radio-departamento').checked) {
+                cargarVista('/vista-departamento');
+            } else if (document.getElementById('radio-carrera').checked) {
+                cargarVista('/vista-carrera');
+            } else if (document.getElementById('radio-estudiante').checked) {
+                cargarVista('/vista-estudiante');
+            } else if (document.getElementById('radio-profesor').checked) {
+                cargarVista('/vista-profesor');
+            } else if (document.getElementById('radio-localidades').checked) {
+                cargarVista('/vista-localidades');
+            } else if (document.getElementById('radio-edificio').checked) {
+                cargarVista('/vista-edificio');
+            } else if (document.getElementById('radio-aula').checked) {
+                cargarVista('/vista-aula');
+            } else if (document.getElementById('radio-tipo-examen').checked) {
+                cargarVista('/vista-tipo-examen');
+            } else if (document.getElementById('radio-rol').checked) {
+                cargarVista('/vista-rol');
+            } else if (document.getElementById('radio-perfil').checked) {
+                cargarVista('/vista-perfil');
+            }
+        }
+
+        // Asigna el evento change a cada botón de radio
+        document.querySelectorAll('input[name="radio-agregardatos"]').forEach(radio => {
+            radio.addEventListener('change', mostrarVista);
+        });
+
+        // Muestra la vista inicial al cargar la página
+        mostrarVista();
     });
-
-    // Muestra la vista inicial al cargar la página
-    mostrarVista();
-});
-
 </script>

@@ -3,7 +3,8 @@
 
 <div style="background-color: burlywood; padding: 21px;"> 
 
-<p>1- Cambiar Colores de Eventos </p>
+<p>Cambiar Colores de Eventos (Listo) </p>
+<p>1- Revisar el recargado de pagina al navegar (Boton de inicio de sesion) </p>
 <p>2- Quitar la hora en la vista de los eventos en el calendario</p>
 <p>3- Cambiar los colores del calendario, Anio, Mes, Semana y dia para ser mas legible</p>
 <p>4- Crear JS para cambiar color de evento dependiendo de lo que se quiera mostrar</p>
