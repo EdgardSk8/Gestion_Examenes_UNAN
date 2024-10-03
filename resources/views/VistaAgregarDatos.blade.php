@@ -14,6 +14,8 @@
 
     @vite(['resources/css/Vista_Secundaria/equipoagregar.css'])
 
+    @vite(['resources/js/tables/area_conocimiento.js']) <!-- archivo js personalizado -->
+
 
 
 </head>

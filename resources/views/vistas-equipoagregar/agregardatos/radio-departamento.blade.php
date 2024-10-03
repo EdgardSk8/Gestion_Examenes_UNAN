@@ -1,5 +1,5 @@
 <!-- resources/views/vistas-equipoagregar/agregardatos/radio-departamento.blade.php -->
-@vite(['resources/js/tables/area_conocimiento.js']) <!-- archivo js personalizado -->
+
 
 
 <div class="agregar-departamento">
@@ -25,3 +25,4 @@
     <h1>Sin Funcionalidad</h1>
 
 </div>
+
