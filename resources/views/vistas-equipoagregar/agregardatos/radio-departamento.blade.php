@@ -2,7 +2,6 @@
 @vite(['resources/js/tables/area_conocimiento.js']) <!-- archivo js personalizado -->
 
 
-
 <div class="agregar-departamento">
 
     <h2 style="text-align: center">Agregar Departamento</h2>
@@ -11,7 +10,7 @@
 
         <div>
             <label for="area-select-add">Área de Conocimiento:</label>
-            <select id="area-select-add" name="ID_Area_Conocimiento" required></select>
+            <select id="area-select-add" name="ID_Area_Conocimiento" class="area-select" required></select>
         </div>
 
         <div>
