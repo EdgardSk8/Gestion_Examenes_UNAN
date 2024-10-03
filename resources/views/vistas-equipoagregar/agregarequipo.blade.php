@@ -4,7 +4,7 @@
     @csrf <!-- Protección contra ataques CSRF -->
     
     <div>
-        <label for="titulo">Título del equipo:</label>
+        <label>Título del equipo:</label>
         <input type="text" id="titulo" name="Titulo" placeholder="Título" required>
     </div>
 
@@ -12,20 +12,20 @@
     <div style="display: flex; gap: 10px; width: 100%;">
 
         <div style="flex: 1;">
-            <label for="area-select">Área de Conocimiento:</label>
-            <select id="area-select" name="ID_Area_Conocimiento" required></select>
+            <label>Área de Conocimiento:</label>
+            <select id="area-agregarequipo" class="area-select" name="ID_Area_Conocimiento" required></select>
         </div>
 
         <div style="flex: 1;">
-            <label for="departamento-select">Departamento:</label>
-            <select id="departamento-select" name="ID_Departamento" required></select>
+            <label>Departamento:</label>
+            <select id="departamento-select" class="departamento-select" name="ID_Departamento" required></select>
         </div>
 
     </div>
 
     <div>
-        <label for="carrera-select">Carrera:</label>
-        <select id="carrera-select" name="ID_Carrera" required></select>
+        <label>Carrera:</label>
+        <select id="carrera-agregarequipo" class="carrera-select" name="ID_Carrera" required></select>
     </div>
 
     <!-- Integrantes del equipo en una fila -->
@@ -34,17 +34,17 @@
     <div style="display: flex; gap: 10px; width: 100%;">
 
         <div style="flex: 1;">
-            <label for="integrante1">Integrante 1:</label>
+            <label>Integrante 1:</label>
             <select id="integrante1" name="Integrante1" required></select>
         </div>
 
         <div style="flex: 1;">
-            <label for="integrante2">Integrante 2 (Opcional):</label>
+            <label>Integrante 2 (Opcional):</label>
             <select id="integrante2" name="Integrante2"></select>
         </div>
 
         <div style="flex: 1;">
-            <label for="integrante3">Integrante 3 (Opcional):</label>
+            <label>Integrante 3 (Opcional):</label>
             <select id="integrante3" name="Integrante3"></select>
         </div>
 
@@ -54,19 +54,19 @@
     <h3>Fecha y Hora</h3>
 
     <div>
-        <label for="fecha_asignada">Fecha Asignada:</label>
+        <label>Fecha Asignada:</label>
         <input type="date" id="fecha_asignada" name="Fecha_Asignada" required>
     </div>
 
     <div style="display: flex; gap: 10px; width: 100%;">
 
         <div style="flex: 1;">
-            <label for="hora_inicio">Hora de Inicio:</label>
+            <label>Hora de Inicio:</label>
             <input type="time" id="hora_inicio" name="Hora_Inicio" required>
         </div>
 
         <div style="flex: 1;">
-            <label for="hora_fin">Hora de Fin:</label>
+            <label>Hora de Fin:</label>
             <input type="time" id="hora_fin" name="Hora_Fin" required>
         </div>
 
@@ -78,12 +78,12 @@
     <div style="display: flex; gap: 10px; width: 100%;">
 
         <div style="flex: 1;">
-            <label for="edificio">Edificio:</label>
-            <select id="edificio" name="ID_Edificio" required></select>
+            <label>Edificio:</label>
+            <select id="edificio" class="edificio-select" name="ID_Edificio" required></select>
         </div>
 
         <div style="flex: 1;">
-            <label for="aula">Aula:</label>
+            <label>Aula:</label>
             <select id="aula" name="ID_Aula" required></select>
         </div>
 
@@ -93,7 +93,7 @@
     <h3>Examen</h3>
 
     <div>
-        <label for="tipoexamen">Tipo de Examen:</label>
+        <label>Tipo de Examen:</label>
         <select id="tipoexamen" name="ID_Tipo_Examen" required></select>
     </div>
 
@@ -101,24 +101,24 @@
     <h3>Tutor y Jueces</h3>
 
     <div>
-        <label for="tutor">Tutor:</label>
+        <label>Tutor:</label>
         <select id="tutor" name="Tutor_ID" required></select>
     </div>
 
     <div style="display: flex; gap: 10px; width: 100%;">
         
         <div style="flex: 1;">
-            <label for="juez1">Juez 1:</label>
+            <label>Juez 1:</label>
             <select id="juez1" name="Juez1_ID"></select>
         </div>
 
         <div style="flex: 1;">
-            <label for="juez2">Juez 2 (Opcional):</label>
+            <label>Juez 2 (Opcional):</label>
             <select id="juez2" name="Juez2_ID"></select>
         </div>
 
         <div style="flex: 1;">
-            <label for="juez3">Juez 3 (Opcional):</label>
+            <label>Juez 3 (Opcional):</label>
             <select id="juez3" name="Juez3_ID"></select>
         </div>
 
@@ -133,21 +133,15 @@
         </button>
     </div>
 
-    @if (session('success'))
-    <script>
-        window.onload = function() {
-            window.alert('{{ session('success') }}');
-        };
-    </script>
-@endif
+    @if (session('success') || session('error'))
+        <script>
+            window.onload = function() {
+                let message = '{{ session('success') ?? session('error') }}';
+                window.alert(message);
+            };
+        </script>
+    @endif
 
-@if (session('error'))
-    <script>
-        window.onload = function() {
-            window.alert('{{ session('error') }}');
-        };
-    </script>
-@endif
     
 
 </form>

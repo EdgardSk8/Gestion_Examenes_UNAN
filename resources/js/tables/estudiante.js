@@ -1,9 +1,11 @@
 document.addEventListener('DOMContentLoaded', function () {
     // Elementos de los select
-    var carreraSelect = document.getElementById('carrera-select');
-    var integrante1Select = document.getElementById('integrante1');
-    var integrante2Select = document.getElementById('integrante2');
-    var integrante3Select = document.getElementById('integrante3');
+    var carreraSelect = document.getElementById('carrera-agregarequipo');
+    var integranteSelects = [
+        document.getElementById('integrante1'),
+        document.getElementById('integrante2'),
+        document.getElementById('integrante3'),
+    ];
 
     var estudiantes = [];
 
@@ -31,9 +33,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Función para cargar estudiantes según la carrera seleccionada
     function cargarEstudiantesPorCarrera(carreraId) {
         if (!carreraId) {
-            llenarSelectEstudiante(integrante1Select, [], 'Seleccione Carrera');
-            llenarSelectEstudiante(integrante2Select, [], 'Seleccione Carrera');
-            llenarSelectEstudiante(integrante3Select, [], 'Seleccione Carrera');
+            integrarSelectsConMensaje('Seleccione Carrera');
             return;
         }
 
@@ -42,13 +42,9 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(data => {
                 estudiantes = data;
                 if (estudiantes.length === 0) {
-                    llenarSelectEstudiante(integrante1Select, [], 'Sin Estudiantes');
-                    llenarSelectEstudiante(integrante2Select, [], 'Sin Estudiantes');
-                    llenarSelectEstudiante(integrante3Select, [], 'Sin Estudiantes');
+                    integrarSelectsConMensaje('Sin Estudiantes');
                 } else {
-                    llenarSelectEstudiante(integrante1Select, estudiantes, 'Integrante Numero 1');
-                    llenarSelectEstudiante(integrante2Select, estudiantes, 'Integrante Numero 2');
-                    llenarSelectEstudiante(integrante3Select, estudiantes, 'Integrante Numero 3');
+                    integrarSelectsConEstudiantes(estudiantes);
                 }
             })
             .catch(error => {
@@ -56,16 +52,26 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     }
 
+    // Función para integrar selects con el mensaje correspondiente
+    function integrarSelectsConMensaje(mensaje) {
+        integranteSelects.forEach(select => {
+            llenarSelectEstudiante(select, [], mensaje);
+        });
+    }
+
+    // Función para integrar selects con estudiantes
+    function integrarSelectsConEstudiantes(estudiantes) {
+        integranteSelects.forEach(select => {
+            llenarSelectEstudiante(select, estudiantes, `Integrante de ${select.id.charAt(select.id.length - 1)}`);
+        });
+    }
+
     // Función para actualizar los selects
     function actualizarSelects() {
-        const seleccionados = [
-            integrante1Select.value,
-            integrante2Select.value,
-            integrante3Select.value
-        ];
+        const seleccionados = integranteSelects.map(select => select.value);
 
         // Actualizamos las opciones en los selects de integrantes
-        [integrante1Select, integrante2Select, integrante3Select].forEach(select => {
+        integranteSelects.forEach(select => {
             Array.from(select.options).forEach(option => {
                 if (seleccionados.includes(option.value) && option.value !== '') {
                     option.style.display = 'none'; // Ocultar opciones seleccionadas
@@ -83,12 +89,10 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Inicializar los selects al cargar la página
-    llenarSelectEstudiante(integrante1Select, [], 'Seleccione Carrera');
-    llenarSelectEstudiante(integrante2Select, [], 'Seleccione Carrera');
-    llenarSelectEstudiante(integrante3Select, [], 'Seleccione Carrera');
+    integrarSelectsConMensaje('Seleccione Carrera');
 
     // Event listeners para mostrar selección y actualizar los selects
-    integrante1Select.addEventListener('change', actualizarSelects);
-    integrante2Select.addEventListener('change', actualizarSelects);
-    integrante3Select.addEventListener('change', actualizarSelects);
+    integranteSelects.forEach(select => {
+        select.addEventListener('change', actualizarSelects);
+    });
 });

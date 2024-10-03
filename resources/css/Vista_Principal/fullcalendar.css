@@ -8,7 +8,7 @@
 #calendar {
   flex: 3; /* Ocupa el 75% del ancho del contenedor */
   margin: 5px;
-  background-color: #4a8bc2;
+  background-color: #527bd4;
   border-radius: 5px;
   border: 2px solid #bab9ff;
   overflow: hidden; /* Asegura que el contenido no se desborde */
@@ -16,7 +16,7 @@
 
 /* Estilo de los días en el calendario */
 .fc-daygrid-day {
-  background-color: #c9ddca;
+  background-color: #bedfe0;
 }
 
 /* Estilo de los botones en la barra de herramientas */
@@ -33,7 +33,7 @@
   padding: 3px; /* Espaciado interno */
   font-size: 0.75rem; /* Tamaño del texto dentro del evento */
   color: #000000; /* Color del texto */
-  background-color: rgb(247, 188, 146);
+  background-color: #b79ee2;
   transition: all 0.1s ease; /* Transición suave al interactuar */
 }
 

@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Elementos de los select
-    var areaSelect = document.getElementById('area-select');
-    var edificioSelect = document.getElementById('edificio');
+    // Elementos de los selects
+    var areaSelect = document.getElementById('area-agregarequipo');
+    var edificioSelects = document.querySelectorAll('.edificio-select'); // Asumiendo que tienes una clase para los selects
 
     // Función para llenar un select con opciones
     function llenarSelectEdificio(selectElement, edificiosDisponibles, mensaje) {
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function cargarEdificiosPorArea(areaId) {
         if (!areaId) {
             // Mostrar mensaje de "Seleccione Área" si no hay área seleccionada
-            llenarSelectEdificio(edificioSelect, [], 'Seleccione Área');
+            integrarSelectsConMensaje('Seleccione Área');
             return;
         }
 
@@ -36,14 +36,28 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(response => response.json())
             .then(data => {
                 if (data.length === 0) {
-                    llenarSelectEdificio(edificioSelect, [], 'Sin Edificios');
+                    integrarSelectsConMensaje('Sin Edificios');
                 } else {
-                    llenarSelectEdificio(edificioSelect, data, 'Seleccione Edificio');
+                    integrarSelectsConEdificios(data);
                 }
             })
             .catch(error => {
                 console.error('Error al obtener los edificios:', error);
             });
+    }
+
+    // Función para integrar selects con el mensaje correspondiente
+    function integrarSelectsConMensaje(mensaje) {
+        edificioSelects.forEach(select => {
+            llenarSelectEdificio(select, [], mensaje);
+        });
+    }
+
+    // Función para integrar selects con edificios
+    function integrarSelectsConEdificios(edificios) {
+        edificioSelects.forEach(select => {
+            llenarSelectEdificio(select, edificios, 'Seleccione Edificio');
+        });
     }
 
     // Event listener para cuando se cambie el área seleccionada
@@ -52,6 +66,6 @@ document.addEventListener('DOMContentLoaded', function () {
         cargarEdificiosPorArea(areaId);
     });
 
-    // Inicializar el select de edificios al cargar la página
-    llenarSelectEdificio(edificioSelect, [], 'Seleccione Área');
+    // Inicializar los selects de edificios al cargar la página
+    integrarSelectsConMensaje('Seleccione Área');
 });

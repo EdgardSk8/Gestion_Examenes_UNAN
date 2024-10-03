@@ -1,8 +1,8 @@
-
 #vista-agregar{
   flex: 3; /* Ocupa el 75% del ancho del contenedor */
   margin: 5px;
-  border: 2px solid #000000;
+  border: 1px solid #719fe4;
+  border-radius: 20px;
   overflow: hidden; /* Asegura que el contenido no se desborde */
   display: flex; /* Usamos flex para que los elementos hijos se ajusten automáticamente */
   flex-direction: column; /* Apilar los elementos de arriba a abajo */
@@ -16,7 +16,6 @@
   flex-direction: column; /* Mantiene el contenido en una columna */
   flex-grow: 1; /* Permite que el contenedor crezca para llenar el espacio */
 }
-
 
 #equipo-form{
   width: 100%; /* Asegura que el form ocupe todo el ancho del contenedor */
