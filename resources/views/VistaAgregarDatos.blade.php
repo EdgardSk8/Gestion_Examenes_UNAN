@@ -14,7 +14,6 @@
 
     @vite(['resources/css/Vista_Secundaria/equipoagregar.css'])
 
-    @vite(['resources/js/tables/area_conocimiento.js']) <!-- archivo js personalizado -->
 
 
 
@@ -32,7 +31,7 @@
 
         <div class="lista-vista"> <!-- Obtenido de equipos.css -->
 
-                <div class="radio-inputs" style="margin-top: 0px">
+                <div class="radio-inputs">
 
                     <label class="radio">
                         <input type="radio" id="radio-area-conocimiento" name="radio-agregardatos" checked>

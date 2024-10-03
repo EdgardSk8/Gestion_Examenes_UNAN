@@ -17,7 +17,6 @@ html, body {
   background-color: #6999c4;
   border-radius: 5px;
   border: 2px solid #000000;
-  overflow: hidden;
 }
 
 .lista-vista{
@@ -28,21 +27,8 @@ html, body {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   width: 25vw; 
   height: calc(100vh - 10px); 
-  display: flex;
-  flex-direction: column;
   box-sizing: border-box;
-  overflow: hidden;
   border: 2px solid #ff0000;
-}
-
-.alert {
-  padding: 15px;
-  margin: 10px 0;
-  border-radius: 5px;
-  color: #155724;
-  background-color: #d4edda;
-  border: 1px solid #c3e6cb;
-  display: inline-block; /* Para centrar */
 }
 
 
