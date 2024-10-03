@@ -11,6 +11,7 @@
     @vite(['resources/css/Recursos/selectstyle.css']) <!-- archivo css personalizado -->
     @vite(['resources/css/Recursos/btn.css']) <!-- archivo css personalizado -->
     @vite(['resources/css/Recursos/inputstyle.css']) <!-- archivo css personalizado -->
+    @vite(['resources/css/Recursos/btnstyle.css']) <!-- archivo css personalizado -->
 
     @vite(['resources/css/Vista_Secundaria/equipoagregar.css'])
 
@@ -78,9 +79,22 @@
                         <span class="name">Perfil</span>
                     </label>
                 </div> 
+
+                <form action="{{ url('/') }}" method="GET">
+                    <div style="text-align: center; margin-top: 10px; margin-bottom: 20px">
+                        <button type="submit" class="button">
+                            <span class="label">Cerrar Sesion</span>
+                            <span class="gradient"></span>
+                            <span class="transition"></span>
+                        </button>
+                    </div>
+                </form>
+                
             
         </div>
     </div>
+
+
     @if (session('success'))
     <script>
         window.onload = function() {

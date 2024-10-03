@@ -18,6 +18,7 @@
     @vite(['resources/css/Recursos/btn.css']) <!-- archivo de recursos css personalizado -->
     @vite(['resources/css/Recursos/selectstyle.css']) <!-- archivo de recursos css personalizado -->
     @vite(['resources/css/Recursos/inputstyle.css']) <!-- archivo de recursos css personalizado -->
+    @vite(['resources/css/Recursos/btnstyle.css']) <!-- archivo css personalizado -->
 
     @vite(['resources/js/fullcalendar.js']) <!-- js del fullcalendar -->
     @vite(['resources/js/tables/area_conocimiento.js']) <!-- archivo js personalizado -->
@@ -95,6 +96,10 @@
                         </button>
                     </div>
                 </form>
+
+                
+
+
                     
             </div>
         </div>
