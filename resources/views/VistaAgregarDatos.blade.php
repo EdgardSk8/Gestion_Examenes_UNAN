@@ -7,68 +7,108 @@
     <title>Document</title>
 
     @vite(['resources/css/Vista_Secundaria/app.css']) <!-- archivo css y js -->
-
     @vite(['resources/css/Recursos/selectstyle.css']) <!-- archivo css personalizado -->
     @vite(['resources/css/Recursos/btn.css']) <!-- archivo css personalizado -->
     @vite(['resources/css/Recursos/inputstyle.css']) <!-- archivo css personalizado -->
     @vite(['resources/css/Recursos/btnstyle.css']) <!-- archivo css personalizado -->
-
     @vite(['resources/css/Vista_Secundaria/equipoagregar.css'])
+
+    @vite(['resources/js/tables/area_conocimiento.js']) <!-- archivo js personalizado -->
+    @vite(['resources/js/tables/departamento.js']) <!-- archivo js personalizado -->
+    @vite(['resources/js/tables/carreras.js']) <!-- archivo js personalizado -->
+    @vite(['resources/js/tables/profesor.js']) <!-- archivo js personalizado -->
+    @vite(['resources/js/tables/estudiante.js']) <!-- archivo js personalizado -->
+    @vite(['resources/js/tables/edificio.js']) <!-- archivo js personalizado -->
+    @vite(['resources/js/tables/aula.js']) <!-- archivo js personalizado -->
+    @vite(['resources/js/tables/tipoexamen.js']) <!-- archivo js personalizado -->
+    <style>
+        .view {display: none;} /* Ocultar Vista  */
+             
+        
+        .active {display: block; /*Mostrar Vista*/}
+             
+        
+    </style>
 </head>
 
 <body>
 
-    <div class="vista-principal-2"> <!-- Obtenido de fullcalendar.css -->
-        <div class="mostrar-vistas">
-            <!-- Aquí se cargarán las vistas -->
+    <div class="vista-principal-2">
+        <div class="mostrar-vistas"> <!-- Aquí se cargarán las vistas -->
+            
+            <div id="view-area-conocimiento" class="view active">@include('vistas-equipoagregar.agregardatos.radio-area-conocimiento')</div>
+            <div id="view-departamento" class="view"> @include('vistas-equipoagregar.agregardatos.radio-departamento')</div>
+            <div id="view-carrera" class="view">@include('vistas-equipoagregar.agregardatos.radio-carrera')</div>
+            <div id="view-estudiante" class="view"> @include('vistas-equipoagregar.agregardatos.radio-estudiante')</div>
+            <div id="view-profesor" class="view"> @include('vistas-equipoagregar.agregardatos.radio-profesor')</div>
+            <div id="view-localidades" class="view">@include('vistas-equipoagregar.agregardatos.radio-localidades')</div>
+            <div id="view-edificio" class="view">@include('vistas-equipoagregar.agregardatos.radio-edificio')</div>
+            <div id="view-aula" class="view">@include('vistas-equipoagregar.agregardatos.radio-aula')</div>
+            <div id="view-tipo-examen" class="view">@include('vistas-equipoagregar.agregardatos.radio-tipo-examen')</div>
+            <div id="view-rol" class="view">@include('vistas-equipoagregar.agregardatos.radio-rol')</div>
+            <div id="view-perfil" class="view">@include('vistas-equipoagregar.agregardatos.radio-perfil')</div>
+
         </div>
 
-        <div class="lista-vista"> <!-- Obtenido de equipos.css -->
+        <div class="lista-vista">
+
             <div class="radio-inputs">
+
                 <label class="radio">
-                    <input type="radio" id="radio-area-conocimiento" name="radio-agregardatos" checked>
+                    <input type="radio" id="radio-area-conocimiento" name="radio-agregardatos" checked onclick="mostrar('view-area-conocimiento')">
                     <span class="name">Área de Conocimiento</span>
                 </label>
+
                 <label class="radio">
-                    <input type="radio" id="radio-departamento" name="radio-agregardatos">
+                    <input type="radio" id="radio-departamento" name="radio-agregardatos" onclick="mostrar('view-departamento')">
                     <span class="name">Departamento</span>
                 </label>
+
                 <label class="radio">
-                    <input type="radio" id="radio-carrera" name="radio-agregardatos">
+                    <input type="radio" id="radio-carrera" name="radio-agregardatos" onclick="mostrar('view-carrera')">
                     <span class="name">Carrera</span>
                 </label>
+
                 <label class="radio">
-                    <input type="radio" id="radio-estudiante" name="radio-agregardatos">
+                    <input type="radio" id="radio-estudiante" name="radio-agregardatos" onclick="mostrar('view-estudiante')">
                     <span class="name">Estudiante</span>
                 </label>
+
                 <label class="radio">
-                    <input type="radio" id="radio-profesor" name="radio-agregardatos">
+                    <input type="radio" id="radio-profesor" name="radio-agregardatos" onclick="mostrar('view-profesor')">
                     <span class="name">Profesor</span>
                 </label>
+
                 <label class="radio">
-                    <input type="radio" id="radio-localidades" name="radio-agregardatos">
+                    <input type="radio" id="radio-localidades" name="radio-agregardatos" onclick="mostrar('view-localidades')">
                     <span class="name">Localidad</span>
                 </label>
+
                 <label class="radio">
-                    <input type="radio" id="radio-edificio" name="radio-agregardatos">
+                    <input type="radio" id="radio-edificio" name="radio-agregardatos" onclick="mostrar('view-edificio')">
                     <span class="name">Edificio</span>
                 </label>
+
                 <label class="radio">
-                    <input type="radio" id="radio-aula" name="radio-agregardatos">
+                    <input type="radio" id="radio-aula" name="radio-agregardatos" onclick="mostrar('view-aula')">
                     <span class="name">Aula</span>
                 </label>
+
                 <label class="radio">
-                    <input type="radio" id="radio-tipo-examen" name="radio-agregardatos">
+                    <input type="radio" id="radio-tipo-examen" name="radio-agregardatos" onclick="mostrar('view-tipo-examen')">
                     <span class="name">Tipo de Examen</span>
                 </label>
+
                 <label class="radio">
-                    <input type="radio" id="radio-rol" name="radio-agregardatos">
+                    <input type="radio" id="radio-rol" name="radio-agregardatos" onclick="mostrar('view-rol')">
                     <span class="name">Rol</span>
                 </label>
+
                 <label class="radio">
-                    <input type="radio" id="radio-perfil" name="radio-agregardatos">
+                    <input type="radio" id="radio-perfil" name="radio-agregardatos" onclick="mostrar('view-perfil')">
                     <span class="name">Perfil</span>
                 </label>
+
             </div> 
 
             <form action="{{ url('/') }}" method="GET">
@@ -80,6 +120,7 @@
                     </button>
                 </div>
             </form>
+
         </div>
     </div>
 
@@ -90,67 +131,16 @@
         };
     </script>
     @endif
+
+    <script>
+        function mostrar(viewId) {
+            const views = document.querySelectorAll('.view');
+            views.forEach(view => {
+                view.classList.remove('active');
+            });
+
+            document.getElementById(viewId).classList.add('active');
+        }
+    </script>
 </body>
 </html>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const mostrarVistas = document.querySelector('.mostrar-vistas');
-        
-        // Función para cargar la vista
-        function cargarVista(url) {
-            fetch(url)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Error en la red: ' + response.statusText);
-                    }
-                    return response.text();
-                })
-                .then(data => {
-                    mostrarVistas.innerHTML = data; // Inserta la vista en el contenedor
-                })
-                .catch(error => {
-                    console.error('Hubo un problema con la petición Fetch:', error);
-                    mostrarVistas.innerHTML = '<p>Error al cargar la vista.</p>';
-                });
-        }
-
-        // Función para mostrar solo la vista correspondiente
-        function mostrarVista() {
-            // Limpia el contenedor antes de cargar la nueva vista
-            mostrarVistas.innerHTML = '';
-
-            if (document.getElementById('radio-area-conocimiento').checked) {
-                cargarVista('/vista-area-conocimiento');
-            } else if (document.getElementById('radio-departamento').checked) {
-                cargarVista('/vista-departamento');
-            } else if (document.getElementById('radio-carrera').checked) {
-                cargarVista('/vista-carrera');
-            } else if (document.getElementById('radio-estudiante').checked) {
-                cargarVista('/vista-estudiante');
-            } else if (document.getElementById('radio-profesor').checked) {
-                cargarVista('/vista-profesor');
-            } else if (document.getElementById('radio-localidades').checked) {
-                cargarVista('/vista-localidades');
-            } else if (document.getElementById('radio-edificio').checked) {
-                cargarVista('/vista-edificio');
-            } else if (document.getElementById('radio-aula').checked) {
-                cargarVista('/vista-aula');
-            } else if (document.getElementById('radio-tipo-examen').checked) {
-                cargarVista('/vista-tipo-examen');
-            } else if (document.getElementById('radio-rol').checked) {
-                cargarVista('/vista-rol');
-            } else if (document.getElementById('radio-perfil').checked) {
-                cargarVista('/vista-perfil');
-            }
-        }
-
-        // Asigna el evento change a cada botón de radio
-        document.querySelectorAll('input[name="radio-agregardatos"]').forEach(radio => {
-            radio.addEventListener('change', mostrarVista);
-        });
-
-        // Muestra la vista inicial al cargar la página
-        mostrarVista();
-    });
-</script>

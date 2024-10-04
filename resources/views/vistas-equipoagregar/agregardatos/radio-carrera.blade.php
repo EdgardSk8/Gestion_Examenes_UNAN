@@ -8,8 +8,8 @@
     <form action="">
 
         <div>
-            <label for="area-select-add">Área de Conocimiento:</label>
-            <select id="area-select-add" name="ID_Area_Conocimiento" required></select>
+            <label>Área de Conocimiento:</label>
+            <select id="area-select-add" name="ID_Area_Conocimiento" class="area-select" required></select>
         </div>
 
         <div>
