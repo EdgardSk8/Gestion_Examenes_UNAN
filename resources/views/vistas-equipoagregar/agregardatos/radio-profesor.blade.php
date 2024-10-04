@@ -7,13 +7,13 @@
 
         <div>
             <label for="area-select-add">Área de Conocimiento:</label>
-            <select id="area-select-add" name="ID_Area_Conocimiento" required>
+            <select id="area-select-add" name="ID_Area_Conocimiento" class="area-select" required>
             </select>
         </div>
 
         <div>
             <label for="departamento-select-add">Departamento:</label>
-            <select id="departamento-select-add" name="ID_Departamento" required>
+            <select id="departamento-select-add" name="ID_Departamento" class="departamento-select" required>
             </select>
         </div>
 
@@ -34,7 +34,7 @@
 
         <div>
             <label for="perfil-select-add">Perfil:</label>
-            <select id="perfil-select-add" name="ID_Perfil" required>
+            <select id="perfil-select-add" name="ID_Perfil" class="perfil-select" required>
             </select>
         </div>
 

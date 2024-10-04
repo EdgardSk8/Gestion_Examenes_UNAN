@@ -22,4 +22,10 @@ class LocalidadController extends Controller
         // Redirigir o devolver una respuesta
         return redirect()->back()->with('success', 'Localidad '.$localidad->Nombre.' agregada exitosamente.');
     }
+
+    public function obtenerLocalidad()
+    {
+        $localidades = Localidad::all();// Obtener todas las localidades de la base de datos
+        return response()->json($localidades); // Devolver las localidades como respuesta JSON
+    }
 }

@@ -21,14 +21,13 @@
     @vite(['resources/js/tables/edificio.js']) <!-- archivo js personalizado -->
     @vite(['resources/js/tables/aula.js']) <!-- archivo js personalizado -->
     @vite(['resources/js/tables/tipoexamen.js']) <!-- archivo js personalizado -->
+    @vite(['resources/js/tables/localidad.js']) <!-- archivo js personalizado -->
+
     <style>
         .view {display: none;} /* Ocultar Vista  */
-             
-        
         .active {display: block; /*Mostrar Vista*/}
-             
-        
     </style>
+
 </head>
 
 <body>

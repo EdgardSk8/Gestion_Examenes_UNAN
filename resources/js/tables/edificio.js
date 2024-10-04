@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     // Elementos de los selects
-    var areaSelect = document.getElementById('area-agregarequipo');
+    var areaSelect = document.querySelector('.area-select'); // Usar clase para seleccionar el área
     var edificioSelects = document.querySelectorAll('.edificio-select'); // Asumiendo que tienes una clase para los selects
 
     // Función para llenar un select con opciones

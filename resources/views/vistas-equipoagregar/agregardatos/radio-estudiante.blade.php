@@ -15,17 +15,17 @@
 
         <div>
             <label for="departamento-select-add">Departamento:</label>
-            <select id="departamento-select-add" name="ID_Departamento" required></select>  
+            <select id="departamento-select-add" name="ID_Departamento" class="departamento-select" required></select>  
         </div>
 
         <div>
             <label for="carrera-select-add">Carrera:</label>
-            <select id="carrera-select-add" name="ID_Carrera" required></select>
+            <select id="carrera-select-add" name="ID_Carrera" class="carrera-select" required></select>
         </div>
 
         <div>
             <label for="localidad-select-add">Localidad:</label>
-            <select id="localidad-select-add" name="ID_Localidad" required></select>
+            <select id="localidad-select-add" name="ID_Localidad" class="localidad-select"  required></select>
         </div>
 
         <div>

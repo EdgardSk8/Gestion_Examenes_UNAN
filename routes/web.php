@@ -52,6 +52,8 @@ Route::get('/estudiante', [EstudianteController::class, 'ObtenerEstudiantePorCar
 Route::get('/edificio', [EdificioController::class, 'ObtenerEdificioPorArea']);
 Route::get('/aula', [AulaController::class, 'ObtenerAulaPorEdificio']);
 Route::get('/tipoexamen', [TipoExamenController::class, 'ObtenerTipoExamen']);
+Route::get('/localidades', [LocalidadController::class, 'obtenerLocalidad']);
+
 
 /*          ----- Rutas que Suben datos -----          */
 

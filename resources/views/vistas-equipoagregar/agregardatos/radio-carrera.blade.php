@@ -14,7 +14,7 @@
 
         <div>
             <label>Nuevo Departamento</label>
-            <select id="departamento-select-add" name="ID_Departamento" required></select>        
+            <select id="departamento-select-add" name="ID_Departamento" class="departamento-select" required></select>        
         </div>
 
         <div>

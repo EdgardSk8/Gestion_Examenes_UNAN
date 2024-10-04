@@ -9,12 +9,12 @@
 
         <div>
             <label for="area-select-add">Área de Conocimiento:</label>
-            <select id="area-select-add" name="ID_Area_Conocimiento" required></select>
+            <select id="area-select-add" name="ID_Area_Conocimiento" class="area-select" required></select>
         </div>
 
         <div>
             <label>Edificio</label>
-            <select id="edificio-select-add" name="ID_Edificio" required></select>
+            <select id="edificio-select-add" name="ID_Edificio" class="edificio-select" required></select>
         </div>
 
         <div>
