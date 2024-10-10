@@ -134,12 +134,25 @@
     <script>
         function mostrar(viewId) {
             const views = document.querySelectorAll('.view');
+    
             views.forEach(view => {
+                const selectores = view.querySelectorAll('select');
+                selectores.forEach(select => {
+                    select.disabled = true; // Deshabilitar selectores de la vista oculta
+                });
                 view.classList.remove('active');
             });
-
-            document.getElementById(viewId).classList.add('active');
+    
+            const activeView = document.getElementById(viewId);
+            activeView.classList.add('active');
+    
+            // Habilitar selectores solo en la vista activa
+            const activeSelectores = activeView.querySelectorAll('select');
+            activeSelectores.forEach(select => {
+                select.disabled = false; // Habilitar selectores de la vista activa
+            });
         }
     </script>
+    
 </body>
 </html>

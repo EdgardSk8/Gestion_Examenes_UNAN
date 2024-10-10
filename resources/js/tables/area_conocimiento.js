@@ -1,3 +1,4 @@
+//resources/js/area_conocimiento.js
 document.addEventListener('DOMContentLoaded', function () {
     // Selecciona todos los elementos que tengan una clase específica
     const areaSelects = document.querySelectorAll('.area-select');

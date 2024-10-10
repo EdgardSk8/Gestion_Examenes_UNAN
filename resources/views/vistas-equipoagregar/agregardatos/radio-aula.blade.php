@@ -26,6 +26,6 @@
 
     </form>
 
-    <h1>Sin Funcionalidad</h1>
+    <!-- <h1>Sin Funcionalidad</h1> -->
 
 </div>

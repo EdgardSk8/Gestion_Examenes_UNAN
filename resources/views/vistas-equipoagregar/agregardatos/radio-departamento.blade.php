@@ -8,7 +8,7 @@
 
         <div>
             <label>Área de Conocimiento:</label>
-            <select id="area-agregardatos" name="ID_Area_Conocimiento" class="area-select" required></select>
+            <select id="area-select-add" name="ID_Area_Conocimiento" class="area-select" required></select>
         </div>
 
         <div>
@@ -20,7 +20,7 @@
 
     </form>
 
-    <h1>Sin Funcionalidad</h1>
+    <!-- <h1>Sin Funcionalidad</h1> -->
 
 </div>
 
