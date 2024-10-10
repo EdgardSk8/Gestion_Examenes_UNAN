@@ -9,14 +9,14 @@
         <div class="grupo-carrera">
             <div>
                 <label>Área de Conocimiento:</label>
-                <select name="ID_Area_Conocimiento" class="area-select" required>
+                <select class="area-select" required>
                     <!-- Opciones de áreas -->
                 </select>
             </div>
 
             <div>
                 <label>Departamento:</label>
-                <select name="ID_Departamento" class="departamento-select" required>
+                <select class="departamento-select" required>
                     <!-- Opciones de departamentos -->
                 </select>        
             </div>
@@ -24,12 +24,10 @@
 
         <div>
             <label>Nueva Carrera:</label>
-            <input type="text" name="nueva_carrera" placeholder="Nueva Carrera" required>
+            <input type="text" name="nueva-carrera" placeholder="Nueva Carrera" required>
         </div>
 
         <button type="submit" class="btn">Agregar</button>
     </form>
-
-    <!-- <h1>Sin Funcionalidad</h1> -->
 
 </div>

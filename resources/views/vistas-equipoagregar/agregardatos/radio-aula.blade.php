@@ -8,18 +8,18 @@
     <form action="">
 
         <div>
-            <label for="area-select-add">Área de Conocimiento:</label>
-            <select id="area-select-add" name="ID_Area_Conocimiento" class="area-select" required></select>
+            <label>Área de Conocimiento:</label>
+            <select class="area-select" required></select>
         </div>
 
         <div>
             <label>Edificio</label>
-            <select id="edificio-select-add" name="ID_Edificio" class="edificio-select" required></select>
+            <select class="edificio-select" required></select>
         </div>
 
         <div>
             <label>Nueva Aula</label>
-            <input type="text" id="nueva-aula" name="nueva-aula" placeholder="Nueva Aula" required>
+            <input type="text" placeholder="Nueva Aula" required>
         </div>
 
         <button type="submit" class="btn">Agregar</button>

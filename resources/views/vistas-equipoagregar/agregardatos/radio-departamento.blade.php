@@ -4,24 +4,22 @@
 
     <h2 style="text-align: center">Agregar Departamento</h2>
 
-    <form action="">
+    <form action="{{ route('departamento.agregar') }}" method="POST"> <!-- Cambiar la ruta según sea necesario -->
+        @csrf <!-- Token de protección contra CSRF -->
 
         <div>
             <label>Área de Conocimiento:</label>
-            <select id="area-select-add" name="ID_Area_Conocimiento" class="area-select" required></select>
+            <select required></select>
         </div>
 
         <div>
-            <label>Nuevo Departamento</label>
-            <input type="text" id="nuevo-departamento" name="nuevo-departamento" placeholder="Nuevo Departamento" required>
+            <label>Nuevo Departamento:</label>
+            <input type="text" name="Nombre" placeholder="Nuevo Departamento" required>
         </div>
 
         <button type="submit" class="btn">Agregar</button>
-
     </form>
 
     <!-- <h1>Sin Funcionalidad</h1> -->
 
 </div>
-
-

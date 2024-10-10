@@ -11,7 +11,7 @@
 
         <div>
             <label>Nombre del Tipo de Examen:</label>
-            <input type="text" id="TipoExamen" name="Nombre" required>
+            <input type="text" name="Nombre" required>
         </div>
 
         <button type="submit" class="btn">Agregar</button>

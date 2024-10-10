@@ -9,28 +9,28 @@
         @csrf
 
         <div>
-            <label for="area-select-add">Área de Conocimiento:</label>
-            <select id="area-select-add" name="ID_Area_Conocimiento" class="area-select" required></select>
+            <label>Área de Conocimiento:</label>
+            <select class="area-select" required></select>
         </div>
 
         <div>
-            <label for="departamento-select-add">Departamento:</label>
-            <select id="departamento-select-add" name="ID_Departamento" class="departamento-select" required></select>  
+            <label>Departamento:</label>
+            <select class="departamento-select" required></select>  
         </div>
 
         <div>
-            <label for="carrera-select-add">Carrera:</label>
-            <select id="carrera-select-add" name="ID_Carrera" class="carrera-select" required></select>
+            <label>Carrera:</label>
+            <select class="carrera-select" required></select>
         </div>
 
         <div>
-            <label for="localidad-select-add">Localidad:</label>
-            <select id="localidad-select-add" name="ID_Localidad" class="localidad-select"  required></select>
+            <label>Localidad:</label>
+            <select class="localidad-select"  required></select>
         </div>
 
         <div>
-            <label for="Nombre">Nombre Completo:</label>
-            <input type="text" id="Nombre" name="Nombre_Completo" required>
+            <label>Nombre Completo:</label>
+            <input type="text" name="Nombre_Estudiante" required>
         </div>
 
         <div>

@@ -18,8 +18,8 @@
         </div>
 
         <div>
-            <label for="Nombre">Nombre Completo:</label>
-            <input type="text" id="Nombre" name="Nombre_Completo" required>
+            <label>Nombre Completo:</label>
+            <input type="text" name="Nombre_Docente" required>
         </div>
 
         <div>

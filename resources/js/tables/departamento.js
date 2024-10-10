@@ -1,3 +1,4 @@
+//resources/js/departamento.js
 document.addEventListener('DOMContentLoaded', function () {
     const areaSelects = document.querySelectorAll('.area-select');
     const departamentoSelects = document.querySelectorAll('.departamento-select');
