@@ -24,20 +24,29 @@
   border-radius: 20px;
   padding: 5px 15px;
   margin: 5px;
-  font-size: 0.9rem; /* Ajusta el tamaño del texto para que sea más legible en diferentes dispositivos */
+  font-size: 12px; /* Ajusta el tamaño del texto para que sea más legible en diferentes dispositivos */
 }
 
 /* Estilo general de los eventos dentro del calendario */
 .fc-event {
   border-radius: 4px; /* Bordes redondeados */
   padding: 3px; /* Espaciado interno */
-  font-size: 0.75rem; /* Tamaño del texto dentro del evento */
+  font-size: 13px; /* Tamaño del texto dentro del evento */
   color: #000000; /* Color del texto */
   background-color: #b79ee2;
   transition: all 0.1s ease; /* Transición suave al interactuar */
+  display: flex; /* Usar flexbox para alinear el contenido */
+  flex-direction: column; /* Apilar el contenido verticalmente */
+  justify-content: flex-start; /* Alinear al principio */
 }
 
 /* Estilo específico para los eventos en la vista dayGrid */
 .fc-daygrid-event {
   white-space: normal; /* Permite que el texto se ajuste en varias líneas */
+}
+
+/* Asegura que los eventos no se superpongan ni se desborden */
+.fc-event {
+  overflow: hidden; /* Oculta cualquier desbordamiento */
+  text-overflow: ellipsis; /* Añade puntos suspensivos si hay un desbordamiento */
 }

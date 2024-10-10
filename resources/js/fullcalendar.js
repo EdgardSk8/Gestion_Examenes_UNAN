@@ -21,6 +21,22 @@ document.addEventListener('DOMContentLoaded', function () { //ARREGLAR VISTA DEL
             center: 'title', // Título (mes y año) en el centro
             right: 'dayGridYear,dayGridMonth,timeGridWeek,timeGridDay' // Vistas del calendario a la derecha
         },
+        views: {
+            timeGridDay: {
+                slotMinTime: '08:00:00', // Hora mínima (8:00 AM)
+                slotMaxTime: '18:00:00', // Hora máxima (6:00 PM)
+                slotDuration: '00:30:00', // Intervalo de 30 minutos
+                slotLabelFormat: { // Formato de la etiqueta de la hora
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: true // Muestra AM/PM
+                },
+                // Permitir que los eventos se deslicen hasta la hora máxima
+                eventDurationEditable: true, // Permite que la duración de los eventos se pueda editar
+                selectable: true // Permite seleccionar horas para crear eventos
+            }
+        },
+        
     
         editable: true, // Permite arrastrar y soltar los eventos
         droppable: true, // Permite soltar elementos externos en el calendario
@@ -127,8 +143,48 @@ document.addEventListener('DOMContentLoaded', function () { //ARREGLAR VISTA DEL
             .catch(error => { 
                 console.error('Error:', error); // Manejo de errores en la solicitud
             });
-        }
+        },
+        eventContent: function(info) {
+            // Obtener la hora de inicio del evento y ajustar la hora sumando 7 horas
+            var startTimeDate = new Date(info.event.start);
+            startTimeDate.setHours(startTimeDate.getHours() + 7); // Sumar 7 horas
+        
+            // Convertir la hora de inicio a formato de 12 horas (AM/PM)
+            var startTime = startTimeDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
+        
+            // Hacer lo mismo para la hora de fin, si el evento tiene una hora de fin.
+            var endTime = info.event.end ? new Date(info.event.end) : null; 
+            if (endTime) {
+                endTime.setHours(endTime.getHours() + 7); // Sumar 5 horas
+                endTime = endTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }); // Convertir a formato de 12 horas
+            } else {
+                endTime = 'Sin hora de fin'; // Si no hay hora de fin, mostrar este texto.
+            }
+        
+            // Devuelve el HTML que mostrará el título del evento, la hora de inicio y la hora de fin (si existe).
+            return {
+                html: '<b>' + info.event.title + '</b><br>' + // Título del evento en negrita.
+                      '<span style="display: flex; align-items: center; justify-content: flex-start;">' +
+                      '<img src="/imagenes/punto-rojo.png" alt="Inicio" style="width:13px; height:10px; margin-right:5px;">' + 
+                      'Inicio: ' + startTime + '</span><br>' + // Hora de inicio con un ícono rojo.
+                      '<span style="display: flex; align-items: center; justify-content: flex-start;">' +
+                      '<img src="/imagenes/punto-verde.png" alt="Fin" style="width:13px; height:10px; margin-right:5px;">' + 
+                      'Fin: ' + endTime + '</span>' // Hora de fin (o "Sin hora de fin") con un ícono verde.
+            };
+        },
+        
+        
+        
+        
+        eventDidMount: function(info) {// Al dar doble click mostrará la interfaz del dia de ese evento
+            info.el.addEventListener('dblclick', function() {
+                calendar.changeView('timeGridDay', info.event.start); // Cambia a la vista de 'Día' en la fecha del evento
+            });
+        },
+        
     });
+
+    
 
     if(calendar){
         calendar.render(); //Mostrar Calendario en la interfaz
