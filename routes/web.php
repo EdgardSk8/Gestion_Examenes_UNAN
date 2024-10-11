@@ -66,6 +66,10 @@ Route::post('/tipoexamen/agregar', [TipoExamenController::class, 'AgregarTipoExa
 
 Route::post('/equipo/crear', [EquipoController::class, 'CrearNuevoEquipo'])->name('crearEquipo'); //Crea un nuevo equipo
 
+/*          ----- Rutas que eliminan datos -----          */
+
+Route::delete('/equipos/{id}', [EquipoController::class, 'EliminarEquipo']);
+
 
 // Rutas para cargar vistas dinámicamente en 'agregar nuevos datos'. Logica en /cuadro-equipos/equipoagregar.blade.php
 Route::get('/vista-area-conocimiento', function() {return view('vistas-equipoagregar.agregardatos.radio-area-conocimiento');});

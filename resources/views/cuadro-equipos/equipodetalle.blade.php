@@ -4,10 +4,45 @@
 @vite(['resources/js/tables/equipodetalle.js'])<!-- Integracion de la logica JS -->
 
 <label>Detalles de Equipos</label>
-<button style="width: 30px; height: 30px; padding: 0; border: none; background: none;">
+
+<!-- Botón para eliminar el evento -->
+<button id="eliminar-evento" style="width: 30px; height: 30px;">
     <img src="/imagenes/papelera.png" alt="papelera" style="width: 100%; height: 100%;">
 </button>
 
+<script>
+    // Suponiendo que estás usando FullCalendar y ya tienes el evento seleccionado
+
+document.getElementById('eliminar-evento').addEventListener('click', function() {
+    // Verificar si hay un evento seleccionado
+    if (selectedEvent) { // 'selectedEvent' debe ser la variable donde guardas el evento seleccionado
+        // Realizar la petición AJAX para eliminar el evento
+        fetch(`/eventos/${selectedEvent.id}`, { // Asegúrate de tener la ruta correcta
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') // Si usas CSRF
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                // Eliminar el evento del calendario
+                calendar.refetchEvents(); // O usa calendar.removeEvent(selectedEvent.id); para eliminarlo del calendario
+                alert('Evento eliminado correctamente.');
+            } else {
+                alert('Error al eliminar el evento.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error al eliminar el evento.');
+        });
+    } else {
+        alert('No hay un evento seleccionado para eliminar.');
+    }
+});
+
+</script>
 
 <div id="equipo-detalle">
 

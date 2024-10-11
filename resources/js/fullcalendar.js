@@ -49,7 +49,6 @@ document.addEventListener('DOMContentLoaded', function () { //ARREGLAR VISTA DEL
             }
         },
         
-    
         editable: true, // Permite arrastrar y soltar los eventos
         droppable: true, // Permite soltar elementos externos en el calendario
         events: '/events', // Ruta para obtener eventos del servidor

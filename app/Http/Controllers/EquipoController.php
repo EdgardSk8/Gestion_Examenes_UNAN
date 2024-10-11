@@ -50,5 +50,18 @@ class EquipoController extends Controller
             return redirect()->back()->with('error', $e->getMessage());
         }
     }
+
+    public function EliminarEquipo(Request $request, $id)
+    {
+        try {
+            $equipo = Equipo::findOrFail($id);// Buscar el equipo por ID
+            $equipo->delete(); // Eliminar el equipo
+            // Retornar respuesta JSON de éxito
+            return response()->json(['success' => true, 'message' => 'Equipo eliminado correctamente']);
+        } catch (\Exception $e) {
+            // Manejar errores y devolver un mensaje adecuado
+            return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
+        }
+    }
     
 }
