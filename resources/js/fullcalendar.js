@@ -21,6 +21,11 @@ document.addEventListener('DOMContentLoaded', function () { //ARREGLAR VISTA DEL
             center: 'title', // Título (mes y año) en el centro
             right: 'dayGridYear,dayGridMonth,timeGridWeek,timeGridDay' // Vistas del calendario a la derecha
         },
+
+        editable: true, // Permite arrastrar y soltar los eventos
+        droppable: true, // Permite soltar elementos externos en el calendario
+        events: '/events', // Ruta para obtener eventos del servidor
+
         views: {
             timeGridDay: {
                 slotMinTime: '08:00:00', // Hora mínima (8:00 AM)
@@ -48,11 +53,6 @@ document.addEventListener('DOMContentLoaded', function () { //ARREGLAR VISTA DEL
                 selectable: true // Permite seleccionar horas para crear eventos
             }
         },
-        
-        editable: true, // Permite arrastrar y soltar los eventos
-        droppable: true, // Permite soltar elementos externos en el calendario
-        events: '/events', // Ruta para obtener eventos del servidor
-
         eventClick: function(info) { // Evento cuando se hace clic en un evento del calendario
             var eventId = info.event.id; // Obtiene el ID del evento clicado
 
@@ -101,7 +101,6 @@ document.addEventListener('DOMContentLoaded', function () { //ARREGLAR VISTA DEL
                 })
                 .catch(error => console.error('Error al obtener los detalles del evento:', error)); // Manejo de errores en la solicitud
         },
-
         eventDrop: function (info) { // Evento cuando se arrastra un evento a una nueva posición
             console.log('Evento movido:', info.event); // Muestra el evento que ha sido movido
 
@@ -128,7 +127,6 @@ document.addEventListener('DOMContentLoaded', function () { //ARREGLAR VISTA DEL
                 console.error('Error:', error); // Manejo de errores en la solicitud
             });
         },
-
         eventResize: function (info) { // Evento cuando se redimensiona un evento
             console.log('Evento redimensionado:', info.event); // Muestra el evento que ha sido redimensionado
 
@@ -181,16 +179,13 @@ document.addEventListener('DOMContentLoaded', function () { //ARREGLAR VISTA DEL
                       '<span style="display: flex; align-items: center;">' + // Alineación a la izquierda por defecto
                       '<img src="/imagenes/punto-verde.png" alt="Fin" style="width:13px; height:10px; margin-right:5px;">' + 
                       'Fin: ' + endTime + '</span>' // Hora de fin (o "Sin hora de fin") con un ícono verde.
-            };
-            
+            };  
         },
-        
         eventDidMount: function(info) {// Al dar doble click mostrará la interfaz del dia de ese evento
             info.el.addEventListener('dblclick', function() {
                 calendar.changeView('timeGridDay', info.event.start); // Cambia a la vista de 'Día' en la fecha del evento
             });
-        },
-        
+        }
     });
 
     if(calendar){

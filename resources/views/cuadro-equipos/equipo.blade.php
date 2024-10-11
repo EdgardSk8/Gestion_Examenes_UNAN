@@ -1,6 +1,12 @@
 
 <p style="text-align: center">Vista sin funcionalidad</p>
 
+<!-- Botón para eliminar el evento -->
+<div id="delete-container">
+    Eliminar Equipo
+</div>
+
+
 <div style="background-color: burlywood; padding: 21px;"> 
 
 <p>Cambiar Colores de Eventos (Listo) </p>
