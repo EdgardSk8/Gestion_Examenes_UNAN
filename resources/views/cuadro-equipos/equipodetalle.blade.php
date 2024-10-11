@@ -4,6 +4,10 @@
 @vite(['resources/js/tables/equipodetalle.js'])<!-- Integracion de la logica JS -->
 
 <label>Detalles de Equipos</label>
+<button style="width: 30px; height: 30px; padding: 0; border: none; background: none;">
+    <img src="/imagenes/papelera.png" alt="papelera" style="width: 100%; height: 100%;">
+</button>
+
 
 <div id="equipo-detalle">
 

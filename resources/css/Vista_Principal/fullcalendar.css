@@ -12,6 +12,7 @@
   border-radius: 5px;
   border: 2px solid #bab9ff;
   overflow: hidden; /* Asegura que el contenido no se desborde */
+  
 }
 
 /* Estilo de los días en el calendario */
@@ -32,13 +33,14 @@
   border-radius: 4px; /* Bordes redondeados */
   padding: 3px; /* Espaciado interno */
   font-size: 13px; /* Tamaño del texto dentro del evento */
-  color: #000000; /* Color del texto */
+  color: black; /* Color del texto */
   background-color: #b79ee2;
   transition: all 0.1s ease; /* Transición suave al interactuar */
   display: flex; /* Usar flexbox para alinear el contenido */
   flex-direction: column; /* Apilar el contenido verticalmente */
   justify-content: flex-start; /* Alinear al principio */
 }
+
 
 /* Estilo específico para los eventos en la vista dayGrid */
 .fc-daygrid-event {

@@ -56,7 +56,7 @@
         <div id="vista-agregar" class="vista" style="display: none" >
             @include('cuadro-equipos.equipoagregar') <!-- /views/cuadro-equipos/equipodetalle.blade.php -->
         </div>
-
+        
         <div id='calendar' class="vista-principal"></div>
 
         <div id='equipos-list'> <!-- Obtenido de equipos.css -->
@@ -77,7 +77,7 @@
                  @include('cuadro-equipos.equipodetalle') <!-- /views/cuadro-equipos/equipodetalle.blade.php -->
             </div>
 
-            <div style="margin-top: 10px"> 
+            <div id="login" class="vista" style="margin-top: 10px; display: none" > 
                 
                 <h2>Agregar Nuevos Datos</h2>
                     
@@ -97,10 +97,6 @@
                     </div>
                 </form>
 
-                
-
-
-                    
             </div>
         </div>
     </div>

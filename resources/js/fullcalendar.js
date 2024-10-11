@@ -34,6 +34,18 @@ document.addEventListener('DOMContentLoaded', function () { //ARREGLAR VISTA DEL
                 // Permitir que los eventos se deslicen hasta la hora máxima
                 eventDurationEditable: true, // Permite que la duración de los eventos se pueda editar
                 selectable: true // Permite seleccionar horas para crear eventos
+            },
+            timeGridWeek: { // Configuración para la vista de semana
+                slotMinTime: '08:00:00', // Hora mínima (8:00 AM)
+                slotMaxTime: '18:00:00', // Hora máxima (6:00 PM)
+                slotDuration: '00:30:00', // Intervalo de 30 minutos
+                slotLabelFormat: { // Formato de la etiqueta de la hora
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: true // Muestra AM/PM
+                },
+                eventDurationEditable: true, // Permite que la duración de los eventos se pueda editar
+                selectable: true // Permite seleccionar horas para crear eventos
             }
         },
         
@@ -55,8 +67,8 @@ document.addEventListener('DOMContentLoaded', function () { //ARREGLAR VISTA DEL
                     const endHour = new Date(dateAssigned.getFullYear(), dateAssigned.getMonth(), dateAssigned.getDate(), ...data.hora_fin.split(':')); // Crea un objeto de fecha para la hora de fin
 
                     // Formatear las horas para mostrar en la interfaz
-                    const formattedStartHour = startHour.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', hour12: false });
-                    const formattedEndHour = endHour.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', hour12: false });
+                    const formattedStartHour = startHour.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', hour12: true });
+                    const formattedEndHour = endHour.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', hour12: true});
 
                     // Mostrar datos en la tabla de #equipo-detalle
 
@@ -164,17 +176,15 @@ document.addEventListener('DOMContentLoaded', function () { //ARREGLAR VISTA DEL
             // Devuelve el HTML que mostrará el título del evento, la hora de inicio y la hora de fin (si existe).
             return {
                 html: '<b>' + info.event.title + '</b><br>' + // Título del evento en negrita.
-                      '<span style="display: flex; align-items: center; justify-content: flex-start;">' +
+                      '<span style="display: flex; align-items: center;">' + // Alineación a la izquierda por defecto
                       '<img src="/imagenes/punto-rojo.png" alt="Inicio" style="width:13px; height:10px; margin-right:5px;">' + 
-                      'Inicio: ' + startTime + '</span><br>' + // Hora de inicio con un ícono rojo.
-                      '<span style="display: flex; align-items: center; justify-content: flex-start;">' +
+                      'Inicio: ' + startTime + '</span>' + // Hora de inicio con un ícono rojo.
+                      '<span style="display: flex; align-items: center;">' + // Alineación a la izquierda por defecto
                       '<img src="/imagenes/punto-verde.png" alt="Fin" style="width:13px; height:10px; margin-right:5px;">' + 
                       'Fin: ' + endTime + '</span>' // Hora de fin (o "Sin hora de fin") con un ícono verde.
             };
+            
         },
-        
-        
-        
         
         eventDidMount: function(info) {// Al dar doble click mostrará la interfaz del dia de ese evento
             info.el.addEventListener('dblclick', function() {
@@ -183,8 +193,6 @@ document.addEventListener('DOMContentLoaded', function () { //ARREGLAR VISTA DEL
         },
         
     });
-
-    
 
     if(calendar){
         calendar.render(); //Mostrar Calendario en la interfaz
