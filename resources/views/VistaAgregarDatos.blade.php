@@ -23,6 +23,8 @@
     @vite(['resources/js/tables/tipoexamen.js']) <!-- archivo js personalizado -->
     @vite(['resources/js/tables/localidad.js']) <!-- archivo js personalizado -->
 
+    
+
     <style>
         .view {display: none;} /* Ocultar Vista  */
         .active {display: block; /*Mostrar Vista*/}

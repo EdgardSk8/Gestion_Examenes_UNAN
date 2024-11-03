@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
 
-    var tipoexamenSelect = document.getElementById('tipoexamen');
+    var tipoexamenSelect = document.getElementById('tipoexamen-select');
 
     // Crear y agregar la opción por defecto
     let defaultOption = document.createElement('option');

@@ -1,5 +1,7 @@
 <form id="equipo-form" action="{{ route('crearEquipo') }}" method="POST">
 
+   
+
     <h2 style="margin-top: 0px; text-align: center;">Agregar equipo</h2>
     @csrf <!-- Protección contra ataques CSRF -->
     
@@ -13,7 +15,7 @@
 
         <div style="flex: 1;">
             <label>Área de Conocimiento:</label>
-            <select id="area-agregarequipo" class="area-select" name="ID_Area_Conocimiento" required></select>
+            <select id="area-select" class="area-select" name="ID_Area_Conocimiento" required></select>
         </div>
 
         <div style="flex: 1;">
@@ -25,7 +27,7 @@
 
     <div>
         <label>Carrera:</label>
-        <select id="carrera-agregarequipo" class="carrera-select" name="ID_Carrera" required></select>
+        <select id="carrera-select" class="carrera-select" name="ID_Carrera" required></select>
     </div>
 
     <!-- Integrantes del equipo en una fila -->
@@ -51,8 +53,9 @@
     </div>
 
     <!-- Fecha y hora -->
-    <h3>Fecha y Hora</h3>
+    
 
+    <!-- 
     <div>
         <label>Fecha Asignada:</label>
         <input type="date" id="fecha_asignada" name="Fecha_Asignada" required>
@@ -70,8 +73,30 @@
             <input type="time" id="hora_fin" name="Hora_Fin" required>
         </div>
 
-    </div>
+    </div> -->
 
+    <!-- Fecha y hora -->
+
+    <h3>Fecha y Hora</h3>
+
+    <div>
+        <label>Fecha Asignada:</label>
+        <input type="text" id="fecha_asignada" placeholder="Selecciona una fecha" name="Fecha_Asignada" required>
+    </div><br>
+    
+
+    
+    <div style="display: flex; gap: 10px; width: 100%;">
+        <div style="flex: 1;">
+            <label>Hora de Inicio:</label>
+            <input type="text" id="hora_inicio" placeholder="Hora de Inicio" name="Hora_Inicio" required>
+        </div>
+        <div style="flex: 1;">
+            <label>Hora de Fin:</label>
+            <input type="text" id="hora_fin" placeholder="Hora de Fin" name="Hora_Fin" required>
+        </div>
+    </div>
+    
     <!-- Ubicación -->
     <h3>Ubicación</h3>
 
@@ -79,12 +104,12 @@
 
         <div style="flex: 1;">
             <label>Edificio:</label>
-            <select id="edificio" class="edificio-select" name="ID_Edificio" required></select>
+            <select id="edificio-select" class="edificio-select" name="ID_Edificio" required></select>
         </div>
 
         <div style="flex: 1;">
             <label>Aula:</label>
-            <select id="aula" name="ID_Aula" required></select>
+            <select id="aula-select" name="ID_Aula" required></select>
         </div>
 
     </div>
@@ -94,7 +119,7 @@
 
     <div>
         <label>Tipo de Examen:</label>
-        <select id="tipoexamen" name="ID_Tipo_Examen" required></select>
+        <select id="tipoexamen-select" name="ID_Tipo_Examen" required></select>
     </div>
 
     <!-- Tutor y jueces en una fila -->

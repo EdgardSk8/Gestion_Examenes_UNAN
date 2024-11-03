@@ -21,6 +21,8 @@
     @vite(['resources/css/Recursos/btnstyle.css']) <!-- archivo css personalizado -->
 
     @vite(['resources/js/fullcalendar.js']) <!-- js del fullcalendar -->
+    @vite(['resources/js/fechahora.js']) <!-- logica de fecha y hora con Flatpickr -->
+
     @vite(['resources/js/tables/area_conocimiento.js']) <!-- archivo js personalizado -->
     @vite(['resources/js/tables/departamento.js']) <!-- archivo js personalizado -->
     @vite(['resources/js/tables/carreras.js']) <!-- archivo js personalizado -->
@@ -29,9 +31,16 @@
     @vite(['resources/js/tables/edificio.js']) <!-- archivo js personalizado -->
     @vite(['resources/js/tables/aula.js']) <!-- archivo js personalizado -->
     @vite(['resources/js/tables/tipoexamen.js']) <!-- archivo js personalizado -->
-
+    
 
     @vite(['resources/js/agregar/agregarequipo.js']) <!-- archivo js personalizado -->
+
+
+    <!-- Script de la libreria Flatpickr -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <!-- Script de la libreria Flatpickr -->
 
     <!-- Importaciones de archivos css y javascript -->
 

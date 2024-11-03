@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     // Elementos de los select
-    var carreraSelect = document.getElementById('carrera-agregarequipo');
+    var carreraSelect = document.getElementById('carrera-select');
     var integranteSelects = [
         document.getElementById('integrante1'),
         document.getElementById('integrante2'),

@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Selecciona todos los selects con la clase 'localidad-select'
-    const localidadSelects = document.querySelectorAll('.localidad-select');
+    // Selecciona el select con el ID 'localidad-select'
+    const localidadSelect = document.getElementById('localidad-select');
 
     // Función para llenar un select con localidades
     function llenarSelectLocalidad(selectElement, localidadesDisponibles, mensaje) {
@@ -29,9 +29,9 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(response => response.json())
             .then(data => {
                 if (data.length === 0) {
-                    integrarSelectsConMensaje('Sin Localidades');
+                    integrarSelectConMensaje('Sin Localidades');
                 } else {
-                    integrarSelectsConLocalidades(data);
+                    integrarSelectConLocalidades(data);
                 }
             })
             .catch(error => {
@@ -39,18 +39,14 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     }
 
-    // Función para integrar selects con el mensaje correspondiente
-    function integrarSelectsConMensaje(mensaje) {
-        localidadSelects.forEach(select => {
-            llenarSelectLocalidad(select, [], mensaje);
-        });
+    // Función para integrar el select con el mensaje correspondiente
+    function integrarSelectConMensaje(mensaje) {
+        llenarSelectLocalidad(localidadSelect, [], mensaje);
     }
 
-    // Función para integrar selects con localidades
-    function integrarSelectsConLocalidades(localidades) {
-        localidadSelects.forEach(select => {
-            llenarSelectLocalidad(select, localidades, 'Seleccione Localidad');
-        });
+    // Función para integrar el select con localidades
+    function integrarSelectConLocalidades(localidades) {
+        llenarSelectLocalidad(localidadSelect, localidades, 'Seleccione Localidad');
     }
 
     // Cargar localidades al inicio

@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
-    var edificioSelect = document.getElementById('edificio');
-    var aulaSelect = document.getElementById('aula');
+    var edificioSelect = document.getElementById('edificio-select');
+    var aulaSelect = document.getElementById('aula-select');
 
     // Función para llenar el select de aulas
     function llenarSelectAula(selectElement, aulasDisponibles, mensaje) {
