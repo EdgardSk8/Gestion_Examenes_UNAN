@@ -156,7 +156,7 @@ document.addEventListener('DOMContentLoaded', function () { //ARREGLAR VISTA DEL
         eventContent: function(info) {
             // Obtener la hora de inicio del evento y ajustar la hora sumando 7 horas
             var startTimeDate = new Date(info.event.start);
-            startTimeDate.setHours(startTimeDate.getHours() + 7); // Sumar 7 horas
+            startTimeDate.setHours(startTimeDate.getHours() + 8); // Sumar 7 horas
         
             // Convertir la hora de inicio a formato de 12 horas (AM/PM)
             var startTime = startTimeDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
@@ -164,7 +164,7 @@ document.addEventListener('DOMContentLoaded', function () { //ARREGLAR VISTA DEL
             // Hacer lo mismo para la hora de fin, si el evento tiene una hora de fin.
             var endTime = info.event.end ? new Date(info.event.end) : null; 
             if (endTime) {
-                endTime.setHours(endTime.getHours() + 7); // Sumar 5 horas
+                endTime.setHours(endTime.getHours() + 8); // Sumar 5 horas
                 endTime = endTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }); // Convertir a formato de 12 horas
             } else {
                 endTime = 'Sin hora de fin'; // Si no hay hora de fin, mostrar este texto.
