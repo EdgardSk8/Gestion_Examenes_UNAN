@@ -84,8 +84,6 @@
         <input type="text" id="fecha_asignada" placeholder="Selecciona una fecha" name="Fecha_Asignada" required>
     </div><br>
     
-
-    
     <div style="display: flex; gap: 10px; width: 100%;">
         <div style="flex: 1;">
             <label>Hora de Inicio:</label>
@@ -96,6 +94,10 @@
             <input type="text" id="hora_fin" placeholder="Hora de Fin" name="Hora_Fin" required>
         </div>
     </div>
+
+    <h3 id="resultado"></h2>
+    <p id="aviso" style="color:red;"></p>
+
     
     <!-- Ubicación -->
     <h3>Ubicación</h3>
