@@ -18,5 +18,6 @@
     </form>
 </div>
 
+
 <!-- Agregar Area de Conocimiento funciona correctamente -->
 <!-- Revisar mensaje usando ventanas dinamicas -->

@@ -7,7 +7,7 @@ import interactionPlugin from '@fullcalendar/interaction'; // Importa el plugin 
 import timeGridPlugin from '@fullcalendar/timegrid'; // Importa el plugin para vista de cuadrícula de tiempo
 import esLocale from '@fullcalendar/core/locales/es'; // Importa la localización en español
 
-document.addEventListener('DOMContentLoaded', function () { //ARREGLAR VISTA DEL CALENDARIO, QUE SOLO MUESTRE TITULO Y NO HORA, ADEMAS DE CAMBIAR EL COLOR DE LOS EVENTOS
+document.addEventListener('DOMContentLoaded', function () { 
 
     var calendarEl = document.getElementById('calendar'); // Selecciona el elemento donde se renderiza el calendario
 
@@ -98,6 +98,12 @@ document.addEventListener('DOMContentLoaded', function () { //ARREGLAR VISTA DEL
                     document.querySelector('.equipos-table').style.display = 'table'; // Muestra la tabla de detalles
                     document.getElementById('vista-equipos').style.display = 'none'; // Oculta la vista de equipos
                     document.getElementById('vista-detalles').style.display = 'block'; // Muestra la vista de detalles
+
+                    // Asignar el ID del evento al botón de eliminación
+                    const deleteButton = document.getElementById('eliminar-evento');
+                    deleteButton.setAttribute('data-event-id', eventId); // Asigna el ID del evento al botón
+                    deleteButton.style.display = 'block'; // Muestra el botón de eliminación
+
                 })
                 .catch(error => console.error('Error al obtener los detalles del evento:', error)); // Manejo de errores en la solicitud
         },
@@ -188,7 +194,40 @@ document.addEventListener('DOMContentLoaded', function () { //ARREGLAR VISTA DEL
         }
     });
 
+    
+    document.getElementById('eliminar-evento').addEventListener('click', function() {// Manejar el clic del botón de eliminación
+        const eventId = this.getAttribute('data-event-id'); // Obtiene el ID del evento desde el botón
+    
+        if (confirm('¿Estás seguro de que deseas eliminar este evento?')) { // Confirmar la eliminación del evento
+            
+            fetch(`/equipos/${eventId}`, {// Realiza la solicitud para eliminar el evento
+                method: 'DELETE', // Usar DELETE para eliminar el equipo
+                headers: {
+                    'Content-Type': 'application/json', // Especifica el tipo de contenido
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') // Incluye el token CSRF
+                }
+            })
+            .then(response => {
+                if (!response.ok) {throw new Error('Error al eliminar el evento');}
+                return response.json();
+            })
+            .then(data => {
+                console.log('Evento eliminado:', data); // Muestra la respuesta del servidor
+                console.log(`Eliminando evento con ID: ${eventId}`);
+    
+                calendar.getEventById(eventId)?.remove(); // Elimina el evento del calendario
+    
+                
+                alert('Evento eliminado correctamente');// Muestra un mensaje de éxito al usuario (Opcional)
+            })
+            .catch(error => {
+                console.error('Error:', error); // Manejo de errores
+            });
+        }
+    });
+
     if(calendar){
         calendar.render(); //Mostrar Calendario en la interfaz
     } else { console.log("Error al Mostrar el Calendario"); }
+
 });

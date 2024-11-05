@@ -3,7 +3,14 @@
 @vite(['resources/css/Vista_Principal/equipodetalle.css']) <!-- Integracion de archivo de estilo css-->
 @vite(['resources/js/tables/equipodetalle.js'])<!-- Integracion de la logica JS -->
 
-<label>Detalles de Equipos</label>
+<label>Detalles de Equipos</label><br>
+
+
+<div style="display: flex; gap: 10px; width: 100%;" >
+    <button id="eliminar-evento" data-event-id="">Eliminar Evento</button> <!-- Botón para eliminar el evento -->
+    <button>Editar</button>
+</div>
+
 
 <div id="equipo-detalle">
 
@@ -91,4 +98,3 @@
         
     </table>
 </div>
-

@@ -1,10 +1,31 @@
 
 <p style="text-align: center">Vista sin funcionalidad</p>
 
-<!-- Botón para eliminar el evento -->
-<div id="delete-container">
-    Eliminar Equipo
-</div>
+<button class="delete-button">
+    <img src="/imagenes/papelera.png" alt="Eliminar" />
+</button>
+
+<style>
+    .delete-button {
+        width: 60px;
+        height: 60px;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s; /* Transición suave */
+    }
+
+    .delete-button:hover {
+        background-color: rgb(240, 142, 142); /* Color de fondo al pasar el cursor */
+    }
+
+    .delete-button img {
+        width: 100%;
+        height: 100%;
+    }
+</style>
+
+
 
 
 <div style="background-color: burlywood; padding: 21px;"> 
