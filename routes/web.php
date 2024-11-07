@@ -61,6 +61,8 @@ Route::post('/area-conocimiento/agregar', [AreaConocimientoController::class, 'A
 Route::post('/departamento/agregar', [DepartamentoController::class, 'AgregarDepartamento'])->name('departamento.agregar');
 Route::post('/carrera/agregar', [CarreraController::class, 'AgregarCarrera'])->name('carrera.agregar');
 Route::post('/localidad/agregar', [LocalidadController::class, 'AgregarLocalidad'])->name('localidad.agregar');
+Route::post('/edificio/agregar', [EdificioController::class, 'AgregarEdificio'])->name('edificio.agregar');
+Route::post('/aula/agregar', [AulaController::class, 'AgregarAula'])->name('aula.agregar');
 Route::post('/rol/agregar', [RolController::class, 'AgregarRol'])->name('rol.agregar');
 Route::post('/perfil/agregar', [PerfilController::class, 'AgregarPerfil'])->name('perfil.agregar');
 Route::post('/tipoexamen/agregar', [TipoExamenController::class, 'AgregarTipoExamen'])->name('tipoexamen.agregar');

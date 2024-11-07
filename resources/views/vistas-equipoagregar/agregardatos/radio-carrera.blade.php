@@ -11,7 +11,7 @@
         <div class="grupo-carrera">
             <div>
                 <label>Área de Conocimiento:</label>
-                <select class="area-select" id="area-select" name="ID_Area" required>
+                <select class="area-vista-carrera" id="area-vista-carrera" name="ID_Area" required>
                     <!-- Las opciones de áreas se cargarán dinámicamente -->
                     <option value="">Seleccione un área de conocimiento</option>
                     <!-- Aquí se añadirán las áreas dinámicamente con JS -->
@@ -22,7 +22,7 @@
                 <label>Departamento:</label>
                 <select class="departamento-select" id="departamento-select" name="ID_Departamento" required>
                     <!-- Opciones de departamentos se cargarán dinámicamente después de seleccionar el área -->
-                    <option value="">Seleccione un área de conocimiento primero</option>
+                    <option value="">Seleccione un área de conocimiento</option>
                 </select>        
             </div>
         </div>
@@ -39,7 +39,7 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const areaSelect = document.getElementById('area-select');
+        const areaSelect = document.getElementById('area-vista-carrera');
         const departamentoSelect = document.getElementById('departamento-select');
 
         // Cargar las áreas de conocimiento cuando la página se haya cargado

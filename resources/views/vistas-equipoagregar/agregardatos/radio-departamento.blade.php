@@ -9,7 +9,7 @@
 
         <div>
             <label>Área de Conocimiento:</label>
-            <select id="area-select-datos" name="ID_Area" required></select>
+            <select id="area-vista-departamento" name="ID_Area" required></select>
         </div>
 
         <div>
@@ -25,7 +25,7 @@
 <script>
 
     document.addEventListener('DOMContentLoaded', function () {
-        const areaSelect = document.getElementById('area-select-datos'); // Referencia al elemento select
+        const areaSelect = document.getElementById('area-vista-departamento'); // Referencia al elemento select
 
         // Añadir una opción por defecto al select con el mensaje "Seleccione un área de conocimiento"
         let defaultOption = document.createElement('option');
