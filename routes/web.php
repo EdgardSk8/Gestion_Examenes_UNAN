@@ -59,6 +59,7 @@ Route::get('/localidades', [LocalidadController::class, 'obtenerLocalidad']);
 
 Route::post('/area-conocimiento/agregar', [AreaConocimientoController::class, 'AgregarAreaConocimiento'])->name('area-conocimiento.agregar');
 Route::post('/departamento/agregar', [DepartamentoController::class, 'AgregarDepartamento'])->name('departamento.agregar');
+Route::post('/carrera/agregar', [CarreraController::class, 'AgregarCarrera'])->name('carrera.agregar');
 Route::post('/localidad/agregar', [LocalidadController::class, 'AgregarLocalidad'])->name('localidad.agregar');
 Route::post('/rol/agregar', [RolController::class, 'AgregarRol'])->name('rol.agregar');
 Route::post('/perfil/agregar', [PerfilController::class, 'AgregarPerfil'])->name('perfil.agregar');

@@ -20,12 +20,13 @@ class DepartamentoController extends Controller
         return response()->json([]);  // Si no se proporciona un ID de area, retorna un array vacío en formato JSON
     }
 
+    // Método AgregarDepartamento
     public function AgregarDepartamento(Request $request)
     {
         // Validar los datos recibidos del formulario
         $validatedData = $request->validate([
             'Nombre' => 'required|string|max:255',
-            'ID_Area' => 'required|exists:area_conocimiento,ID_Area_Conocimiento', // Verifica que el área existe
+            'ID_Area' => 'required|exists:area_conocimiento,ID_Area', // Aquí debe ser ID_Area, no ID_Area_Conocimiento
         ]);
 
         try {
@@ -44,6 +45,7 @@ class DepartamentoController extends Controller
             return redirect()->back()->with('error', 'Ocurrió un error al agregar el departamento: ' . $e->getMessage());
         }
     }
+
 
     
 }

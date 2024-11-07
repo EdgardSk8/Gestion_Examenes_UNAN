@@ -13,18 +13,6 @@
     @vite(['resources/css/Recursos/btnstyle.css']) <!-- archivo css personalizado -->
     @vite(['resources/css/Vista_Secundaria/equipoagregar.css'])
 
-    @vite(['resources/js/tables/area_conocimiento.js']) <!-- archivo js personalizado -->
-    @vite(['resources/js/tables/departamento.js']) <!-- archivo js personalizado -->
-    @vite(['resources/js/tables/carreras.js']) <!-- archivo js personalizado -->
-    @vite(['resources/js/tables/profesor.js']) <!-- archivo js personalizado -->
-    @vite(['resources/js/tables/estudiante.js']) <!-- archivo js personalizado -->
-    @vite(['resources/js/tables/edificio.js']) <!-- archivo js personalizado -->
-    @vite(['resources/js/tables/aula.js']) <!-- archivo js personalizado -->
-    @vite(['resources/js/tables/tipoexamen.js']) <!-- archivo js personalizado -->
-    @vite(['resources/js/tables/localidad.js']) <!-- archivo js personalizado -->
-
-    
-
     <style>
         .view {display: none;} /* Ocultar Vista  */
         .active {display: block; /*Mostrar Vista*/}

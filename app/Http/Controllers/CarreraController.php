@@ -20,4 +20,31 @@ class CarreraController extends Controller
         }
         return response()->json([]); // Si no se proporciona un ID de departamento, retorna un array vacío en formato JSON
     }
+
+    // Método AgregarCarrera
+    public function AgregarCarrera(Request $request)
+    {
+        // Validar los datos recibidos del formulario
+        $validatedData = $request->validate([
+            'Nombre' => 'required|string|max:255', // Nombre de la carrera
+            'ID_Departamento' => 'required|exists:departamento,ID_Departamento', // Verifica que el departamento exista
+        ]);
+
+        try {
+            // Crear una nueva carrera utilizando los datos validados
+            $carrera = new Carrera();
+            $carrera->Nombre = $validatedData['Nombre'];
+            $carrera->ID_Departamento = $validatedData['ID_Departamento']; // Relacionar con el departamento
+
+            // Guardar la carrera en la base de datos
+            $carrera->save();
+
+            // Retornar una respuesta de éxito
+            return redirect()->back()->with('success', 'Carrera agregada exitosamente.');
+        } catch (\Exception $e) {
+            // Si ocurre algún error, retornar con mensaje de error
+            return redirect()->back()->with('error', 'Ocurrió un error al agregar la carrera: ' . $e->getMessage());
+        }
+    }
+
 }
