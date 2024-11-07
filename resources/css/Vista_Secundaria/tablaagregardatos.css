@@ -1,0 +1,48 @@
+/* Asegurar que la tabla no se desborde y tenga un scroll horizontal si es necesario */
+.agregar-area {
+    width: calc(100% - 80px);
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden; /* Previene que el contenido se desborde fuera del contenedor */
+}
+
+/* Estilo para el contenedor con scroll */
+.table-container {
+    overflow-x: auto; /* Permite el scroll horizontal si la tabla excede el ancho */
+    overflow-y: auto; /* Permite el scroll vertical si la tabla excede la altura */
+    width: 100%;
+    margin-top: 20px;
+    height: 500px; /* Puedes ajustar esta altura según lo que necesites */
+}
+
+/* Estilos de la tabla */
+
+table th, table td {
+    text-align: left;
+    border: 1px solid #ddd;
+    font-size: 10px;
+}
+
+table th {
+    background-color: #3498db;
+    color: #fff;
+}
+
+table td {
+    background-color: #fafafa;
+}
+
+table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Estilo para el mensaje cuando no hay datos en la tabla */
+table tbody tr.no-data {
+    text-align: center;
+    background-color: #f8f8f8;
+    font-style: italic;
+    color: #888;
+}

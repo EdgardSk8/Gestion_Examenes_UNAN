@@ -12,6 +12,13 @@
     @vite(['resources/css/Recursos/inputstyle.css']) <!-- archivo css personalizado -->
     @vite(['resources/css/Recursos/btnstyle.css']) <!-- archivo css personalizado -->
     @vite(['resources/css/Vista_Secundaria/equipoagregar.css'])
+    @vite(['resources/css/Vista_Secundaria/tablaagregardatos.css'])
+
+    <!-- Libreria DataTables -->
+    <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <!-- Libreria DataTables -->
 
     <style>
         .view {display: none;} /* Ocultar Vista  */
