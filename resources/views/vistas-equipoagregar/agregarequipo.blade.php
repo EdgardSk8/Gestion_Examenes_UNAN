@@ -94,8 +94,8 @@
             <input type="text" id="hora_fin" placeholder="Hora de Fin" name="Hora_Fin" required>
         </div>
     </div>
-
-    <h3 id="resultado"></h2>
+    
+    <h3 id="resultado"></h3>
     <p id="aviso" style="color:red;"></p>
 
     

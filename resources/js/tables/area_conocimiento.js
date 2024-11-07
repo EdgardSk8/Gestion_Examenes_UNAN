@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Añade la opción por defecto al área de conocimiento
     let defaultOption = document.createElement('option');
     defaultOption.value = '';
-    defaultOption.textContent = 'Seleccionar área';
+    defaultOption.textContent = 'Seleccionar área de conocimiento';
     defaultOption.disabled = true;
     defaultOption.selected = true;
     areaSelect.appendChild(defaultOption);

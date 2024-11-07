@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function cargarEdificiosPorArea(areaId) {
         if (!areaId) {
             // Mostrar mensaje de "Seleccione Área" si no hay área seleccionada
-            integrarSelectsConMensaje('Seleccione Área');
+            integrarSelectsConMensaje('Seleccione Área de conocimiento');
             return;
         }
 

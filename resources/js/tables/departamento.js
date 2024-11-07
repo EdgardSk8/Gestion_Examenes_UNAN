@@ -1,13 +1,27 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const areaSelect = document.getElementById('area-select'); // Selecciona el área por ID
-    const departamentoSelect = document.getElementById('departamento-select'); // Selecciona el departamento por ID
+    const areaSelect = document.getElementById('area-select');
+    const departamentoSelect = document.getElementById('departamento-select');
 
-    // Añade una opción de "Sin departamentos" al select inicialmente
-    let noDepartmentsOption = document.createElement('option');
-    noDepartmentsOption.textContent = 'Sin departamentos';
-    noDepartmentsOption.disabled = true;
-    noDepartmentsOption.selected = true;
-    departamentoSelect.appendChild(noDepartmentsOption);
+    // Función para añadir la opción "Seleccione un área de conocimiento" por defecto
+    function addDefaultOption() {
+        let defaultOption = document.createElement('option');
+        defaultOption.textContent = 'Seleccione un área de conocimiento';
+        defaultOption.disabled = true;
+        defaultOption.selected = true;
+        departamentoSelect.appendChild(defaultOption);
+    }
+
+    // Función para añadir la opción "Sin departamentos"
+    function addNoDepartmentsOption() {
+        let noDepartmentsOption = document.createElement('option');
+        noDepartmentsOption.textContent = 'Sin departamentos';
+        noDepartmentsOption.disabled = true;
+        noDepartmentsOption.selected = true;
+        departamentoSelect.appendChild(noDepartmentsOption);
+    }
+
+    // Añadir la opción "Seleccione un área de conocimiento" inicialmente
+    addDefaultOption();
 
     // Event listener para cuando se cambie el área seleccionada
     areaSelect.addEventListener('change', function () {
@@ -38,13 +52,13 @@ document.addEventListener('DOMContentLoaded', function () {
                         });
                     } else {
                         // Añade la opción "Sin departamentos" si no hay departamentos
-                        departamentoSelect.appendChild(noDepartmentsOption);
+                        addNoDepartmentsOption();
                     }
                 })
                 .catch(error => console.error('Error fetching departamentos:', error));
         } else {
-            // Añade la opción "Sin departamentos" si no se ha seleccionado un área
-            departamentoSelect.appendChild(noDepartmentsOption);
+            // Añade la opción "Seleccione un área de conocimiento" si no se ha seleccionado un área
+            addDefaultOption();
         }
     });
 
