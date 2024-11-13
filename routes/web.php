@@ -42,7 +42,7 @@ Route::put('/events/{id}', [EventoController::class, 'ActualizarEventoEnCalendar
 
 /*          ----- Rutas que retornan datos -----          */
 
-Route::get('/area-conocimiento', [AreaConocimientoController::class, 'ObtenerAreaConocimiento']);
+Route::get('/area-conocimiento', [AreaConocimientoController::class, 'ObtenerAreaConocimiento'])->name('area-conocimiento.mostrar');
 Route::get('/departamentos', [DepartamentoController::class, 'ObtenerDepartamentoPorArea']);
 Route::get('/carreras', [CarreraController::class, 'ObtenerCarreraPorDepartamento']);
 Route::get('/equipos', [EquipoController::class, 'ObtenerTodosLosEquipos']);

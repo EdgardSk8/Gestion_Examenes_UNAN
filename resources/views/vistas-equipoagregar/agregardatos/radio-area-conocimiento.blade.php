@@ -13,6 +13,9 @@
         <button type="submit" class="btn">Agregar</button>
     </form>
 
-    <h4 style="text-align: center">Lista de Áreas de Conocimiento</h4>
+    
+
+    @include('vistas-equipoagregar.tablas.tabla-area-conocimiento')
+    
 
 </div>
