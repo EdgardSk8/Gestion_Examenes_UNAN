@@ -67,6 +67,8 @@ Route::post('/rol/agregar', [RolController::class, 'AgregarRol'])->name('rol.agr
 Route::post('/perfil/agregar', [PerfilController::class, 'AgregarPerfil'])->name('perfil.agregar');
 Route::post('/tipoexamen/agregar', [TipoExamenController::class, 'AgregarTipoExamen'])->name('tipoexamen.agregar');
 
+Route::post('/estudiante/agregar', [EstudianteController::class, 'AgregarEstudiante'])->name('estudiante.agregar');
+
 Route::post('/equipo/crear', [EquipoController::class, 'CrearNuevoEquipo'])->name('crearEquipo'); //Crea un nuevo equipo
 
 /*          ----- Rutas que eliminan datos -----          */
@@ -90,3 +92,5 @@ Route::get('/vista-perfil', function() {return view('vistas-equipoagregar.agrega
 
 
 
+Route::get('/validar-carnet', [EstudianteController::class, 'validarCarnet']);
+Route::get('/validar-correo', [EstudianteController::class, 'validarCorreo']);
