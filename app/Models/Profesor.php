@@ -15,7 +15,7 @@ class Profesor extends Model
 
     // Define los campos que se pueden asignar en masa
     protected $fillable = [
-        'Nombre_Completo',
+        'Nombre_Completo_P',
         'Correo',
         'Contrasenia',
         'ID_Departamento',

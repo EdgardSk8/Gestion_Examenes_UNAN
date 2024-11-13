@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
             profesoresDisponibles.forEach(profesor => {
                 let option = document.createElement('option');
                 option.value = profesor.ID_Profesor;
-                option.textContent = profesor.Nombre_Completo;
+                option.textContent = profesor.Nombre_Completo_P;
                 selectElement.appendChild(option);
             });
         }

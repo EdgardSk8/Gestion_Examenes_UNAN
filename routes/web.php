@@ -51,6 +51,7 @@ Route::get('/profesorPorDepartamento', [ProfesorController::class, 'ObtenerProfe
 Route::get('/estudiante', [EstudianteController::class, 'ObtenerEstudiantePorCarrera']);
 Route::get('/edificio', [EdificioController::class, 'ObtenerEdificioPorArea']);
 Route::get('/aula', [AulaController::class, 'ObtenerAulaPorEdificio']);
+Route::get('/perfil', [PerfilController::class, 'ObtenerPerfil']);
 Route::get('/tipoexamen', [TipoExamenController::class, 'ObtenerTipoExamen']);
 Route::get('/localidades', [LocalidadController::class, 'obtenerLocalidad']);
 
@@ -68,6 +69,7 @@ Route::post('/perfil/agregar', [PerfilController::class, 'AgregarPerfil'])->name
 Route::post('/tipoexamen/agregar', [TipoExamenController::class, 'AgregarTipoExamen'])->name('tipoexamen.agregar');
 
 Route::post('/estudiante/agregar', [EstudianteController::class, 'AgregarEstudiante'])->name('estudiante.agregar');
+Route::post('/profesor/agregar', [ProfesorController::class, 'AgregarProfesor'])->name('profesor.agregar');
 
 Route::post('/equipo/crear', [EquipoController::class, 'CrearNuevoEquipo'])->name('crearEquipo'); //Crea un nuevo equipo
 

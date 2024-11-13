@@ -1,6 +1,6 @@
-<form id="equipo-form" action="{{ route('crearEquipo') }}" method="POST">
+<!-- resources/views/vistas-equipoagregar/agregarequipo.blade.php -->
 
-   
+<form id="equipo-form" action="{{ route('crearEquipo') }}" method="POST">
 
     <h2 style="margin-top: 0px; text-align: center;">Agregar equipo</h2>
     @csrf <!-- Protección contra ataques CSRF -->
@@ -54,7 +54,6 @@
 
     <!-- Fecha y hora -->
     
-
     <!-- 
     <div>
         <label>Fecha Asignada:</label>

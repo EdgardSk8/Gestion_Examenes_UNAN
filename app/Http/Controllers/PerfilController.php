@@ -22,4 +22,10 @@ class PerfilController extends Controller
         // Redirigir o devolver una respuesta
         return redirect()->back()->with('success', 'Perfil '.$perfil->Nombre.' agregado exitosamente.');
     }
+
+    public function ObtenerPerfil()
+    {
+        $perfiles = Perfil::all();  // Obtiene todos los perfiles de la base de datos
+        return response()->json($perfiles);  // Retorna los perfiles en formato JSON
+    }
 }

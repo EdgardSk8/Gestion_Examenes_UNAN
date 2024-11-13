@@ -1,46 +1,118 @@
 <div class="agregar-Profesor">
-
     <h2 style="text-align: center">Agregar Profesor</h2>
 
-    <form action="" method="POST">
+    <form action="{{ route('profesor.agregar') }}" method="POST">
         @csrf
 
         <div>
-            <label for="area-select-add">Área de Conocimiento:</label>
-            <select id="area-select-add" name="ID_Area_Conocimiento" class="area-select" required>
+            <label>Área de Conocimiento:</label>
+            <select id="area-vista-profesor" name="ID_Area" required>
+                <option value="" disabled selected>Seleccione un área de conocimiento</option>
+                <!-- Se cargarán las áreas de conocimiento aquí -->
             </select>
         </div>
 
         <div>
-            <label for="departamento-select-add">Departamento:</label>
-            <select id="departamento-select-add" name="ID_Departamento" class="departamento-select" required>
+            <label>Departamento:</label>
+            <select id="departamento-vista-profesor" name="ID_Departamento" required>
+                <option value="" disabled selected>Seleccione un departamento</option>
+                <!-- Los departamentos se cargarán aquí según el área seleccionada -->
             </select>
         </div>
 
         <div>
             <label>Nombre Completo:</label>
-            <input type="text" name="Nombre_Docente" required>
+            <input type="text" name="Nombre_Completo_P" required>
         </div>
 
         <div>
             <label for="Correo">Correo:</label>
             <input type="email" id="Correo" name="Correo" required>
         </div>
-
+        
         <div>
             <label for="Contrasenia">Contraseña:</label>
             <input type="password" id="Contrasenia" name="Contrasenia" required>
         </div>
 
         <div>
-            <label for="perfil-select-add">Perfil:</label>
-            <select id="perfil-select-add" name="ID_Perfil" class="perfil-select" required>
+            <label>Perfil:</label>
+            <select id="perfil-vista-profesor" name="ID_Perfil" required>
+                <option value="" disabled selected>Seleccione un perfil</option>
+                <!-- Los perfiles se cargarán aquí -->
             </select>
         </div>
 
         <button type="submit" class="btn">Agregar</button>
     </form>
-
-    <!-- <h1>Sin Funcionalidad</h1> -->
-
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const areaSelect = document.getElementById('area-vista-profesor');
+        const departamentoSelect = document.getElementById('departamento-vista-profesor');
+        const perfilSelect = document.getElementById('perfil-vista-profesor');
+
+        // Cargar áreas de conocimiento
+        fetch('/area-conocimiento')
+            .then(response => response.json())
+            .then(data => {
+                if (data && data.length > 0) {
+                    data.forEach(area => {
+                        const option = document.createElement('option');
+                        option.value = area.ID_Area;
+                        option.textContent = area.Nombre;
+                        areaSelect.appendChild(option);
+                    });
+                }
+            })
+            .catch(error => console.error("Error al cargar áreas de conocimiento:", error));
+
+        // Cargar departamentos según el área seleccionada
+        areaSelect.addEventListener('change', function () {
+            const areaId = areaSelect.value;
+
+            // Limpiar opciones previas y agregar placeholder
+            departamentoSelect.innerHTML = '<option value="" disabled selected>Seleccione un departamento</option>';
+
+            fetch(`/departamentos?idArea=${areaId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.length > 0) {
+                        data.forEach(departamento => {
+                            const option = document.createElement('option');
+                            option.value = departamento.ID_Departamento;
+                            option.textContent = departamento.Nombre;
+                            departamentoSelect.appendChild(option);
+                        });
+                    } else {
+                        // Si no hay departamentos, mostrar mensaje
+                        const option = document.createElement('option');
+                        option.value = "";
+                        option.disabled = true;
+                        option.selected = true;
+                        option.textContent = "No hay departamentos disponibles";
+                        departamentoSelect.appendChild(option);
+                    }
+                })
+                .catch(error => console.error("Error al cargar departamentos:", error));
+        });
+
+        // Cargar perfiles
+        fetch('/perfil')
+            .then(response => response.json())
+            .then(data => {
+                if (data && data.length > 0) {
+                    data.forEach(perfil => {
+                        const option = document.createElement('option');
+                        option.value = perfil.ID_Perfil;
+                        option.textContent = perfil.Nombre;
+                        perfilSelect.appendChild(option);
+                    });
+                }
+            })
+            .catch(error => console.error("Error al cargar perfiles:", error));
+
+    });
+</script>
+
