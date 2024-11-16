@@ -1,7 +1,6 @@
 <!-- equipodetalle.blade.php -->
 
 @vite(['resources/css/Vista_Principal/equipodetalle.css']) <!-- Integracion de archivo de estilo css-->
-@vite(['resources/js/tables/equipodetalle.js'])<!-- Integracion de la logica JS -->
 
 <label>Detalles de Equipos</label><br>
 

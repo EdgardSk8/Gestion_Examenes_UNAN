@@ -58,11 +58,11 @@ class EventoController extends Controller
                 'hora_fin' => $equipo->Hora_Fin ? $equipo->Hora_Fin : 'Sin asignar hora final',
                 'aula' => $equipo->aula ? $equipo->aula->Nombre_Aula : 'Aula no asignada',
                 'tipo_examen' => $equipo->tipoExamen ? $equipo->tipoExamen->Nombre : 'Sin asignar tipo de examen',
-                'tutor' => $equipo->tutor ? $equipo->tutor->Nombre_Completo : 'Sin asignar Tutor',
+                'tutor' => $equipo->tutor ? $equipo->tutor->Nombre_Completo_P : 'Sin asignar Tutor',
                 'calificacion' => $equipo->Calificacion ? $equipo->Calificacion : 'Sin Calificar',
-                'juez1' => $equipo->juez1 ? $equipo->juez1->Nombre_Completo : 'Sin asignar Juez',
-                'juez2' => $equipo->juez2 ? $equipo->juez2->Nombre_Completo : 'Sin asignar Juez',
-                'juez3' => $equipo->juez3 ? $equipo->juez3->Nombre_Completo : 'Sin asignar Juez',
+                'juez1' => $equipo->juez1 ? $equipo->juez1->Nombre_Completo_P : 'Sin asignar Juez',
+                'juez2' => $equipo->juez2 ? $equipo->juez2->Nombre_Completo_P : 'Sin asignar Juez',
+                'juez3' => $equipo->juez3 ? $equipo->juez3->Nombre_Completo_P : 'Sin asignar Juez',
                 'carrera' => $equipo->carrera ? $equipo->carrera->Nombre: 'Sin asignar Tutor',
             ]);
         }
