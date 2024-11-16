@@ -109,7 +109,7 @@ document.addEventListener('DOMContentLoaded', function () {
         },
         eventDrop: function (info) { // Evento cuando se arrastra un evento a una nueva posición
             console.log('Evento movido:', info.event); // Muestra el evento que ha sido movido
-
+            
             const newStartDate = info.event.start.toISOString(); // Obtener la nueva fecha de inicio del evento
             const newEndDate = info.event.end ? info.event.end.toISOString() : null; // Obtener la nueva fecha de fin del evento
 
@@ -216,9 +216,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.log(`Eliminando evento con ID: ${eventId}`);
     
                 calendar.getEventById(eventId)?.remove(); // Elimina el evento del calendario
-    
-                
                 alert('Evento eliminado correctamente');// Muestra un mensaje de éxito al usuario (Opcional)
+                location.reload(); //recargar a pagina al eliminar un evento
             })
             .catch(error => {
                 console.error('Error:', error); // Manejo de errores

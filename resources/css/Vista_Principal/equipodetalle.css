@@ -4,7 +4,7 @@
     border: 1px solid #000; /* Bordes del contenedor */
     background-color: #d9dfdf; /* Color de fondo */
     overflow-y: auto; /* Habilita el scroll cuando los equipos exceden el espacio disponible */
-    height: 570px; /* Ajusta la altura para ocupar el resto del espacio dentro de equipos-list */
+    height: 550px; /* Ajusta la altura para ocupar el resto del espacio dentro de equipos-list */
     box-sizing: border-box; /* Asegura que el padding y los bordes se incluyan en el tamaño */
 }
 
@@ -16,11 +16,10 @@
 .equipos-table th, .equipos-table td {
     padding: 10px;
     border: 1px solid #ddd;
-    text-align: left;
-    font-size: 10px;
+    font-size: 12px;
 }
 
-.equipos-table th {
+.equipos-table th { 
     background-color: #3d3d3d;
     color: #fff;
 }

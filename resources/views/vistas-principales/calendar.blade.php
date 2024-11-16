@@ -23,17 +23,16 @@
     @vite(['resources/js/fullcalendar.js']) <!-- js del fullcalendar -->
     @vite(['resources/js/fechahora.js']) <!-- logica de fecha y hora con Flatpickr -->
 
-    @vite(['resources/js/tables/area_conocimiento.js']) <!-- archivo js personalizado -->
-    @vite(['resources/js/tables/departamento.js']) <!-- archivo js personalizado -->
-    @vite(['resources/js/tables/carreras.js']) <!-- archivo js personalizado -->
-    @vite(['resources/js/tables/profesor.js']) <!-- archivo js personalizado -->
-    @vite(['resources/js/tables/estudiante.js']) <!-- archivo js personalizado -->
-    @vite(['resources/js/tables/edificio.js']) <!-- archivo js personalizado -->
-    @vite(['resources/js/tables/aula.js']) <!-- archivo js personalizado -->
-    @vite(['resources/js/tables/tipoexamen.js']) <!-- archivo js personalizado -->
+    @vite(['resources/js/mostrar-datos/area_conocimiento.js']) <!-- archivo js personalizado -->
+    @vite(['resources/js/mostrar-datos/departamento.js']) <!-- archivo js personalizado -->
+    @vite(['resources/js/mostrar-datos/carreras.js']) <!-- archivo js personalizado -->
+    @vite(['resources/js/mostrar-datos/profesor.js']) <!-- archivo js personalizado -->
+    @vite(['resources/js/mostrar-datos/estudiante.js']) <!-- archivo js personalizado -->
+    @vite(['resources/js/mostrar-datos/edificio.js']) <!-- archivo js personalizado -->
+    @vite(['resources/js/mostrar-datos/aula.js']) <!-- archivo js personalizado -->
+    @vite(['resources/js/mostrar-datos/tipoexamen.js']) <!-- archivo js personalizado -->
     
 
-    @vite(['resources/js/agregar/agregarequipo.js']) <!-- archivo js personalizado -->
 
 
     <!-- Script de la libreria Flatpickr -->

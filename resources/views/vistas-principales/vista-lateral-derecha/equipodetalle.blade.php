@@ -4,7 +4,6 @@
 
 <label>Detalles de Equipos</label><br>
 
-
 <div style="display: flex; gap: 10px; width: 100%;" >
     <button id="eliminar-evento" data-event-id="">Eliminar Evento</button> <!-- Botón para eliminar el evento -->
     <button>Editar</button>
@@ -16,6 +15,7 @@
     <div style="display: flex; justify-content: center; align-items: center; height: 100%;" id="vista-inicio">
         <p style="text-align: center;">Presione un evento para mostrar su información</p>
     </div>
+    
 
     <table class="equipos-table" style="display: none"> <!-- Tabla de detalles del evento en Calendario -->
 
