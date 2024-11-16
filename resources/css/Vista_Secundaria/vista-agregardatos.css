@@ -1,0 +1,9 @@
+.contenedor-agregar-datos{
+    padding: 20px;
+  margin: 10px;
+  background-color: rgb(207, 211, 245);
+  border-radius: 8px;
+  height: calc(100% - 20px); /* Ocupa el 100% de la altura del contenedor padre */
+  box-sizing: border-box; /* Incluye el borde y el padding en el cálculo del tamaño */
+  overflow-y: auto; /* Solo activa el scroll vertical si es necesario */
+}

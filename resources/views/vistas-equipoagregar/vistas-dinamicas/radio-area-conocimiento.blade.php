@@ -1,6 +1,6 @@
 <!-- resources/views/vistas-equipoagregar/agregardatos/radio-area-conocimiento.blade.php -->
 
-<div class="agregar-area">
+<div class="contenedor-agregar-datos">
 
     <h2 style="text-align: center">Agregar Área de Conocimiento</h2>
 
