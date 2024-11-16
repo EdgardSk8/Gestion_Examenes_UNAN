@@ -1,9 +1,18 @@
 .contenedor-agregar-datos{
-    padding: 20px;
+  padding: 20px;
   margin: 10px;
   background-color: rgb(207, 211, 245);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   border-radius: 8px;
   height: calc(100% - 20px); /* Ocupa el 100% de la altura del contenedor padre */
   box-sizing: border-box; /* Incluye el borde y el padding en el cálculo del tamaño */
   overflow-y: auto; /* Solo activa el scroll vertical si es necesario */
+}
+
+.tabla-mostrar-datos{
+  padding: 10px;
+  border-radius: 8px;
+  margin-top: 10px;
+  background-color: rgb(207, 211, 245);
+  border: 2px solid rgb(134, 134, 134);
 }
