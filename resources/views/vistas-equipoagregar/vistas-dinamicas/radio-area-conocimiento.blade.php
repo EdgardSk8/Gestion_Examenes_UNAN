@@ -13,9 +13,10 @@
         <button type="submit" class="btn">Agregar</button>
     </form>
 
-    
-
     @include('vistas-equipoagregar.tablas.tabla-area-conocimiento')
     
-
 </div>
+
+<style>
+    
+</style>

@@ -39,7 +39,9 @@
     <!-- Script de la libreria Flatpickr -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+
     <!-- Script de la libreria Flatpickr -->
 
     <!-- Importaciones de archivos css y javascript -->
@@ -64,7 +66,7 @@
     <div id='calendar-container'> <!-- Obtenido de fullcalendar.css -->
 
         <div id="vista-agregar" class="vista" style="display: none" >
-            @include('cuadro-equipos.equipoagregar') <!-- /views/cuadro-equipos/equipodetalle.blade.php -->
+            @include('vistas-principales.vista-lateral-derecha.equipoagregar') <!-- /views/cuadro-equipos/equipodetalle.blade.php -->
         </div>
         
         <div id='calendar' class="vista-principal"></div>
@@ -80,11 +82,11 @@
             <!-- Contenedores para las diferentes vistas -->
 
             <div id="vista-equipos" class="vista" style="display: none">
-                @include('cuadro-equipos.equipo')
+                @include('vistas-principales.vista-lateral-derecha.equipo')
             </div>
 
             <div id="vista-detalles" class="vista" > <!-- mover el style al div que desea mostrar al cargar la pagina -->
-                 @include('cuadro-equipos.equipodetalle') <!-- /views/cuadro-equipos/equipodetalle.blade.php -->
+                 @include('vistas-principales.vista-lateral-derecha.equipodetalle') <!-- /views/cuadro-equipos/equipodetalle.blade.php -->
             </div>
 
             <div id="login" class="vista" style="margin-top: 10px; display: none" > 

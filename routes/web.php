@@ -30,8 +30,8 @@ use App\Http\Controllers\TipoExamenController;
 |
 */
 
-Route::get('/', function () { return view('calendar'); }); //Vista Principal
-Route::get('/VistaAgregarDatos', function () { return view('VistaAgregarDatos'); })->name('VistaAgregarDatos');
+Route::get('/', function () { return view('vistas-principales/calendar'); }); //Vista Principal
+Route::get('/VistaAgregarDatos', function () { return view('vistas-principales/VistaAgregarDatos'); })->name('VistaAgregarDatos');
 
 Route::get('/events', action: [EventoController::class, 'MostrarEquiposEnCalendario']); //Muestra los equipos en el FullCalendar
 Route::get('/events/{id}', [EventoController::class, 'MostrarDetallesPorId']); //Muestra los detalles de cada Evento
@@ -78,7 +78,7 @@ Route::post('/equipo/crear', [EquipoController::class, 'CrearNuevoEquipo'])->nam
 Route::delete('/equipos/{id}', [EquipoController::class, 'EliminarEquipo']);
 
 
-// Rutas para cargar vistas dinámicamente en 'agregar nuevos datos'. Logica en /cuadro-equipos/equipoagregar.blade.php
+// Rutas para cargar vistas dinámicamente en 'agregar nuevos datos'. Logica en /cuadro-equipos/equipoagregar.blade.php NO SIRVE
 Route::get('/vista-area-conocimiento', function() {return view('vistas-equipoagregar.agregardatos.radio-area-conocimiento');});
 Route::get('/vista-departamento', function() {return view('vistas-equipoagregar.agregardatos.radio-departamento');});
 Route::get('/vista-carrera', function() {return view('vistas-equipoagregar.agregardatos.radio-carrera');});

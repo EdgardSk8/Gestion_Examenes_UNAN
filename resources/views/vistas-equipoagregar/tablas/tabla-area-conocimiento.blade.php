@@ -1,5 +1,3 @@
-<h4 style="text-align: center">Lista de Áreas de Conocimiento</h4>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -14,6 +12,7 @@
             border-collapse: collapse;
             margin: 20px 0;
             font-family: 'Arial', sans-serif;
+            border: 2px solid black;
         }
 
         /* Estilo de las celdas de la tabla */
@@ -81,7 +80,7 @@
 </head>
 <body>
 
-    <div class="table-container">
+    <div class="table-container" style=" border: 2px solid black;" >
         <h1>Áreas de Conocimiento</h1>
 
         <!-- Tabla para mostrar los datos -->
