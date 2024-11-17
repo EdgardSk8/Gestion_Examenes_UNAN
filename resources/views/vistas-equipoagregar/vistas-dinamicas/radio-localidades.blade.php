@@ -1,7 +1,7 @@
 <!-- resources/views/vistas-equipoagregar/agregardatos/radio-localidades.blade.php -->
 
 
-<div class="agregar-localidades">
+<div class="contenedor-agregar-datos">
 
     <h2 style="text-align: center">Agregar Localidad</h2>
 
@@ -17,5 +17,7 @@
         <button type="submit" class="btn">Agregar</button>
 
     </form>
+
+    
 
 </div>

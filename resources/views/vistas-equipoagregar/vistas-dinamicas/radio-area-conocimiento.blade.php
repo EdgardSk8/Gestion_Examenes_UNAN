@@ -13,9 +13,6 @@
         <button type="submit" class="btn">Agregar</button>
     </form>
     
-</head>
-<body>
-
     <div class="tabla-mostrar-datos">
         <h3 style="text-align: center">Áreas de Conocimiento</h3>
 
@@ -35,7 +32,7 @@
 
     <script>
         // Función para cargar los datos de la API
-        function cargarDatos() {
+        function cargar_areasdeconocimiento() {
             $.ajax({
                 url: '/area-conocimiento', // La ruta de tu API Laravel
                 method: 'GET',
@@ -72,13 +69,8 @@
         }
 
         // Cargar los datos cuando la página cargue
-        window.onload = cargarDatos;
+        window.onload = cargar_areasdeconocimiento;
     </script>
 
-</body>
     
 </div>
-
-<style>
-    
-</style>
