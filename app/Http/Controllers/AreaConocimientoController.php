@@ -68,5 +68,54 @@ class AreaConocimientoController extends Controller
         return response()->json(['message' => 'Área eliminada correctamente'], 200);
     }
 
+    // Método para mostrar el área seleccionada para editar (AJAX)
+    public function mostrarAreaParaEditarAJAX($ID_Area)
+    {
+        // Buscar el área por ID_Area
+        $area = AreaConocimiento::find($ID_Area);
+        
+        // Verificar si el área existe
+        if ($area) {
+            return response()->json([
+                'success' => true,
+                'area' => $area
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Área no encontrada.'
+            ]);
+        }
+    }
+
+    // Método para actualizar el área de conocimiento (AJAX)
+    public function actualizarAreaConocimientoAJAX(Request $request, $ID_Area)
+    {
+        // Validar los datos recibidos
+        $request->validate([
+            'Nombre' => 'required|string|max:255',  // Asegúrate de que el nombre no esté vacío
+        ]);
+        
+        // Buscar el área por ID_Area
+        $area = AreaConocimiento::find($ID_Area);
+        
+        // Verificar si el área existe
+        if ($area) {
+            // Actualizar el nombre del área
+            $area->Nombre = $request->input('Nombre');
+            $area->save(); // Guardar los cambios
+            
+            return response()->json([
+                'success' => true,
+                'message' => 'Área actualizada correctamente.'
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Área no encontrada.'
+            ]);
+        }
+    }
+
 
 }

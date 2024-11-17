@@ -79,11 +79,11 @@ Route::delete('/equipos/{id}', [EquipoController::class, 'EliminarEquipo']);
 
 /*          ----- EndPoints de la vista Administrador con AJAX -----          */
 
-Route::post('/area-conocimiento/agregar/ajax', [AreaConocimientoController::class, 'AgregarAreaConocimientoAJAX'])
-    ->name('area-conocimiento.agregar.ajax');
+Route::post('/area-conocimiento/agregar/ajax', [AreaConocimientoController::class, 'AgregarAreaConocimientoAJAX'])->name('area-conocimiento.agregar.ajax');
+Route::delete('/area-conocimiento/eliminar/{id}', [AreaConocimientoController::class, 'EliminarAreaConocimientoAJAX'])->name('area-conocimiento.eliminar');
+Route::get('/area-conocimiento/editar/{ID_Area}', [AreaConocimientoController::class, 'mostrarAreaParaEditarAJAX']);
+Route::put('/area-conocimiento/actualizar/{ID_Area}', [AreaConocimientoController::class, 'actualizarAreaConocimientoAJAX']);
 
-Route::delete('/area-conocimiento/eliminar/{id}', [AreaConocimientoController::class, 'EliminarAreaConocimientoAJAX'])
-    ->name('area-conocimiento.eliminar');
 
 
 
