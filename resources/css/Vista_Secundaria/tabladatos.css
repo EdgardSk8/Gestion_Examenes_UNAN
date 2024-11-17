@@ -1,0 +1,65 @@
+/* Estilos globales para todas las tablas que usan DataTables */
+table.dataTable {
+    width: 100%; /* Hacer que todas las tablas DataTables ocupen todo el ancho disponible */
+    border-collapse: collapse; /* Colapsar los bordes de las celdas */
+    font-family: 'Arial', sans-serif; /* Cambiar la fuente */
+    background-color: #f9f9f9; /* Fondo claro para las tablas */
+    border: 1px solid black;
+}
+
+/* Estilos para los encabezados de la tabla */
+table.dataTable th {
+    background-color: #4CAF50; /* Fondo verde para los encabezados */
+    color: white; /* Color blanco para el texto */
+    text-align: center; /* Centrar el texto */
+    padding: 12px 15px; /* Relleno alrededor del texto */
+    font-size: 15px; /* Tamaño de fuente */
+}
+
+/* Estilos para las filas de la tabla */
+table.dataTable td {
+    text-align: center; /* Centrar el texto de las celdas */
+    padding: 10px; /* Relleno dentro de las celdas */
+    border: 1px solid #ddd; /* Bordes suaves */
+    font-size: 14px; /* Tamaño de fuente */
+}
+
+/* Estilos para las filas alternadas */
+table.dataTable tr:nth-child(even) {
+    background-color: #f2f2f2; /* Fondo gris claro para filas pares */
+}
+
+/* Estilos para las filas al pasar el mouse */
+table.dataTable tr:hover {
+    background-color: #ddd; /* Fondo gris cuando el mouse pasa por encima */
+}
+
+/* Estilos para los botones en las celdas de acción */
+table.dataTable .btn-eliminar, table.dataTable .btn-editar {
+    padding: 6px 10px;
+    font-size: 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Estilo para el botón de eliminar */
+table.dataTable .btn-eliminar {
+    background-color: rgb(250, 14, 14);
+    color: white;
+    border: none;
+}
+
+table.dataTable .btn-eliminar:hover {
+    background-color: darkred;
+}
+
+/* Estilo para el botón de editar */
+table.dataTable .btn-editar {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+}
+
+table.dataTable .btn-editar:hover {
+    background-color: #45a049;
+}

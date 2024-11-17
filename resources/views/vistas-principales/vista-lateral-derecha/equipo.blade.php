@@ -32,7 +32,7 @@
 <p>6- Agregar un boton de editar equipo</p>
 <p>8- Creacion de Login </p>
 <p>9- Usar los Perfiles</p>
-
+<p>Poner en idioma espaniol la tabla JQuery</p>
 <p>validaciones para evitar choques entre horas y aulas</p>
 <p>Login para que el profesor al entrar pueda entrar a su departamento automanticamente</p>
 

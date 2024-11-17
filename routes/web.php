@@ -77,6 +77,15 @@ Route::post('/equipo/crear', [EquipoController::class, 'CrearNuevoEquipo'])->nam
 
 Route::delete('/equipos/{id}', [EquipoController::class, 'EliminarEquipo']);
 
+/*          ----- EndPoints de la vista Administrador con AJAX -----          */
+
+Route::post('/area-conocimiento/agregar/ajax', [AreaConocimientoController::class, 'AgregarAreaConocimientoAJAX'])
+    ->name('area-conocimiento.agregar.ajax');
+
+Route::delete('/area-conocimiento/eliminar/{id}', [AreaConocimientoController::class, 'EliminarAreaConocimientoAJAX'])
+    ->name('area-conocimiento.eliminar');
+
+
 
 // Rutas para cargar vistas dinámicamente en 'agregar nuevos datos'. Logica en /cuadro-equipos/equipoagregar.blade.php NO SIRVE
 Route::get('/vista-area-conocimiento', function() {return view('vistas-equipoagregar.agregardatos.radio-area-conocimiento');});

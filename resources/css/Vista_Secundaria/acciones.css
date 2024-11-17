@@ -1,0 +1,36 @@
+/* Estilos para centrar los botones */
+td {
+    text-align: center;
+}
+
+.btn-eliminar, .btn-editar {
+    display: inline-block;
+    margin: 0 5px;  /* Espaciado entre los botones */
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Estilos para el botón de eliminar */
+.btn-eliminar {
+    background-color: rgb(250, 14, 14);
+    color: white;
+    border: none;
+}
+
+.btn-eliminar:hover {
+    background-color: darkred;
+}
+
+/* Estilos para el botón de editar */
+.btn-editar {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+}
+
+.btn-editar:hover {
+    background-color: #45a049;
+}
