@@ -1,3 +1,5 @@
+<!-- resources/views/vistas-equipoagregar/vistas-dinamicas/radio-localidades.blade.php -->
+
 <div class="contenedor-agregar-datos"> <!-- clase obligatoria del contenedor -->
 
     <h2 style="text-align: center">Agregar Localidad</h2>
