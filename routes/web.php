@@ -94,6 +94,14 @@ Route::get('/tipoexamen/editar/ajax/{id}', [TipoExamenController::class, 'Editar
 Route::delete('/tipoexamen/eliminar/{id}', [TipoExamenController::class, 'EliminarTipoExamenAJAX'])->name('tipoexamen.eliminar.ajax');
 Route::put('/tipoexamen/actualizar/{id}', [TipoExamenController::class, 'ActualizarTipoExamenAJAX'])->name('tipoexamen.actualizar.ajax');
 
+Route::post('/rol/agregar/ajax', [RolController::class, 'AgregarRolAJAX'])->name('rol.agregar.ajax');
+Route::get('/rol/obtener/ajax', [RolController::class, 'ObtenerRolAJAX'])->name('rol.obtener.ajax'); // Obtener todos los roles
+Route::get('/rol/editar/ajax/{id}', [RolController::class, 'EditarRolAJAX'])->name('rol.editar.ajax'); // Editar un rol por su ID
+Route::put('/rol/actualizar/ajax/{id}', [RolController::class, 'ActualizarRolAJAX'])->name('rol.actualizar.ajax'); // Actualizar un rol por su ID
+Route::delete('/rol/eliminar/ajax/{id}', [RolController::class, 'EliminarRolAJAX'])->name('rol.eliminar.ajax'); // Eliminar un rol por su ID
+
+
+
 // Rutas para cargar vistas dinámicamente en 'agregar nuevos datos'. Logica en /cuadro-equipos/equipoagregar.blade.php NO SIRVE
 Route::get('/vista-area-conocimiento', function() {return view('vistas-equipoagregar.agregardatos.radio-area-conocimiento');});
 Route::get('/vista-departamento', function() {return view('vistas-equipoagregar.agregardatos.radio-departamento');});
