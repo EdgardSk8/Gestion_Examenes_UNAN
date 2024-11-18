@@ -32,52 +32,44 @@
 </div>
 
 <script>
-    // Esta función está definida fuera del bloque DOMContentLoaded para ser accesible globalmente
-    function cargarLocalidades() {
-        $.ajax({
-            url: '{{ route('localidad.obtener.ajax') }}', // Ruta para obtener las localidades
-            method: 'GET',
-            success: function (data) {
-                const table = $('#localidadTable').DataTable();
-                table.clear(); // Limpiar la tabla
-
-                // Recorrer cada localidad y agregarla a la tabla
-                data.forEach(localidad => {
-                    table.row.add([
-                        localidad.ID_Localidad,
-                        localidad.Nombre,
-                        `
-                            <button class="btn-editar" data-id="${localidad.ID_Localidad}" onclick="editarLocalidad(this)">
-                                ✏️ Editar
-                            </button>
-                            <button class="btn-eliminar" data-id="${localidad.ID_Localidad}">
-                                ❌ Eliminar
-                            </button>
-                            <button class="btn-aceptar" data-id="${localidad.ID_Localidad}" style="display: none;" onclick="actualizarLocalidad(${localidad.ID_Localidad})">
-                                ✔️ Aceptar
-                            </button>
-                        `
-                    ]).draw(false);
-                });
-            },
-            error: function (error) {
-                console.error('Error al cargar las localidades:', error);
-                alert('Ocurrió un error al cargar las localidades. Intenta nuevamente.');
-            }
-        });
-    }
-
     document.addEventListener("DOMContentLoaded", function () {
-        cargarLocalidades(); // Llamamos a la función cargarLocalidades aquí
+        // Función para cargar las localidades
+        function cargarLocalidades() {
+            $.ajax({
+                url: '{{ route('localidad.obtener.ajax') }}', // Ruta para obtener las localidades
+                method: 'GET',
+                success: function (data) {
+                    const table = $('#localidadTable').DataTable();
+                    table.clear(); // Limpiar la tabla
 
-        // Delegar el evento de eliminación a los botones de eliminar
-        $('#localidadTable').on('click', '.btn-eliminar', function () {
-            const id = $(this).data('id');
-            eliminarLocalidad(id);
-        });
+                    // Recorrer cada localidad y agregarla a la tabla
+                    data.forEach(localidad => {
+                        table.row.add([
+                            localidad.ID_Localidad,
+                            localidad.Nombre,
+                            `
+                                <button class="btn-editar" data-id="${localidad.ID_Localidad}" onclick="editarLocalidad(this)">
+                                    ✏️ Editar
+                                </button>
+                                <button class="btn-eliminar" data-id="${localidad.ID_Localidad}" onclick="eliminarLocalidad(${localidad.ID_Localidad})">
+                                    ❌ Eliminar
+                                </button>
+                                <button class="btn-aceptar" data-id="${localidad.ID_Localidad}" style="display: none;" onclick="actualizarLocalidad(${localidad.ID_Localidad})">
+                                    ✔️ Aceptar
+                                </button>
+                            `
+                        ]).draw(false);
+                    });
+                },
+                error: function (error) {
+                    console.error('Error al cargar las localidades:', error);
+                    alert('Ocurrió un error al cargar las localidades. Intenta nuevamente.');
+                }
+            });
+        }
 
         // Función para eliminar una localidad
-        function eliminarLocalidad(id) {
+        window.eliminarLocalidad = function(id) {
             if (!confirm('¿Estás seguro de que deseas eliminar esta localidad?')) return;
 
             $.ajax({
@@ -127,65 +119,69 @@
                 }
             });
         });
-    });
 
-    // Función para editar una localidad
-    function editarLocalidad(button) {
-        const row = button.closest('tr'); // Seleccionar la fila correspondiente
-        const ID_Localidad = button.getAttribute('data-id'); // Obtener ID desde el botón de edición
-        const nombreCell = row.querySelector('td:nth-child(2)');
-        const nombre = nombreCell.textContent;
+        // Llamar la función cargarLocalidades al cargar la página
+        cargarLocalidades();
 
-        nombreCell.innerHTML = `<input type="text" value="${nombre}" id="input-nombre-${ID_Localidad}" />`;
+        // Función para editar una localidad
+        window.editarLocalidad = function(button) {
+            const row = button.closest('tr'); // Seleccionar la fila correspondiente
+            const ID_Localidad = button.getAttribute('data-id'); // Obtener ID desde el botón de edición
+            const nombreCell = row.querySelector('td:nth-child(2)');
+            const nombre = nombreCell.textContent;
 
-        // Ocultar los botones de editar y eliminar, y mostrar el botón de aceptar
-        row.querySelector('.btn-editar').style.display = 'none';
-        row.querySelector('.btn-eliminar').style.display = 'none';
-        row.querySelector('.btn-aceptar').style.display = 'inline-block';
+            nombreCell.innerHTML = `<input type="text" value="${nombre}" id="input-nombre-${ID_Localidad}" />`;
 
-        document.querySelector(`#input-nombre-${ID_Localidad}`).focus();
+            // Ocultar los botones de editar y eliminar, y mostrar el botón de aceptar
+            row.querySelector('.btn-editar').style.display = 'none';
+            row.querySelector('.btn-eliminar').style.display = 'none';
+            row.querySelector('.btn-aceptar').style.display = 'inline-block';
 
-        document.querySelector(`#input-nombre-${ID_Localidad}`).addEventListener('keydown', function(event) {
-            if (event.key === 'Enter') {
-                actualizarLocalidad(ID_Localidad); // Llamar a la función de actualizar al presionar Enter
-            }
-        });
-    }
+            document.querySelector(`#input-nombre-${ID_Localidad}`).focus();
 
-    // Función para actualizar una localidad
-    function actualizarLocalidad(ID_Localidad) {
-        const inputNombre = document.querySelector(`#input-nombre-${ID_Localidad}`);
-
-        if (inputNombre) {
-            const nuevoNombre = inputNombre.value;
-
-            if (!nuevoNombre.trim()) {
-                alert('El nombre no puede estar vacío.');
-                return;
-            }
-
-            $.ajax({
-                url: `/localidad/actualizar/${ID_Localidad}`, // Ruta para actualizar localidad
-                method: 'PUT',
-                data: {
-                    _token: document.querySelector('input[name="_token"]').value, // CSRF token
-                    Nombre: nuevoNombre
-                },
-                success: function (response) {
-                    if (response.success) {
-                        console.log('¡Localidad actualizada correctamente!');
-                        cargarLocalidades(); // Recargar la tabla de localidades
-                    } else {
-                        alert(response.message || 'Ocurrió un error al actualizar la localidad.');
-                    }
-                },
-                error: function (error) {
-                    console.error('Error al actualizar la localidad:', error);
-                    alert('Ocurrió un error al actualizar. Intenta nuevamente.');
+            document.querySelector(`#input-nombre-${ID_Localidad}`).addEventListener('keydown', function(event) {
+                if (event.key === 'Enter') {
+                    actualizarLocalidad(ID_Localidad); // Llamar a la función de actualizar al presionar Enter
                 }
             });
-        } else {
-            alert("No se encontró el campo de nombre para la localidad.");
         }
-    }
+
+        // Función para actualizar una localidad
+        window.actualizarLocalidad = function(ID_Localidad) {
+            const inputNombre = document.querySelector(`#input-nombre-${ID_Localidad}`);
+
+            if (inputNombre) {
+                const nuevoNombre = inputNombre.value;
+
+                if (!nuevoNombre.trim()) {
+                    alert('El nombre no puede estar vacío.');
+                    return;
+                }
+
+                $.ajax({
+                    url: `/localidad/actualizar/${ID_Localidad}`, // Ruta para actualizar localidad
+                    method: 'PUT',
+                    data: {
+                        _token: document.querySelector('input[name="_token"]').value, // CSRF token
+                        Nombre: nuevoNombre
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            cargarLocalidades(); // Recargar la tabla de localidades
+                            console.log('¡Localidad actualizada correctamente!');
+                        } else {
+                            alert(response.message || 'Ocurrió un error al actualizar la localidad.');
+                        }
+                    },
+                    error: function (error) {
+                        console.error('Error al actualizar la localidad:', error);
+                        alert('Ocurrió un error al actualizar. Intenta nuevamente.');
+                    }
+                });
+            } else {
+                alert("No se encontró el campo de nombre para la localidad.");
+            }
+        }
+    });
 </script>
+
