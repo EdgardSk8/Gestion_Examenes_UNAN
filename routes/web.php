@@ -88,6 +88,11 @@ Route::get('/localidad/ajax', [LocalidadController::class, 'obtenerLocalidadAJAX
 Route::delete('/localidad/eliminar/{id}', [LocalidadController::class, 'EliminarLocalidadAJAX'])->name('localidad.eliminar.ajax');
 Route::put('/localidad/actualizar/{id}', [LocalidadController::class, 'ActualizarLocalidadAJAX'])->name('localidad.actualizar.ajax');
 
+Route::get('tipoexamen/obtener/ajax', [TipoExamenController::class, 'ObtenerTipoExamenAJAX'])->name('tipoexamen.obtener.ajax');
+Route::post('/tipoexamen/agregar/ajax', [TipoExamenController::class, 'AgregarTipoExamenAJAX'])->name('tipoexamen.agregar.ajax');
+Route::get('/tipoexamen/editar/ajax/{id}', [TipoExamenController::class, 'EditarTipoExamenAJAX'])->name('tipoexamen.editar.ajax');
+Route::delete('/tipoexamen/eliminar/{id}', [TipoExamenController::class, 'EliminarTipoExamenAJAX'])->name('tipoexamen.eliminar.ajax');
+Route::put('/tipoexamen/actualizar/{id}', [TipoExamenController::class, 'ActualizarTipoExamenAJAX'])->name('tipoexamen.actualizar.ajax');
 
 // Rutas para cargar vistas dinámicamente en 'agregar nuevos datos'. Logica en /cuadro-equipos/equipoagregar.blade.php NO SIRVE
 Route::get('/vista-area-conocimiento', function() {return view('vistas-equipoagregar.agregardatos.radio-area-conocimiento');});
