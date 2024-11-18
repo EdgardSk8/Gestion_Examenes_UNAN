@@ -1,3 +1,5 @@
+<!-- resources/views/vistas-equipoagregar/vistas-dinamicas/radio-tipoexamen.blade.php -->
+
 <div class="contenedor-agregar-datos"> <!-- clase obligatoria del contenedor -->
 
     <h2 style="text-align: center">Agregar Tipo de Examen</h2>
