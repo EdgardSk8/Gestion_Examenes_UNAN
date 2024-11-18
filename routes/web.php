@@ -100,6 +100,12 @@ Route::get('/rol/editar/ajax/{id}', [RolController::class, 'EditarRolAJAX'])->na
 Route::put('/rol/actualizar/ajax/{id}', [RolController::class, 'ActualizarRolAJAX'])->name('rol.actualizar.ajax'); // Actualizar un rol por su ID
 Route::delete('/rol/eliminar/ajax/{id}', [RolController::class, 'EliminarRolAJAX'])->name('rol.eliminar.ajax'); // Eliminar un rol por su ID
 
+Route::post('/perfil/agregar/ajax', [PerfilController::class, 'AgregarPerfilAJAX'])->name('perfil.agregar.ajax');
+Route::get('/perfil/obtener/ajax', [PerfilController::class, 'ObtenerPerfilAJAX'])->name('perfil.obtener.ajax');
+Route::get('/perfil/editar/ajax/{id}', [PerfilController::class, 'EditarPerfilAJAX'])->name('perfil.editar.ajax');
+Route::put('/perfil/actualizar/ajax/{id}', [PerfilController::class, 'ActualizarPerfilAJAX'])->name('perfil.actualizar.ajax');
+Route::delete('/perfil/eliminar/ajax/{id}', [PerfilController::class, 'EliminarPerfilAJAX'])->name('perfil.eliminar.ajax');
+
 
 
 // Rutas para cargar vistas dinámicamente en 'agregar nuevos datos'. Logica en /cuadro-equipos/equipoagregar.blade.php NO SIRVE

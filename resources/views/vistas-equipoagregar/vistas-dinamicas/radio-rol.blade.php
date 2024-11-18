@@ -1,23 +1,23 @@
 <!-- resources/views/vistas-equipoagregar/vistas-dinamicas/radio-rol.blade.php -->
 
-<div class="contenedor-agregar-datos">
+<div class="contenedor-agregar-datos"> <!-- clase obligatoria del contenedor -->
 
-    <h2 style="text-align: center">Agregar Rol</h2>
+    <h2 style="text-align: center">Agregar Perfil</h2>
 
-    <!-- Formulario para agregar un nuevo rol -->
+    <!-- Formulario para agregar un nuevo perfil (rol) -->
     <form id="agregarRolForm" action="{{ route('rol.agregar.ajax') }}" method="POST">
         @csrf <!-- Token de protección contra CSRF -->
 
         <div>
-            <label>Nombre del Rol:</label>
-            <input type="text" id="Nombre" name="Nombre" required>
+            <label>Nombre del Perfil (Rol):</label>
+            <input type="text" id="NombreRol" name="Nombre" required>
         </div>
 
         <button type="submit" class="btn">Agregar</button>
     </form>
 
-    <!-- Tabla donde se mostrarán los roles -->
-    <h2 style="text-align: center; margin-top: 20px;">Lista de Roles</h2>
+    <!-- Tabla donde se mostrarán los perfiles (roles) -->
+    <h2 style="text-align: center; margin-top: 20px;">Lista de Perfiles</h2>
     <table id="rolTable" class="display">
         <thead>
             <tr>
@@ -49,7 +49,7 @@
                         table.row.add([
                             rol.ID_Rol,
                             rol.Nombre,
-                            `
+                            ` 
                                 <button class="btn-editar" data-id="${rol.ID_Rol}" onclick="editarRol(this)">
                                     ✏️ Editar
                                 </button>
@@ -95,7 +95,7 @@
         document.getElementById("agregarRolForm").addEventListener("submit", function (event) {
             event.preventDefault(); // Evitar el envío tradicional del formulario
 
-            const nombre = document.getElementById("Nombre").value;
+            const nombre = document.getElementById("NombreRol").value;
 
             // Validación previa antes de hacer la solicitud
             if (!nombre.trim()) {
@@ -113,7 +113,7 @@
                 success: function (response) {
                     alert('¡Rol agregado correctamente!');
                     cargarRoles(); // Recargar la tabla de roles
-                    document.getElementById("Nombre").value = ''; // Limpiar el campo de entrada
+                    document.getElementById("NombreRol").value = ''; // Limpiar el campo de entrada
                 },
                 error: function (error) {
                     console.error('Error al agregar el rol:', error);
@@ -132,6 +132,7 @@
             const nombreCell = row.querySelector('td:nth-child(2)');
             const nombre = nombreCell.textContent;
 
+            // Generar un id único para el input
             nombreCell.innerHTML = `<input type="text" value="${nombre}" id="input-nombre-${ID_Rol}" />`;
 
             // Ocultar los botones de editar y eliminar, y mostrar el botón de aceptar
