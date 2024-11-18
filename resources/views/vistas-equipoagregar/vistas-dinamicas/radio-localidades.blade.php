@@ -142,6 +142,14 @@
         row.querySelector('.btn-editar').style.display = 'none';
         row.querySelector('.btn-eliminar').style.display = 'none';
         row.querySelector('.btn-aceptar').style.display = 'inline-block';
+
+        document.querySelector(`#input-nombre-${ID_Localidad}`).focus();
+
+        document.querySelector(`#input-nombre-${ID_Localidad}`).addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                actualizarLocalidad(ID_Localidad); // Llamar a la función de actualizar al presionar Enter
+            }
+        });
     }
 
     // Función para actualizar una localidad
