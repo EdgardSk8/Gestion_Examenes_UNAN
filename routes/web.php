@@ -38,8 +38,6 @@ Route::get('/events/{id}', [EventoController::class, 'MostrarDetallesPorId']); /
 Route::put('/events/{id}', [EventoController::class, 'ActualizarEventoEnCalendario']); //Actualiza los cambios del evento hacia la BD
 
 
-
-
 /*          ----- Rutas que retornan datos -----          */
 
 Route::get('/area-conocimiento', [AreaConocimientoController::class, 'ObtenerAreaConocimiento'])->name('area-conocimiento.mostrar');
@@ -85,6 +83,10 @@ Route::get('/area-conocimiento/editar/{ID_Area}', [AreaConocimientoController::c
 Route::put('/area-conocimiento/actualizar/{ID_Area}', [AreaConocimientoController::class, 'actualizarAreaConocimientoAJAX']);
 
 
+Route::post('/localidad/agregar/ajax', [LocalidadController::class, 'AgregarLocalidadAJAX'])->name('localidad.agregar.ajax');
+Route::get('/localidad/ajax', [LocalidadController::class, 'obtenerLocalidadAJAX'])->name('localidad.obtener.ajax');
+Route::delete('/localidad/eliminar/{id}', [LocalidadController::class, 'EliminarLocalidadAJAX'])->name('localidad.eliminar.ajax');
+Route::put('/localidad/actualizar/{id}', [LocalidadController::class, 'ActualizarLocalidadAJAX'])->name('localidad.actualizar.ajax');
 
 
 // Rutas para cargar vistas dinámicamente en 'agregar nuevos datos'. Logica en /cuadro-equipos/equipoagregar.blade.php NO SIRVE
@@ -99,8 +101,6 @@ Route::get('/vista-aula', function() {return view('vistas-equipoagregar.agregard
 Route::get('/vista-tipo-examen', function() {return view('vistas-equipoagregar.agregardatos.radio-tipo-examen');});
 Route::get('/vista-rol', function() {return view('vistas-equipoagregar.agregardatos.radio-rol');});
 Route::get('/vista-perfil', function() {return view('vistas-equipoagregar.agregardatos.radio-perfil');});
-
-
 
 
 Route::get('/validar-carnet', [EstudianteController::class, 'validarCarnet']);
