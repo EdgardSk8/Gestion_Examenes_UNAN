@@ -16,21 +16,25 @@
         <button type="submit" class="btn">Agregar</button>
     </form>
 
-    <!-- Tabla donde se mostrarán los perfiles -->
-    <h2 style="text-align: center; margin-top: 20px;">Lista de Perfiles</h2>
-    <table id="perfilTable" class="display">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Aquí se cargarán dinámicamente los perfiles -->
-        </tbody>
-    </table>
+    <div class="tabla-mostrar-datos">
 
+        <h2 style="text-align: center; margin-top: 20px;">Lista de Perfiles</h2>
+
+        <table id="perfilTable" class="display">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <!-- Aquí se cargarán dinámicamente los perfiles -->
+            </tbody>
+        </table>
+    </div>
+    
 </div>
 
 <script>

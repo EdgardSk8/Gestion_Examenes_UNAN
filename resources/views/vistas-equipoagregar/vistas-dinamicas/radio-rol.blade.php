@@ -16,20 +16,25 @@
         <button type="submit" class="btn">Agregar</button>
     </form>
 
-    <!-- Tabla donde se mostrarán los perfiles (roles) -->
-    <h2 style="text-align: center; margin-top: 20px;">Lista de Perfiles</h2>
-    <table id="rolTable" class="display">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Aquí se cargarán dinámicamente los roles -->
-        </tbody>
-    </table>
+    <div class="tabla-mostrar-datos">
+        
+        <h2 style="text-align: center; margin-top: 20px;">Lista de Perfiles</h2>
+
+            <table id="rolTable" class="display">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <!-- Aquí se cargarán dinámicamente los roles -->
+                </tbody>
+            </table>
+    </div>
+    
 
 </div>
 
