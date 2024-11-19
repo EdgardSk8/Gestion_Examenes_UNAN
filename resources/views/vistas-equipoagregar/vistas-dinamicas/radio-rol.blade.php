@@ -7,7 +7,7 @@
     <h2 style="text-align: center">Agregar Rol</h2>
 
     <!-- Formulario para agregar un nuevo perfil (rol) -->
-    <form id="agregarRolForm" action="{{ route('rol.agregar.ajax') }}" method="POST">
+    <form id="agregarRolForm" method="POST">
         @csrf <!-- Token de protección contra CSRF -->
 
         <div>
