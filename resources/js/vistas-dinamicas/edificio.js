@@ -1,36 +1,62 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const edificioTableBody = document.querySelector('#edificioTable tbody'); // Cuerpo de la tabla donde se cargarán los edificios
+    const edificioTableBody = document.querySelector('#edificioTable tbody');
     const table = $('#edificioTable').DataTable();
     const areaSelect = document.querySelector('.area-vista-edificio');
     const form = document.querySelector('#agregarEdificioForm');
 
+    // Cargar las áreas de conocimiento al cargar la página
+    fetch('/area-conocimiento')
+        .then(response => response.json())
+        .then(data => {
+            if (data && data.length > 0) {
+                data.forEach(area => {
+                    let option = document.createElement('option');
+                    option.value = area.ID_Area;
+                    option.textContent = area.Nombre;
+                    areaSelect.appendChild(option);
+                });
+            } else {
+                let option = document.createElement('option');
+                option.textContent = 'No hay áreas disponibles';
+                option.disabled = true;
+                areaSelect.appendChild(option);
+            }
+        })
+        .catch(error => console.error('Error al cargar las áreas:', error));
+
     // Función para obtener todos los edificios desde el backend
     function cargarEdificios() {
-        fetch('/edificios/ajax') // Llamada al endpoint que devuelve todos los edificios
+        fetch('/edificios/ajax')
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    // Limpiar la tabla antes de agregar los nuevos datos
                     edificioTableBody.innerHTML = '';
 
-                    // Iterar sobre cada edificio y agregar una fila a la tabla
                     data.data.forEach(edificio => {
                         const row = document.createElement('tr');
+                        row.setAttribute('data-id', edificio.ID_Edificio);  // Añadir el data-id a la fila
                         row.innerHTML = `
                             <td>${edificio.ID_Edificio}</td>
-                            <td>${edificio.Nombre_Edificio}</td>
-                            <td>${edificio.area_conocimiento.Nombre}</td>
+                            <td class="nombre">${edificio.Nombre_Edificio}</td>
+                            <td class="area">${edificio.area_conocimiento.Nombre}</td>
                             <td>
-                                <button class="btn-editar" data-id="${edificio.ID_Edificio}">Editar</button>
-                                <button class="btn-eliminar" data-id="${edificio.ID_Edificio}">Eliminar</button>
+                                <button class="btn-editar" data-id="${edificio.ID_Edificio}">✏️Editar</button>
+                                <button class="btn-eliminar" data-id="${edificio.ID_Edificio}">❌Eliminar</button>
+                                <button class="btn-aceptar" data-id="${edificio.ID_Edificio}" style="display: none;">✔️ Aceptar</button>
                             </td>
                         `;
-                        // Agregar la fila a la tabla
                         edificioTableBody.appendChild(row);
 
-                        // Agregar el evento de eliminación al botón
                         row.querySelector('.btn-eliminar').addEventListener('click', function () {
                             eliminarEdificio(edificio.ID_Edificio);
+                        });
+
+                        row.querySelector('.btn-editar').addEventListener('click', function () {
+                            editarEdificio(edificio);
+                        });
+
+                        row.querySelector('.btn-aceptar').addEventListener('click', function () {
+                            guardarCambios(edificio.ID_Edificio);
                         });
                     });
                 } else {
@@ -48,14 +74,14 @@ document.addEventListener('DOMContentLoaded', function () {
             fetch(`/edificio/eliminar/ajax/${id}`, {
                 method: 'DELETE',
                 headers: {
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') // Asegúrate de que el token CSRF esté presente en el HTML
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                 }
             })
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
                     console.log('Edificio eliminado correctamente');
-                    cargarEdificios(); // Recargar la lista de edificios después de la eliminación
+                    cargarEdificios();
                 } else {
                     alert('Error al eliminar el edificio: ' + data.message);
                 }
@@ -66,40 +92,90 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // Función para cargar las áreas de conocimiento al cargar la página
-    function cargarAreas() {
-        fetch('/area-conocimiento') // Cambia la URL si es necesario
+    // Función para editar un edificio
+    function editarEdificio(edificio) {
+        const row = document.querySelector(`tr[data-id="${edificio.ID_Edificio}"]`);
+        const nombreCell = row.querySelector('.nombre');
+        const areaCell = row.querySelector('.area');
+    
+        // Reemplazar el nombre por un input y enfocar automáticamente
+        nombreCell.innerHTML = `<input type="text" class="input-nombre" value="${edificio.Nombre_Edificio}" />`;
+        const inputNombre = nombreCell.querySelector('.input-nombre');
+        inputNombre.focus(); // Enfocar automáticamente el input
+    
+        // Reemplazar el área por un selector con las áreas disponibles
+        fetch('/area-conocimiento')
             .then(response => response.json())
             .then(data => {
-                if (data && data.length > 0) {
-                    // Añadir las opciones al select de área
-                    data.forEach(area => {
-                        let option = document.createElement('option');
-                        option.value = area.ID_Area; // Asignar el ID de la área
-                        option.textContent = area.Nombre; // Mostrar el nombre de la área
-                        areaSelect.appendChild(option); // Agregar la opción al select
-                    });
-                } else {
-                    // Si no hay áreas disponibles
-                    let option = document.createElement('option');
-                    option.textContent = 'No hay áreas disponibles';
-                    option.disabled = true;
-                    areaSelect.appendChild(option);
-                }
+                const select = document.createElement('select');
+                data.forEach(area => {
+                    const option = document.createElement('option');
+                    option.value = area.ID_Area;
+                    option.textContent = area.Nombre;
+                    if (edificio.area_conocimiento.ID_Area === area.ID_Area) {
+                        option.selected = true;
+                    }
+                    select.appendChild(option);
+                });
+                areaCell.innerHTML = '';
+                areaCell.appendChild(select);
             })
-            .catch(error => console.error('Error al cargar las áreas:', error)); // Manejo de errores
+            .catch(error => console.error('Error al cargar las áreas:', error));
+    
+        // Mostrar el botón de guardar cambios y ocultar los botones de editar y eliminar
+        row.querySelector('.btn-editar').style.display = 'none';
+        row.querySelector('.btn-eliminar').style.display = 'none';
+        row.querySelector('.btn-aceptar').style.display = 'inline-block';
+    
+        // Detectar cuando se presione Enter dentro del input de nombre
+        inputNombre.addEventListener('keypress', function (event) {
+            if (event.key === 'Enter') {
+                guardarCambios(edificio.ID_Edificio); // Llamar a guardar cambios al presionar Enter
+            }
+        });
     }
 
-    // Manejar el envío del formulario con AJAX
+    // Función para guardar los cambios realizados en el edificio
+    function guardarCambios(id) {
+        const row = document.querySelector(`tr[data-id="${id}"]`);
+        const newNombre = row.querySelector('.input-nombre').value;
+        const newArea = row.querySelector('select').value;
+
+        fetch(`/edificio/actualizar/ajax/${id}`, {
+            method: 'PUT',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                Nombre_Edificio: newNombre,
+                ID_Area: newArea
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                console.log('Edificio actualizado correctamente');
+                cargarEdificios(); // Recargar la lista de edificios
+            } else {
+                alert('Error al actualizar el edificio: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.log('Ocurrió un error al actualizar el edificio:', error);
+        });
+    }
+
+    // Función para agregar un nuevo edificio
     form.addEventListener('submit', function (event) {
-        event.preventDefault(); // Prevenir el envío normal del formulario
+        event.preventDefault();
 
         const formData = new FormData(form);
 
         fetch(form.action, {
             method: 'POST',
             headers: {
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') // Agregar el token CSRF
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
             },
             body: formData
         })
@@ -107,9 +183,9 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(data => {
             if (data.success) {
                 console.log('Edificio agregado exitosamente', data.message);
-                cargarEdificios(); // Recargar la lista de edificios
+                cargarEdificios();
                 alert('Edificio agregado exitosamente');
-                form.reset(); // Limpiar el formulario
+                form.reset();
             } else {
                 console.log('Error al agregar el edificio', data.message);
             }
@@ -119,7 +195,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // Llamar a las funciones al cargar la página
+    // Llamar la función para cargar los edificios al cargar la página
     cargarEdificios();
-    cargarAreas();
 });

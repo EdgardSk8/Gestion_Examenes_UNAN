@@ -124,31 +124,38 @@ class EdificioController extends Controller
         }
     }
 
+
+    public function EditarEdificioAJAX($id)
+    {
+        $edificio = Edificio::find($id);
+
+        if (!$edificio) {
+            return response()->json(['success' => false, 'message' => 'Edificio no encontrado']);
+        }
+
+        // Devolver el edificio con su área de conocimiento
+        return response()->json(['success' => true, 'data' => $edificio]);
+    }
     // Actualizar un edificio existente
     public function ActualizarEdificioAJAX(Request $request, $id)
     {
-        // Validar los datos
-        $validatedData = $request->validate([
+        $edificio = Edificio::find($id);
+
+        if (!$edificio) {
+            return response()->json(['success' => false, 'message' => 'Edificio no encontrado']);
+        }
+
+        // Validar y actualizar los datos
+        $validated = $request->validate([
             'Nombre_Edificio' => 'required|string|max:255',
-            'ID_Area' => 'required|exists:area_conocimiento,ID_Area',
+            'ID_Area' => 'required|exists:area_conocimiento,ID_Area', // Asegúrate de que el ID del área sea válido
         ]);
 
-        try {
-            $edificio = Edificio::findOrFail($id);
+        $edificio->Nombre_Edificio = $validated['Nombre_Edificio'];
+        $edificio->ID_Area = $validated['ID_Area'];
+        $edificio->save();
 
-            $edificio->update($validatedData);
-
-            return response()->json([
-                'success' => true,
-                'message' => 'Edificio actualizado correctamente.',
-                'data' => $edificio
-            ]);
-        } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Ocurrió un error al actualizar el edificio: ' . $e->getMessage()
-            ]);
-        }
+        return response()->json(['success' => true, 'message' => 'Edificio actualizado correctamente']);
     }
 
     // Eliminar un edificio

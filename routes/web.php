@@ -87,6 +87,7 @@ Route::put('/area-conocimiento/actualizar/{ID_Area}', [AreaConocimientoControlle
 Route::get('/edificios/ajax', [EdificioController::class, 'ObtenerTodosEdificiosAJAX'])->name('edificio.obtener.ajax');
 Route::get('/edificio/obtener-por-area/ajax', [EdificioController::class, 'ObtenerEdificioPorAreaAJAX'])->name('edificio.obtener.area.ajax');
 Route::post('/edificio/agregar/ajax', [EdificioController::class, 'AgregarEdificioAJAX'])->name('edificio.agregar.ajax');
+Route::get('/edificio/editar/ajax/{id}', [EdificioController::class, 'EditarEdificioAJAX'])->name('edificio.editar.ajax');
 Route::put('/edificio/actualizar/ajax/{id}', [EdificioController::class, 'ActualizarEdificioAJAX'])->name('edificio.actualizar.ajax');
 Route::delete('/edificio/eliminar/ajax/{id}', [EdificioController::class, 'EliminarEdificioAJAX'])->name('edificio.eliminar.ajax');
 
