@@ -46,23 +46,37 @@ class EdificioController extends Controller
     //Metodos AJAX
 
     public function ObtenerTodosEdificiosAJAX()
-{
-    try {
-        // Obtener todos los edificios
-        $edificios = Edificio::all(); // O usar paginate() si quieres paginación
+    {
+        try {
+            // Obtener todos los edificios con sus áreas de conocimiento asociadas
+            $edificios = Edificio::with('areaConocimiento')->get();
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Edificios obtenidos correctamente.',
-            'data' => $edificios
-        ]);
-    } catch (\Exception $e) {
-        return response()->json([
-            'success' => false,
-            'message' => 'Ocurrió un error al obtener los edificios: ' . $e->getMessage()
-        ]);
+            // Si no hay edificios, devolver un mensaje con data vacía
+            if ($edificios->isEmpty()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'No hay edificios disponibles',
+                    'data' => []
+                ]);
+            }
+
+            // Respuesta exitosa con todos los edificios y sus áreas de conocimiento asociadas
+            return response()->json([
+                'success' => true,
+                'data' => $edificios // Retorna todos los edificios con sus áreas asociadas
+            ]);
+
+        } catch (\Exception $e) {
+            // Si hay un error, se devuelve un mensaje de error con success: false
+            return response()->json([
+                'success' => false,
+                'message' => 'Error al obtener los edificios: ' . $e->getMessage(),
+                'data' => []
+            ]);
+        }
     }
-}
+    
+
 
     public function ObtenerEdificioPorAreaAJAX(Request $request)
     {
@@ -141,8 +155,10 @@ class EdificioController extends Controller
     public function EliminarEdificioAJAX($id)
     {
         try {
+            // Buscar el edificio por su ID
             $edificio = Edificio::findOrFail($id);
 
+            // Eliminar el edificio
             $edificio->delete();
 
             return response()->json([
