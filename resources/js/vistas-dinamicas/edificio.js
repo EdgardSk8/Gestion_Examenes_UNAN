@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     data.data.forEach(edificio => {
                         const row = document.createElement('tr');
-                        row.setAttribute('data-id', edificio.ID_Edificio);  // Añadir el data-id a la fila
+                        row.setAttribute('data-id', edificio.ID_Edificio); // Añadir el data-id a la fila
                         row.innerHTML = `
                             <td>${edificio.ID_Edificio}</td>
                             <td class="nombre">${edificio.Nombre_Edificio}</td>
@@ -97,12 +97,12 @@ document.addEventListener('DOMContentLoaded', function () {
         const row = document.querySelector(`tr[data-id="${edificio.ID_Edificio}"]`);
         const nombreCell = row.querySelector('.nombre');
         const areaCell = row.querySelector('.area');
-    
-        // Reemplazar el nombre por un input y enfocar automáticamente
+
+        // Reemplazar el nombre por un input y enfocarlo automáticamente
         nombreCell.innerHTML = `<input type="text" class="input-nombre" value="${edificio.Nombre_Edificio}" />`;
         const inputNombre = nombreCell.querySelector('.input-nombre');
-        inputNombre.focus(); // Enfocar automáticamente el input
-    
+        inputNombre.focus();
+
         // Reemplazar el área por un selector con las áreas disponibles
         fetch('/area-conocimiento')
             .then(response => response.json())
@@ -121,16 +121,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 areaCell.appendChild(select);
             })
             .catch(error => console.error('Error al cargar las áreas:', error));
-    
-        // Mostrar el botón de guardar cambios y ocultar los botones de editar y eliminar
+
+        // Mostrar el botón de aceptar y ocultar los otros
         row.querySelector('.btn-editar').style.display = 'none';
         row.querySelector('.btn-eliminar').style.display = 'none';
         row.querySelector('.btn-aceptar').style.display = 'inline-block';
-    
-        // Detectar cuando se presione Enter dentro del input de nombre
+
+        // Detectar "Enter" en el input de nombre
         inputNombre.addEventListener('keypress', function (event) {
             if (event.key === 'Enter') {
-                guardarCambios(edificio.ID_Edificio); // Llamar a guardar cambios al presionar Enter
+                guardarCambios(edificio.ID_Edificio);
             }
         });
     }

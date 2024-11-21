@@ -37,13 +37,13 @@
     <div class="vista-principal-2">
         <div class="mostrar-vistas"> <!-- Aquí se cargarán las vistas -->
             
-            <div id="view-area-conocimiento" class="view">@include('vistas-equipoagregar.vistas-dinamicas.radio-area-conocimiento')</div>
+            <div id="view-area-conocimiento" class="view active">@include('vistas-equipoagregar.vistas-dinamicas.radio-area-conocimiento')</div>
             <div id="view-departamento" class="view"> @include('vistas-equipoagregar.vistas-dinamicas.radio-departamento')</div>
             <div id="view-carrera" class="view">@include('vistas-equipoagregar.vistas-dinamicas.radio-carrera')</div>
             <div id="view-estudiante" class="view"> @include('vistas-equipoagregar.vistas-dinamicas.radio-estudiante')</div>
             <div id="view-profesor" class="view"> @include('vistas-equipoagregar.vistas-dinamicas.radio-profesor')</div>
             <div id="view-localidades" class="view">@include('vistas-equipoagregar.vistas-dinamicas.radio-localidades')</div>
-            <div id="view-edificio" class="view  active">@include('vistas-equipoagregar.vistas-dinamicas.radio-edificio')</div>
+            <div id="view-edificio" class="view">@include('vistas-equipoagregar.vistas-dinamicas.radio-edificio')</div>
             <div id="view-aula" class="view">@include('vistas-equipoagregar.vistas-dinamicas.radio-aula')</div>
             <div id="view-tipo-examen" class="view">@include('vistas-equipoagregar.vistas-dinamicas.radio-tipo-examen')</div>
             <div id="view-rol" class="view">@include('vistas-equipoagregar.vistas-dinamicas.radio-rol')</div>
