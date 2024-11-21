@@ -43,4 +43,118 @@ class EdificioController extends Controller
         }
     }
 
+    //Metodos AJAX
+
+    public function ObtenerTodosEdificiosAJAX()
+{
+    try {
+        // Obtener todos los edificios
+        $edificios = Edificio::all(); // O usar paginate() si quieres paginación
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Edificios obtenidos correctamente.',
+            'data' => $edificios
+        ]);
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Ocurrió un error al obtener los edificios: ' . $e->getMessage()
+        ]);
+    }
+}
+
+    public function ObtenerEdificioPorAreaAJAX(Request $request)
+    {
+        $areaId = $request->input('areaId'); // Obtener ID del área
+
+        if (!$areaId) {
+            return response()->json([
+                'success' => false,
+                'message' => 'El ID del área es requerido.',
+                'data' => []
+            ]);
+        }
+
+        $edificios = Edificio::where('ID_Area', $areaId)->get();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Edificios obtenidos correctamente.',
+            'data' => $edificios
+        ]);
+    }
+
+    public function AgregarEdificioAJAX(Request $request)
+    {
+        // Validar los datos del formulario
+        $validatedData = $request->validate([
+            'Nombre_Edificio' => 'required|string|max:255',
+            'ID_Area' => 'required|exists:area_conocimiento,ID_Area',
+        ]);
+
+        try {
+            // Crear el edificio
+            $edificio = Edificio::create($validatedData);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Edificio agregado exitosamente.',
+                'data' => $edificio
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Ocurrió un error al agregar el edificio: ' . $e->getMessage()
+            ]);
+        }
+    }
+
+    // Actualizar un edificio existente
+    public function ActualizarEdificioAJAX(Request $request, $id)
+    {
+        // Validar los datos
+        $validatedData = $request->validate([
+            'Nombre_Edificio' => 'required|string|max:255',
+            'ID_Area' => 'required|exists:area_conocimiento,ID_Area',
+        ]);
+
+        try {
+            $edificio = Edificio::findOrFail($id);
+
+            $edificio->update($validatedData);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Edificio actualizado correctamente.',
+                'data' => $edificio
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Ocurrió un error al actualizar el edificio: ' . $e->getMessage()
+            ]);
+        }
+    }
+
+    // Eliminar un edificio
+    public function EliminarEdificioAJAX($id)
+    {
+        try {
+            $edificio = Edificio::findOrFail($id);
+
+            $edificio->delete();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Edificio eliminado correctamente.'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Ocurrió un error al eliminar el edificio: ' . $e->getMessage()
+            ]);
+        }
+    }
+
 }
