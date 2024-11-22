@@ -7,7 +7,7 @@
     <h2 style="text-align: center">Agregar Tipo de Examen</h2>
 
     <!-- Formulario para agregar un nuevo tipo de examen -->
-    <form id="agregarTipoExamenForm" action="{{ route('tipoexamen.agregar.ajax') }}" method="POST">
+    <form id="agregarTipoExamenForm">
         @csrf <!-- Token de protección contra CSRF -->
 
         <div>

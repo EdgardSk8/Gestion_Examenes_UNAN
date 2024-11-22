@@ -82,7 +82,11 @@ Route::delete('/area-conocimiento/eliminar/{id}', [AreaConocimientoController::c
 Route::get('/area-conocimiento/editar/{ID_Area}', [AreaConocimientoController::class, 'mostrarAreaParaEditarAJAX']);
 Route::put('/area-conocimiento/actualizar/{ID_Area}', [AreaConocimientoController::class, 'actualizarAreaConocimientoAJAX']);
 
-
+Route::get('/aulas/ajax', [AulaController::class, 'ObtenerTodasAulasAJAX'])->name('aulas.ajax');
+Route::post('/aulas/agregar/ajax', [AulaController::class, 'AgregarAulaAJAX'])->name('aulas.agregar.ajax');
+Route::get('/aulas/editar/ajax/{id}', [AulaController::class, 'EditarAulaAJAX'])->name('aulas.editar.ajax');
+Route::put('/aulas/actualizar/ajax/{id}', [AulaController::class, 'ActualizarAulaAJAX'])->name('aulas.actualizar.ajax');
+Route::delete('/aulas/eliminar/ajax/{id}', [AulaController::class, 'EliminarAulaAJAX'])->name('aulas.eliminar.ajax');
 
 Route::get('/edificios/ajax', [EdificioController::class, 'ObtenerTodosEdificiosAJAX'])->name('edificio.obtener.ajax');
 Route::get('/edificio/obtener-por-area/ajax', [EdificioController::class, 'ObtenerEdificioPorAreaAJAX'])->name('edificio.obtener.area.ajax');

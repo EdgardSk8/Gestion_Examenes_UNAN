@@ -2,7 +2,6 @@
 
 @vite(['resources/js/vistas-dinamicas/edificio.js']) <!-- archivo js personalizado -->
 
-
 <div class="contenedor-agregar-datos">
 
     <h2 style="text-align: center">Agregar Edificio</h2>

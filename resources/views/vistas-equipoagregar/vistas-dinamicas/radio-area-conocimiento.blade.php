@@ -5,7 +5,7 @@
 <div class="contenedor-agregar-datos">
     <h2 style="text-align: center">Agregar Área de Conocimiento</h2>
 
-    <form id="agregarAreaForm" method="POST">
+    <form id="agregarAreaForm">
         @csrf
         <div>
             <label for="nombre">Nombre del Área de Conocimiento:</label>
