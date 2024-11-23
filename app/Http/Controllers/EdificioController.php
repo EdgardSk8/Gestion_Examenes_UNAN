@@ -61,18 +61,9 @@ class EdificioController extends Controller
             }
 
             // Respuesta exitosa con todos los edificios y sus áreas de conocimiento asociadas
-            return response()->json([
-                'success' => true,
-                'data' => $edificios // Retorna todos los edificios con sus áreas asociadas
-            ]);
-
+            return response()->json($edificios);
         } catch (\Exception $e) {
-            // Si hay un error, se devuelve un mensaje de error con success: false
-            return response()->json([
-                'success' => false,
-                'message' => 'Error al obtener los edificios: ' . $e->getMessage(),
-                'data' => []
-            ]);
+            return response()->json([], 500);
         }
     }
     
@@ -80,23 +71,14 @@ class EdificioController extends Controller
 
     public function ObtenerEdificioPorAreaAJAX(Request $request)
     {
-        $areaId = $request->input('areaId'); // Obtener ID del área
+        $areaId = $request->input('areaId'); // Obtiene el ID del área
 
-        if (!$areaId) {
-            return response()->json([
-                'success' => false,
-                'message' => 'El ID del área es requerido.',
-                'data' => []
-            ]);
+        if ($areaId) {
+            // Obtiene los edificios asociados al área seleccionada
+            $edificios = Edificio::where('ID_Area', $areaId)->get();
+            return response()->json($edificios); // Retorna los edificios en formato JSON
         }
-
-        $edificios = Edificio::where('ID_Area', $areaId)->get();
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Edificios obtenidos correctamente.',
-            'data' => $edificios
-        ]);
+        return response()->json([]); // Si no se proporciona un ID de área, retorna un array vacío en JSON
     }
 
     public function AgregarEdificioAJAX(Request $request)
