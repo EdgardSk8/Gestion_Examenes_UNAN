@@ -187,8 +187,17 @@ document.addEventListener('DOMContentLoaded', function () {
                     fetch(`/edificio/obtener-por-area/ajax/?areaId=${selectedAreaId}`)  // Asegúrate de incluir el signo de interrogación y el parámetro
                         .then(response => response.json())
                         .then(edificios => {
-                            const edificioSelect = row.querySelector('select[name="edificio"]');
-                            edificioSelect.innerHTML = ''; // Limpiar las opciones existentes
+                            const edificioCell = row.querySelector('.nombre:nth-child(3)'); // Ajusta según la celda correspondiente
+                            let edificioSelect = row.querySelector('select[name="edificio"]');
+
+                            // Limpiar las opciones existentes en el select
+                            if (edificioSelect) {
+                                edificioSelect.innerHTML = '';
+                            } else {
+                                // Si el select no existe, crearlo
+                                edificioSelect = document.createElement('select');
+                                edificioSelect.setAttribute('name', 'edificio');
+                            }
 
                             if (edificios.length > 0) {
                                 // Si hay edificios, agregar las opciones
@@ -203,13 +212,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
                                     edificioSelect.appendChild(option);
                                 });
+
+                                // Si se había mostrado el mensaje de "Sin edificios disponibles", eliminarlo
+                                const mensajeSinEdificio = edificioCell.querySelector('.mensaje-sin-edificio');
+                                if (mensajeSinEdificio) {
+                                    mensajeSinEdificio.remove();
+                                }
                             } else {
-                                // Si no hay edificios, mostrar mensaje
+                                // Si no hay edificios, mostrar un option indicando que no hay edificios
                                 const option = document.createElement('option');
-                                option.textContent = 'Sin edificios disponibles';
-                                option.disabled = true;
+                                option.textContent = 'Área sin edificios disponibles';
+                                option.disabled = true; // Deshabilitar la opción para evitar que se seleccione
+                                option.selected = true; // Marcar como seleccionado
                                 edificioSelect.appendChild(option);
                             }
+
+                            // Limpiar la celda antes de agregar el select (o el mensaje)
+                            edificioCell.innerHTML = '';
+                            edificioCell.appendChild(edificioSelect); // Añadir el select al DOM
                         })
                         .catch(error => console.error('Error al cargar los edificios:', error));
                 });
@@ -235,6 +255,8 @@ document.addEventListener('DOMContentLoaded', function () {
     
                     edificioSelect.appendChild(option);
                 });
+
+                
     
                 edificioCell.innerHTML = ''; // Limpiar la celda del edificio
                 edificioCell.appendChild(edificioSelect); // Añadir el select
@@ -266,7 +288,7 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error('Error: No se encontraron todos los elementos requeridos en el DOM.');
             return;
         }
-    
+
         const newNombre = nombreInput.value;
         const newEdificio = edificioSelect.value;
         const newArea = areaSelect.value;
