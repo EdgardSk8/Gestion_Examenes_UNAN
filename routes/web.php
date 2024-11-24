@@ -88,6 +88,7 @@ Route::get('/aulas/editar/ajax/{id}', [AulaController::class, 'EditarAulaAJAX'])
 Route::put('/aulas/actualizar/ajax/{id}', [AulaController::class, 'ActualizarAulaAJAX'])->name('aulas.actualizar.ajax');
 Route::delete('/aulas/eliminar/ajax/{id}', [AulaController::class, 'EliminarAulaAJAX'])->name('aulas.eliminar.ajax');
 
+Route::get('/edificios/aula/ajax', [EdificioController::class, 'ObtenerTodosEdificiosAJAXaula'])->name('edificio.obtener.aula.ajax');
 Route::get('/edificios/ajax', [EdificioController::class, 'ObtenerTodosEdificiosAJAX'])->name('edificio.obtener.ajax');
 Route::get('/edificio/obtener-por-area/ajax', [EdificioController::class, 'ObtenerEdificioPorAreaAJAX'])->name('edificio.obtener.area.ajax');
 Route::post('/edificio/agregar/ajax', [EdificioController::class, 'AgregarEdificioAJAX'])->name('edificio.agregar.ajax');

@@ -45,7 +45,7 @@ class EdificioController extends Controller
 
     //Metodos AJAX
 
-    public function ObtenerTodosEdificiosAJAX()
+    public function ObtenerTodosEdificiosAJAXaula()
     {
         try {
             // Obtener todos los edificios con sus áreas de conocimiento asociadas
@@ -66,6 +66,23 @@ class EdificioController extends Controller
             return response()->json([], 500);
         }
     }
+    public function ObtenerTodosEdificiosAJAX()
+    {
+        try {
+            $edificios = Edificio::with('areaConocimiento')->get();
+
+            if ($edificios->isEmpty()) {
+                return response()->json(['success' => false, 'message' => 'No hay edificios disponibles', 'data' => []]);
+            }
+
+            return response()->json(['success' => true, 'data' => $edificios]);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Error al obtener edificios.'], 500);
+        }
+    }
+
+// Las demás mejoras seguirían el mismo esquema mostrado anteriormente.
+
     
 
 

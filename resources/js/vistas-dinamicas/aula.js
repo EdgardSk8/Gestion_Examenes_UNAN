@@ -238,7 +238,7 @@ document.addEventListener('DOMContentLoaded', function () {
             .catch(error => console.error('Error al cargar las áreas:', error));
     
         // Reemplazar el edificio por un selector inicial, antes de seleccionar el área
-        fetch('/edificios/ajax')
+        fetch('/edificios/aula/ajax')
             .then(response => response.json())
             .then(data => {
                 const edificioSelect = document.createElement('select');
