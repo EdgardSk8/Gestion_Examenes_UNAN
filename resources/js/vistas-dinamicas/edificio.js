@@ -1,6 +1,10 @@
 document.addEventListener('DOMContentLoaded', function () {
     const edificioTableBody = document.querySelector('#edificioTable tbody');
-    const table = $('#edificioTable').DataTable();
+    const table = $('#edificioTable').DataTable({
+        "paging": true,   // Habilitar paginación
+        "searching": true, // Habilitar búsqueda
+        "info": true // Información de la tabla
+    });
     const areaSelect = document.querySelector('.area-vista-edificio');
     const form = document.querySelector('#agregarEdificioForm');
 
@@ -31,6 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(data => {
                 if (data.success) {
                     edificioTableBody.innerHTML = '';
+                    table.clear(); // Limpiar DataTable antes de agregar los nuevos datos
 
                     data.data.forEach(edificio => {
                         const row = document.createElement('tr');
@@ -47,6 +52,9 @@ document.addEventListener('DOMContentLoaded', function () {
                         `;
                         edificioTableBody.appendChild(row);
 
+                        // Agregar la fila a DataTable
+                        table.row.add($(row)).draw();
+
                         row.querySelector('.btn-eliminar').addEventListener('click', function () {
                             eliminarEdificio(edificio.ID_Edificio);
                         });
@@ -59,6 +67,9 @@ document.addEventListener('DOMContentLoaded', function () {
                             guardarCambios(edificio.ID_Edificio);
                         });
                     });
+
+                    // Actualizar la paginación y el mensaje de la tabla
+                    table.draw();
                 } else {
                     console.log('No se pudieron cargar los edificios:', data.message);
                 }

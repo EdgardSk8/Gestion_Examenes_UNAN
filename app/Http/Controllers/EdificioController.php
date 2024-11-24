@@ -106,11 +106,14 @@ class EdificioController extends Controller
             'Nombre_Edificio' => 'required|string|max:255',
             'ID_Area' => 'required|exists:area_conocimiento,ID_Area',
         ]);
-
+    
         try {
+            // Asegurarse de que ID_Area sea un número entero
+            $validatedData['ID_Area'] = (int) $validatedData['ID_Area'];
+    
             // Crear el edificio
             $edificio = Edificio::create($validatedData);
-
+    
             return response()->json([
                 'success' => true,
                 'message' => 'Edificio agregado exitosamente.',
@@ -123,6 +126,7 @@ class EdificioController extends Controller
             ]);
         }
     }
+    
 
 
     public function EditarEdificioAJAX($id)
@@ -136,6 +140,8 @@ class EdificioController extends Controller
         // Devolver el edificio con su área de conocimiento
         return response()->json(['success' => true, 'data' => $edificio]);
     }
+    
+
     // Actualizar un edificio existente
     public function ActualizarEdificioAJAX(Request $request, $id)
     {
@@ -151,12 +157,19 @@ class EdificioController extends Controller
             'ID_Area' => 'required|exists:area_conocimiento,ID_Area', // Asegúrate de que el ID del área sea válido
         ]);
 
+        // Actualizar los datos del edificio
         $edificio->Nombre_Edificio = $validated['Nombre_Edificio'];
         $edificio->ID_Area = $validated['ID_Area'];
         $edificio->save();
 
-        return response()->json(['success' => true, 'message' => 'Edificio actualizado correctamente']);
+        // Respuesta en formato JSON
+        return response()->json([
+            'success' => true,
+            'message' => 'Edificio actualizado correctamente',
+            'data' => $edificio
+        ]);
     }
+
 
     // Eliminar un edificio
     public function EliminarEdificioAJAX($id)
