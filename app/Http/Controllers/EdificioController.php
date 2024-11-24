@@ -66,6 +66,7 @@ class EdificioController extends Controller
             return response()->json([], 500);
         }
     }
+    
     public function ObtenerTodosEdificiosAJAX()
     {
         try {

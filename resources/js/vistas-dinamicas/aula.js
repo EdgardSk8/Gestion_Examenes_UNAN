@@ -117,6 +117,13 @@ document.addEventListener('DOMContentLoaded', function () {
                         `;
                         aulaTableBody.appendChild(row);
 
+                        if (aula.edificio && aula.edificio.areaConocimiento && aula.edificio.areaConocimiento.Nombre_Edificio) {
+                            // Accede a la propiedad de forma segura
+                        } else {
+                            console.log("No se encontró el Nombre_Edificio");
+                        }
+                        
+
                         // Event listeners para editar, eliminar y aceptar
                         row.querySelector('.btn-eliminar').addEventListener('click', function () {
                             eliminarAula(aula.ID_Aula); // Usar ID_Aula
