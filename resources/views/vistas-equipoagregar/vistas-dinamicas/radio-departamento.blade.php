@@ -5,7 +5,7 @@
 <div class="contenedor-agregar-datos">
     <h2 style="text-align: center">Agregar Departamento</h2>
 
-    <form id="formDepartamento" action="{{ route('departamentos.agregar.ajax') }}" method="POST">
+    <form id="agregarDepartamentoForm">
         @csrf <!-- Token de protección contra CSRF -->
 
         <div>

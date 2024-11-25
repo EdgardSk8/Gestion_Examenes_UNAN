@@ -177,33 +177,37 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-     // Función para agregar un nuevo departamento (con AJAX)
-     form.addEventListener('submit', function (event) {
-        event.preventDefault(); // Prevenir el comportamiento por defecto del formulario
+    // Función para agregar un nuevo departamento (con AJAX usando jQuery)
+    document.getElementById("agregarDepartamentoForm").addEventListener("submit", function (event) {
+        event.preventDefault(); // Evitar que el formulario se envíe de manera tradicional
 
-        const formData = new FormData(form);
+        const form = this; // Referencia al formulario
+        const formData = {
+            _token: document.querySelector('input[name="_token"]').value, // Token CSRF
+            Nombre: form.querySelector('input[name="Nombre"]').value, // Valor del campo 'Nombre'
+            ID_Area: form.querySelector('select[name="ID_Area"]').value // Valor del área seleccionada
+        };
 
-        fetch(form.action, { // Ruta para agregar el departamento
+        $.ajax({
+            url: '/departamento/agregar/ajax', // Ruta configurada en el atributo 'action' del formulario
             method: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            data: formData,
+            success: function (response) {
+                if (response.success) {
+                    alert('¡Departamento agregado correctamente!');
+                    cargarDepartamentos(); // Recargar la tabla con los nuevos datos
+                    form.reset(); // Limpiar el formulario
+                } else {
+                    alert('Error al agregar el departamento: ' + response.message);
+                }
             },
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                alert('Departamento agregado exitosamente');
-                cargarDepartamentos(); // Recargar la tabla con el nuevo departamento
-                form.reset(); // Limpiar el formulario
-            } else {
-                alert('Error al agregar el departamento: ' + data.message);
+            error: function (error) {
+                console.error('Error al agregar el departamento:', error);
+                alert('Ocurrió un error al agregar el departamento. Intenta nuevamente.');
             }
-        })
-        .catch(error => {
-            console.log('Ocurrió un error al agregar el departamento:', error);
         });
     });
+
 
     // Llamar la función para cargar los departamentos al cargar la página
     cargarDepartamentos();
