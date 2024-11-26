@@ -40,6 +40,9 @@ Route::put('/events/{id}', [EventoController::class, 'ActualizarEventoEnCalendar
 
 /*          ----- Rutas que retornan datos -----          */
 
+Route::get('/departamentosajax', [DepartamentoController::class, 'ObtenerDepartamentoPorAreaAJAX']);
+
+
 Route::get('/area-conocimiento', [AreaConocimientoController::class, 'ObtenerAreaConocimiento'])->name('area-conocimiento.mostrar');
 Route::get('/departamentos', [DepartamentoController::class, 'ObtenerDepartamentoPorArea']);
 Route::get('/carreras', [CarreraController::class, 'ObtenerCarreraPorDepartamento']);
@@ -87,6 +90,13 @@ Route::post('/departamento/agregar/ajax', [DepartamentoController::class, 'Agreg
 Route::get('/departamento/editar/ajax/{id}', [DepartamentoController::class, 'EditarDepartamentoAJAX'])->name('departamentos.editar.ajax');
 Route::put('/departamento/actualizar/ajax/{id}', [DepartamentoController::class, 'ActualizarDepartamentoAJAX'])->name('departamentos.actualizar.ajax');
 Route::delete('/departamento/eliminar/ajax/{id}', [DepartamentoController::class, 'EliminarDepartamentoAJAX'])->name('departamentos.eliminar.ajax');
+
+Route::get('/carrera/ajax', [CarreraController::class, 'ObtenerTodasCarrerasAJAX'])->name('carrera.ajax');
+Route::post('/carrera/agregar/ajax', [CarreraController::class, 'AgregarCarreraAJAX'])->name('carrera.agregar.ajax');
+Route::get('/carrera/editar/ajax/{id}', [CarreraController::class, 'EditarCarreraAJAX'])->name('carrera.editar.ajax');
+Route::put('/carrera/actualizar/ajax/{id}', [CarreraController::class, 'ActualizarCarreraAJAX'])->name('carrera.actualizar.ajax');
+Route::delete('/carrera/eliminar/ajax/{id}', [CarreraController::class, 'EliminarCarreraAJAX'])->name('carrera.eliminar.ajax');
+
 
 Route::get('/aulas/ajax', [AulaController::class, 'ObtenerTodasAulasAJAX'])->name('aulas.ajax');
 Route::post('/aulas/agregar/ajax', [AulaController::class, 'AgregarAulaAJAX'])->name('aulas.agregar.ajax');

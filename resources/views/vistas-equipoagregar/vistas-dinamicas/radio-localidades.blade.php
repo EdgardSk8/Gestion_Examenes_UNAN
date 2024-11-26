@@ -18,19 +18,22 @@
         <button type="submit" class="btn">Agregar</button>
     </form>
 
-    <!-- Tabla donde se mostrarán las localidades -->
-    <h2 style="text-align: center; margin-top: 20px;">Lista de Localidades</h2>
-    <table id="localidadTable" class="display">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Aquí se cargarán dinámicamente las localidades -->
-        </tbody>
-    </table>
+    <div class="tabla-mostrar-datos">
 
+        <h2 style="text-align: center; margin-top: 20px;">Lista de Localidades</h2>
+        
+        <table id="localidadTable" class="display">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Aquí se cargarán dinámicamente las localidades -->
+            </tbody>
+        </table>
+    </div>
+    
 </div>
