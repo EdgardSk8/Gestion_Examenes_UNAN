@@ -39,9 +39,9 @@
             
             <div id="view-area-conocimiento" class="view">@include('vistas-equipoagregar.vistas-dinamicas.radio-area-conocimiento')</div>
             <div id="view-departamento" class="view"> @include('vistas-equipoagregar.vistas-dinamicas.radio-departamento')</div>
-            <div id="view-carrera" class="view active">@include('vistas-equipoagregar.vistas-dinamicas.radio-carrera')</div>
+            <div id="view-carrera" class="view">@include('vistas-equipoagregar.vistas-dinamicas.radio-carrera')</div>
             <div id="view-estudiante" class="view"> @include('vistas-equipoagregar.vistas-dinamicas.radio-estudiante')</div>
-            <div id="view-profesor" class="view"> @include('vistas-equipoagregar.vistas-dinamicas.radio-profesor')</div>
+            <div id="view-profesor" class="view active"> @include('vistas-equipoagregar.vistas-dinamicas.radio-profesor')</div>
             <div id="view-localidades" class="view">@include('vistas-equipoagregar.vistas-dinamicas.radio-localidades')</div>
             <div id="view-edificio" class="view">@include('vistas-equipoagregar.vistas-dinamicas.radio-edificio')</div>
             <div id="view-aula" class="view">@include('vistas-equipoagregar.vistas-dinamicas.radio-aula')</div>

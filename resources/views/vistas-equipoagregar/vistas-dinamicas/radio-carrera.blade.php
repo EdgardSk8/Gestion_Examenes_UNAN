@@ -1,6 +1,6 @@
 <!-- resources/views/vistas-equipoagregar/agregardatos/radio-carrera.blade.php -->
 
-@vite(['resources/js/vistas-dinamicas/carreras.js']) <!-- archivo js personalizado -->
+@vite(['resources/js/vistas-dinamicas/carrera.js']) <!-- archivo js personalizado -->
 
 <div class="contenedor-agregar-datos">
 
