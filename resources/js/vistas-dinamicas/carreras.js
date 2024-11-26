@@ -117,15 +117,19 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (data.success) {
                     carreraTableBody.innerHTML = ''; // Limpiar la tabla antes de llenarla
                     table.clear(); // Limpiar la tabla en DataTable
-
+    
                     data.data.forEach(carrera => {
+                        // Validar relaciones para evitar errores si no existen
+                        const nombreDepartamento = carrera.departamento?.Nombre || 'Sin departamento';
+                        const nombreArea = carrera.departamento?.area_conocimiento?.Nombre || 'Sin área';
+    
                         const row = document.createElement('tr');
                         row.setAttribute('data-id', carrera.ID_Carrera); // Añadir el ID_Carrera a la fila
                         row.innerHTML = `
                             <td>${carrera.ID_Carrera}</td>
                             <td class="nombre">${carrera.Nombre}</td>
-                            <td class="departamento">${carrera.departamento.Nombre}</td>
-                            <td class="area">${carrera.departamento.area_conocimiento.Nombre}</td>
+                            <td class="departamento">${nombreDepartamento}</td>
+                            <td class="area">${nombreArea}</td>
                             <td>
                                 <button class="btn-editar" data-id="${carrera.ID_Carrera}">✏️ Editar</button>
                                 <button class="btn-eliminar" data-id="${carrera.ID_Carrera}">❌ Eliminar</button>
@@ -133,19 +137,19 @@ document.addEventListener('DOMContentLoaded', function () {
                             </td>
                         `;
                         carreraTableBody.appendChild(row);
-
+    
                         // Agregar las filas a la tabla DataTable
                         table.row.add(row).draw();
-
+    
                         // Event listeners para editar, eliminar y aceptar
                         row.querySelector('.btn-eliminar').addEventListener('click', function () {
                             eliminarCarrera(carrera.ID_Carrera); // Usar ID_Carrera
                         });
-
+    
                         row.querySelector('.btn-editar').addEventListener('click', function () {
                             editarCarrera(carrera); // Usar la información completa de la carrera
                         });
-
+    
                         row.querySelector('.btn-aceptar').addEventListener('click', function () {
                             guardarCambios(carrera.ID_Carrera); // Usar ID_Carrera
                         });
@@ -159,8 +163,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 alert('Ocurrió un error al cargar las carreras, por favor intente nuevamente.');
             });
     }
+    
 
-    //Problema
+
 
     function editarCarrera(carrera) {
         if (!carrera || !carrera.ID_Carrera) {
