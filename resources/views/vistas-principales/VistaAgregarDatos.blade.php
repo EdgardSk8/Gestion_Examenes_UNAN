@@ -11,6 +11,7 @@
     @vite(['resources/css/Recursos/btn.css']) <!-- archivo css personalizado -->
     @vite(['resources/css/Recursos/inputstyle.css']) <!-- archivo css personalizado -->
     @vite(['resources/css/Recursos/btnstyle.css']) <!-- archivo css personalizado -->
+    
     @vite(['resources/css/Vista_Secundaria/equipoagregar.css'])
     @vite(['resources/css/Vista_Secundaria/vista-agregardatos.css'])
     @vite(['resources/css/Vista_Secundaria/acciones.css'])

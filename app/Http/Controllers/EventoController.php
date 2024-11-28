@@ -63,7 +63,7 @@ class EventoController extends Controller
                 'juez1' => $equipo->juez1 ? $equipo->juez1->Nombre_Completo_P : 'Sin asignar Juez',
                 'juez2' => $equipo->juez2 ? $equipo->juez2->Nombre_Completo_P : 'Sin asignar Juez',
                 'juez3' => $equipo->juez3 ? $equipo->juez3->Nombre_Completo_P : 'Sin asignar Juez',
-                'carrera' => $equipo->carrera ? $equipo->carrera->Nombre: 'Sin asignar Tutor',
+                'carrera' => $equipo->carrera ? $equipo->carrera->Nombre: 'Sin asignar Carrera',
             ]);
         }
         return response()->json(['message' => 'Evento no encontrado'], 404);
