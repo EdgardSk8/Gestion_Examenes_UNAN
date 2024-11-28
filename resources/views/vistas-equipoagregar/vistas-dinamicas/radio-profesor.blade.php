@@ -1,4 +1,7 @@
-<div class="agregar-Profesor">
+<!-- resources/views/vistas-equipoagregar/vistas-dinamicas/radio-profesor.blade.php -->
+
+<div class="contenedor-agregar-datos">
+
     <h2 style="text-align: center">Agregar Profesor</h2>
 
     <form action="{{ route('profesor.agregar') }}" method="POST">
@@ -45,6 +48,31 @@
 
         <button type="submit" class="btn">Agregar</button>
     </form>
+
+    <div class="tabla-mostrar-datos">
+        
+        <h2 style="text-align: center; margin-top: 20px;">Lista de Profesores</h2>
+
+            <table id="profesorTable" class="display">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Departamento</th>
+                        <th>Area de Conocimiento</th>
+                        <th>Perfil</th>
+                        <th>Correo</th>
+                        <th>Contraseña</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <!-- Aquí se cargarán dinámicamente los roles -->
+                </tbody>
+            </table>
+    </div>
+
 </div>
 
 <script>
