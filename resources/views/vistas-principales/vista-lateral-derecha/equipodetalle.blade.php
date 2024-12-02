@@ -5,7 +5,7 @@
 <label>Detalles de Equipos</label><br>
 
 <div style="display: flex; gap: 10px; width: 100%;" >
-    <button id="eliminar-evento" data-event-id="">Eliminar Evento</button> <!-- Botón para eliminar el evento -->
+    <button disabled id="eliminar-evento" data-event-id="">Eliminar Evento</button> <!-- Botón para eliminar el evento -->
     <button>Editar</button>
 </div>
 

@@ -20,7 +20,7 @@
     @vite(['resources/css/Recursos/inputstyle.css']) <!-- archivo de recursos css personalizado -->
     @vite(['resources/css/Recursos/btnstyle.css']) <!-- archivo css personalizado -->
 
-    @vite(['resources/js/fullcalendar.js']) <!-- js del fullcalendar -->
+    @vite(['resources/js/fullcalendar_copy.js']) <!-- js del fullcalendar -->
     @vite(['resources/js/fechahora.js']) <!-- logica de fecha y hora con Flatpickr -->
 
     @vite(['resources/js/mostrar-datos/area_conocimiento.js']) <!-- archivo js personalizado -->

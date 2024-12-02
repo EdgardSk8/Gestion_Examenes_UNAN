@@ -198,6 +198,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
+    
     document.getElementById('eliminar-evento').addEventListener('click', function() {// Manejar el clic del botón de eliminación
         const eventId = this.getAttribute('data-event-id'); // Obtiene el ID del evento desde el botón
     
