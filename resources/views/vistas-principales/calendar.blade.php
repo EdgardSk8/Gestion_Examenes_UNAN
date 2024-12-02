@@ -69,6 +69,10 @@
         
         <div id='calendar' class="vista-principal"></div>
 
+        <div id="vista-editar-equipo" class="vista" style="display: none">
+            @include('vistas-principales.editarequipo')
+        </div>
+
         <div id='equipos-list'> <!-- Obtenido de equipos.css -->
 
             <div style="display: flex; width: 100%; gap: 1px">
@@ -86,6 +90,8 @@
             <div id="vista-detalles" class="vista" > <!-- mover el style al div que desea mostrar al cargar la pagina -->
                  @include('vistas-principales.vista-lateral-derecha.equipodetalle') <!-- /views/cuadro-equipos/equipodetalle.blade.php -->
             </div>
+
+
 
             <div id="login" class="vista" style="margin-top: 10px; display: none" > 
                 
