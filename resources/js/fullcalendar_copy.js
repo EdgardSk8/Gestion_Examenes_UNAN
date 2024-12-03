@@ -105,8 +105,15 @@ document.addEventListener('DOMContentLoaded', function () {
                     const deleteButton = document.getElementById('eliminar-evento');
                     deleteButton.setAttribute('data-event-id', eventId); // Asigna el ID del evento al botón
                     console.log('ID del evento clickeado: ', eventId);
-                    document.getElementById('eliminar-evento').disabled = false; // Habilita el botón
+                    document.getElementById('eliminar-evento').disabled = false;
+                    document.getElementById('editar-evento').disabled = false; // Habilita el botón
                     deleteButton.style.display = 'block'; // Muestra el botón de eliminación
+
+                    if(eventId){
+                        console.log('ID reconocido Correctamente');
+                    } else {
+                        console.error('Error al buscar el ID del evento', Error);
+                    }
 
                 })
                 .catch(error => console.error('Error al obtener los detalles del evento:', error)); // Manejo de errores en la solicitud
@@ -198,7 +205,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    
     document.getElementById('eliminar-evento').addEventListener('click', function() {// Manejar el clic del botón de eliminación
         const eventId = this.getAttribute('data-event-id'); // Obtiene el ID del evento desde el botón
     
@@ -229,6 +235,11 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
+    document.getElementById('editar-evento').addEventListener('click', function(){
+        const eventId = this.getAttribute('data-event-id');
+        console.log('ID del evento clickeado: ', eventId);
+        
+    })
 
     if(calendar){
         calendar.render(); //Mostrar Calendario en la interfaz

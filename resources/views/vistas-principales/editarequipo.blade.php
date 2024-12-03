@@ -1,14 +1,14 @@
 <!-- resources/views/vistas-principales-vista-lateral-derecha/equipoagregar.blade.php -->
 
-@vite(['resources/css/Vista_Principal/contenedoragregar.css'])
+@vite(['resources/css/Vista_Principal/contenedoreditarequipo.css'])
 
-<div class="contenedor-agregar" style="background-color: #bbc5f1"> <!-- Contenedor Principal -->
+<div class="contenedor-editar" style="background-color: #bbc5f1"> <!-- Contenedor Principal -->
     
     <div id="agregar-equipo"> <!-- Mostrará la vista para agregar equipos -->
 
-        <form id="equipo-form" action="{{ route('crearEquipo') }}" method="POST">
+        <form id="equipo-form">
 
-            <h2 style="margin-top: 0px; text-align: center;">Agregar equipo</h2>
+            <h2 style="margin-top: 0px; text-align: center;">Editar Equipo</h2>
             @csrf <!-- Protección contra ataques CSRF -->
             
             <div>
@@ -47,40 +47,16 @@
                 </div>
         
                 <div style="flex: 1;">
-                    <label>Integrante 2 (Opcional):</label>
+                    <label>Integrante 2:</label>
                     <select id="integrante2" name="Integrante2"></select>
                 </div>
         
                 <div style="flex: 1;">
-                    <label>Integrante 3 (Opcional):</label>
+                    <label>Integrante 3:</label>
                     <select id="integrante3" name="Integrante3"></select>
                 </div>
         
             </div>
-        
-            <!-- Fecha y hora -->
-            
-            <!-- 
-            <div>
-                <label>Fecha Asignada:</label>
-                <input type="date" id="fecha_asignada" name="Fecha_Asignada" required>
-            </div>
-        
-            <div style="display: flex; gap: 10px; width: 100%;">
-        
-                <div style="flex: 1;">
-                    <label>Hora de Inicio:</label>
-                    <input type="time" id="hora_inicio" name="Hora_Inicio" required>
-                </div>
-        
-                <div style="flex: 1;">
-                    <label>Hora de Fin:</label>
-                    <input type="time" id="hora_fin" name="Hora_Fin" required>
-                </div>
-        
-            </div> -->
-        
-            <!-- Fecha y hora -->
         
             <h3>Fecha y Hora</h3>
         
@@ -159,7 +135,7 @@
             <!-- Botón de guardar -->
             <div style="text-align: center; margin-top: 10px; margin-bottom: 20px">
                 <button type="submit" class="button"> <!-- clase en equipoagregar.css -->
-                    <span class="label">Guardar Equipo</span>
+                    <span class="label">Guardar Cambios</span>
                     <span class="gradient"></span>
                     <span class="transition"></span>
                 </button>

@@ -22,6 +22,7 @@
 
     @vite(['resources/js/fullcalendar_copy.js']) <!-- js del fullcalendar -->
     @vite(['resources/js/fechahora.js']) <!-- logica de fecha y hora con Flatpickr -->
+    @vite(['resources/js/editarequipo.js'])
 
     @vite(['resources/js/mostrar-datos/area_conocimiento.js']) <!-- archivo js personalizado -->
     @vite(['resources/js/mostrar-datos/departamento.js']) <!-- archivo js personalizado -->
@@ -67,11 +68,11 @@
             @include('vistas-principales.vista-lateral-derecha.equipoagregar') <!-- /views/cuadro-equipos/equipodetalle.blade.php -->
         </div>
         
-        <div id='calendar' class="vista-principal"></div>
-
-        <div id="vista-editar-equipo" class="vista" style="display: none">
+        <div id="vista-editar-equipo" class="vista" style="display: block">
             @include('vistas-principales.editarequipo')
         </div>
+        
+        <div id='calendar' class="vista-principal" style="display: none" ></div>
 
         <div id='equipos-list'> <!-- Obtenido de equipos.css -->
 

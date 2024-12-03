@@ -41,6 +41,10 @@ Route::get('/events', action: [EventoController::class, 'MostrarEquiposEnCalenda
 Route::get('/events/{id}', [EventoController::class, 'MostrarDetallesPorId']); //Muestra los detalles de cada Evento
 Route::put('/events/{id}', [EventoController::class, 'ActualizarEventoEnCalendario']); //Actualiza los cambios del evento hacia la BD
 
+Route::get('/equipo/editar/{id}', [EquipoController::class, 'EditarEquipo'])->name('equipo.editar');
+Route::get('/equipo/actualizar/{id}', [EquipoController::class, 'ActualizarEquipo'])->name('equipo.actualizar');
+
+
 
 /*          ----- Rutas que retornan datos -----          */
 
@@ -100,6 +104,10 @@ Route::post('/carrera/agregar/ajax', [CarreraController::class, 'AgregarCarreraA
 Route::get('/carrera/editar/ajax/{id}', [CarreraController::class, 'EditarCarreraAJAX'])->name('carrera.editar.ajax');
 Route::put('/carrera/actualizar/ajax/{id}', [CarreraController::class, 'ActualizarCarreraAJAX'])->name('carrera.actualizar.ajax');
 Route::delete('/carrera/eliminar/ajax/{id}', [CarreraController::class, 'EliminarCarreraAJAX'])->name('carrera.eliminar.ajax');
+
+Route::get('/profesor/ajax', [ProfesorController::class, 'ObtenerTodosLosProfesoresAJAX'])->name('profesor.ajax');
+Route::post('/profesor/agregar/ajax', [ProfesorController::class, 'AgregarProfesorAJAX'])->name('profesor.agregar.ajax');
+Route::delete('/profesor/eliminar/ajax/{id}', [ProfesorController::class, 'EliminarProfesorAJAX'])->name('profesor.eliminar.ajax');
 
 
 Route::get('/aulas/ajax', [AulaController::class, 'ObtenerTodasAulasAJAX'])->name('aulas.ajax');

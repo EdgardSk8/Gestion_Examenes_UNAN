@@ -1,10 +1,12 @@
 <!-- resources/views/vistas-equipoagregar/vistas-dinamicas/radio-profesor.blade.php -->
 
+@vite(['resources/js/vistas-dinamicas/profesor.js'])
+
 <div class="contenedor-agregar-datos">
 
     <h2 style="text-align: center">Agregar Profesor</h2>
 
-    <form action="{{ route('profesor.agregar') }}" method="POST">
+    <form id="AgregarProfesorForm">
         @csrf
 
         <div>
@@ -25,7 +27,7 @@
 
         <div>
             <label>Nombre Completo:</label>
-            <input type="text" name="Nombre_Completo_P" required>
+            <input type="text" id="profesor" name="Nombre_Completo_P" required>
         </div>
 
         <div>
