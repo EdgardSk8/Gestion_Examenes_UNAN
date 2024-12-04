@@ -1,10 +1,11 @@
 /* Estilos globales para todas las tablas que usan DataTables */
 table.dataTable {
-    width: 100%; /* Hacer que todas las tablas DataTables ocupen todo el ancho disponible */
-    border-collapse: collapse; /* Colapsar los bordes de las celdas */
-    font-family: 'Arial', sans-serif; /* Cambiar la fuente */
-    background-color: #f9f9f9; /* Fondo claro para las tablas */
-    border: 1px solid black;
+    width: 100%; /* Ocupa todo el ancho del contenedor padre */
+    border-collapse: collapse; /* Colapsar bordes */
+    font-family: 'Arial', sans-serif; /* Fuente */
+    background-color: #f9f9f9; /* Fondo claro */
+    border: 1px solid black; /* Bordes negros */
+    table-layout: auto; /* Asegurar que las columnas sean adaptables */
 }
 
 /* Estilos para los encabezados de la tabla */
