@@ -27,7 +27,7 @@
 
         <div>
             <label>Nombre Completo:</label>
-            <input type="text" id="profesor" name="Nombre_Completo_P" required>
+            <input type="text" name="Nombre_Completo_P" required>
         </div>
 
         <div>

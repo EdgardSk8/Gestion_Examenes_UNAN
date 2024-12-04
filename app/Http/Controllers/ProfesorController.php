@@ -84,10 +84,10 @@ class ProfesorController extends Controller
         $validated = $request->validate([
             'Nombre_Completo_P' => 'required|string|max:255',
             'Correo' => 'required|email|unique:profesores,Correo',
-            'Contrasenia' => 'required|string|min:1',
-            'ID_Departamento' => 'required|integer|exists:departamentos,ID_Departamento',
+            'Contrasenia' => 'required|string|min:0',
+            'ID_Departamento' => 'required|integer|exists:departamento,ID_Departamento',
             'ID_Area' => 'required|exists:area_conocimiento,ID_Area',
-            'ID_Perfil' => 'required|integer|exists:perfiles,ID_Perfil',
+            'ID_Perfil' => 'required|integer|exists:perfil,ID_Perfil',
         ]);
         
         try {

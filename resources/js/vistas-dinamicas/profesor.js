@@ -71,39 +71,76 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Función para agregar una nuevo profesor
     document.getElementById("AgregarProfesorForm").addEventListener("submit", function (event) {
-        event.preventDefault(); // Evitar envío tradicional del formulario
+        event.preventDefault(); // Evitar que el formulario se envíe de manera tradicional
+    
+        // Obtener los valores del formulario
+        const areaId = document.getElementById("area-vista-profesor").value;
+        const departamentoId = document.getElementById("departamento-vista-profesor").value;
+        const nombreprofesor = document.querySelector('input[name="Nombre_Completo_P"]').value;
+        const correo = document.querySelector('input[name="Correo"]').value;
+        const contrasenia = document.querySelector('input[name="Contrasenia"]').value;
+        const perfil = document.getElementById("perfil-vista-profesor").value;
 
-        const form = this;
     
-        const formData = {
-            _token: document.querySelector('input[name="_token"]').value,
-            Nombre_Completo_P: document.getElementById("profesor").value,
-            Correo: document.getElementById("Correo").value,
-            Contrasenia: document.getElementById("Contrasenia").value,
-            ID_Departamento: document.getElementById("departamento-vista-profesor").value,
-            ID_Perfil: document.getElementById("perfil-vista-profesor").value,
-            ID_Area: document.getElementById("area-vista-profesor").value
-        };
-    
+        // Validar campos
+        if (!areaId) {
+            alert('Por favor, seleccione un área de conocimiento.');
+            return;
+        }
+        if (!departamentoId) {
+            alert('Por favor, seleccione un departamento.');
+            return;
+        }
+        if (!nombreprofesor.trim()) {
+            alert('Por favor, ingrese un nombre del profesor');
+            return;
+        }
+        if (!correo.trim()) {
+            alert('Por favor, ingrese un correo');
+            return;
+        }
+        if (!contrasenia.trim()) {
+            alert('Por favor, ingrese una contrasenia.');
+            return;
+        }
+        if (!perfil) {
+            alert('Por favor, seleccione un perfil');
+            return;
+        }
+
+        // Realizar la petición AJAX para agregar Profesor
         $.ajax({
-            url: '/profesor/agregar/ajax', // Ruta del controlador
+            url: '/profesor/agregar/ajax',
             method: 'POST',
-            data: formData,
+            data: {
+                _token: document.querySelector('input[name="_token"]').value,
+                ID_Area: areaId,
+                ID_Departamento: departamentoId,
+                Nombre_Completo_P: nombreprofesor,
+                Correo: correo,
+                Contrasenia: contrasenia,
+                ID_Perfil: perfil
+            },
             success: function (response) {
-                if (response.success) {
-                    alert(response.message); // Mostrar mensaje de éxito
-                    document.getElementById("AgregarProfesorForm").reset(); // Limpiar formulario
-                    
-                    cargarProfesores(); // Recargar tabla de profesores (asegúrate de tener esta función implementada)
-                } else {
-                    alert('Error: ' + response.message);
-                }
+                alert('¡Profesor agregado correctamente!');
+                cargarProfesores(); 
+                document.getElementById("AgregarProfesorForm").reset();
+                console.log(areaId);
+                console.log(departamentoId);
+                console.log(nombreprofesor);
+                console.log(correo);
+                console.log(contrasenia);
+                console.log(perfil);
             },
             error: function (error) {
-                console.error('Error al agregar el profesor:', error);
-                console.log(formData);
-
-                alert('Ocurrió un error al agregar el profesor. Por favor, revisa los datos e inténtalo nuevamente.');
+                console.error('Error al agregar Profesor:', error);
+                alert('Ocurrió un error al agregar Profesor. Intenta nuevamente.');
+                console.log(areaId);
+                console.log(departamentoId);
+                console.log(nombreprofesor);
+                console.log(correo);
+                console.log(contrasenia);
+                console.log(perfil);
             }
         });
     });
