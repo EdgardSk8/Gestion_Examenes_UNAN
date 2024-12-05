@@ -11,7 +11,7 @@
 
         <div>
             <label>Área de Conocimiento:</label>
-            <select id="area-vista-profesor" name="ID_Area" required>
+            <select id="area-vista-profesor" name="ID_Area" class="areaprofesor" required>
                 <option value="" disabled selected>Seleccione un área de conocimiento</option>
                 <!-- Se cargarán las áreas de conocimiento aquí -->
             </select>
@@ -19,7 +19,7 @@
 
         <div>
             <label>Departamento:</label>
-            <select id="departamento-vista-profesor" name="ID_Departamento" required>
+            <select id="departamento-vista-profesor" name="ID_Departamento" class="departamentoprofesor" required>
                 <option value="" disabled selected>Seleccione un departamento</option>
                 <!-- Los departamentos se cargarán aquí según el área seleccionada -->
             </select>
@@ -27,22 +27,22 @@
 
         <div>
             <label>Nombre Completo:</label>
-            <input type="text" name="Nombre_Completo_P" required>
+            <input type="text" name="Nombre_Completo_P" class="nombreprofesor" required>
         </div>
 
         <div>
             <label for="Correo">Correo:</label>
-            <input type="email" id="Correo" name="Correo" required>
+            <input type="email" id="Correo" name="Correo" class="correoprofesor" required>
         </div>
         
         <div>
             <label for="Contrasenia">Contraseña:</label>
-            <input type="password" id="Contrasenia" name="Contrasenia" required>
+            <input type="text" id="Contrasenia" name="Contrasenia" class="contraseniaprofesor" required>
         </div>
 
         <div>
             <label>Perfil:</label>
-            <select id="perfil-vista-profesor" name="ID_Perfil" required>
+            <select id="perfil-vista-profesor" name="ID_Perfil"required>
                 <option value="" disabled selected>Seleccione un perfil</option>
                 <!-- Los perfiles se cargarán aquí -->
             </select>
@@ -72,6 +72,7 @@
                 <tbody>
                     <!-- Aquí se cargarán dinámicamente los roles -->
                 </tbody>
+
             </table>
     </div>
 

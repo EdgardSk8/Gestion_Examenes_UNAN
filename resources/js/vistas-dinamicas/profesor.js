@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     const areaSelect = document.getElementById('area-vista-profesor');
-    const departamentoSelect = document.getElementById('departamento-vista-profesor');
+    const departamentoSelectP = document.getElementById('departamento-vista-profesor');
     const perfilSelect = document.getElementById('perfil-vista-profesor');
 
     // Cargar áreas de conocimiento
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const areaId = areaSelect.value;
 
         // Limpiar opciones previas y agregar placeholder
-        departamentoSelect.innerHTML = '<option value="" disabled selected>Seleccione un departamento</option>';
+        departamentoSelectP.innerHTML = '<option value="" disabled selected>Seleccione un departamento</option>';
 
         fetch(`/departamentos?idArea=${areaId}`)
             .then(response => response.json())
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         const option = document.createElement('option');
                         option.value = departamento.ID_Departamento;
                         option.textContent = departamento.Nombre;
-                        departamentoSelect.appendChild(option);
+                        departamentoSelectP.appendChild(option);
                     });
                 } else {
                     const option = document.createElement('option');
@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     option.disabled = true;
                     option.selected = true;
                     option.textContent = "No hay departamentos disponibles";
-                    departamentoSelect.appendChild(option);
+                    departamentoSelectP.appendChild(option);
                 }
             })
             .catch(error => console.error("Error al cargar departamentos:", error));
@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         row.setAttribute('data-id', profesor.ID_Profesor); // Añadir el ID_profesor a la fila
                         row.innerHTML = `
                             <td>${profesor.ID_Profesor}</td>
-                            <td>${profesor.Nombre_Completo_P}</td>
+                            <td class="nombre">${profesor.Nombre_Completo_P}</td>
                             <td class="departamento">${nombreDepartamento}</td>
                             <td class="area">${nombreArea}</td>
                             <td class="perfil">${nombrePerfil}</td>
@@ -188,28 +188,21 @@ document.addEventListener('DOMContentLoaded', function () {
                 alert('¡Profesor agregado correctamente!');
                 cargarProfesores(); 
                 document.getElementById("AgregarProfesorForm").reset();
-                console.log(areaId);
-                console.log(departamentoId);
-                console.log(nombreprofesor);
-                console.log(correo);
-                console.log(contrasenia);
-                console.log(perfil);
             },
             error: function (error) {
                 console.error('Error al agregar Profesor:', error);
                 alert('Ocurrió un error al agregar Profesor. Intenta nuevamente.');
-                console.log(areaId);
+                /*console.log(areaId);
                 console.log(departamentoId);
                 console.log(nombreprofesor);
                 console.log(correo);
                 console.log(contrasenia);
-                console.log(perfil);
+                console.log(perfil);*/
             }
         });
     });
     
     
-
     function eliminarprofesor(profesorId) {
         if (confirm('¿Estás seguro de eliminar este profesor?')) {
             fetch(`/profesor/eliminar/ajax/${profesorId}`, {
@@ -233,6 +226,294 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    function editarprofesor(profesor) {
+        if (!profesor || !profesor.ID_Profesor) {
+            console.error('El objeto profesor no tiene un ID válido:', profesor);
+            return;
+        }
+    
+        const row = document.querySelector(`tr[data-id="${profesor.ID_Profesor}"]`);
+
+        if (!row) {
+            console.error(`Fila con ID_Profesor ${profesor.ID_Profesor} no encontrada.`);
+            return;
+        }
+    
+        const nombreCell = row.querySelector(".nombre");
+        const departamentoCell = row.querySelector('.departamento');
+        const areaCell = row.querySelector('.area');
+        const perfilCell = row.querySelector('.perfil');
+        const correoCell = row.querySelector('.correo');
+        const contraseniaCell = row.querySelector('.contraseña');
+    
+        if (!nombreCell || !departamentoCell || !areaCell || !perfilCell || !correoCell || !contraseniaCell) {
+            console.error('No se encontraron algunas celdas en el DOM. Verifica las clases td.nombre, td.departamento, td.area, td.perfil, td.correo, td.contraseña.');
+            console.log('ID: ', row);
+            console.log('Nombre del profesor: ', nombreCell);
+            console.log('Departamento del profesor: ', departamentoCell);
+            console.log('Area del profesor: ', areaCell);
+            console.log('perfil del profesor: ', perfilCell);
+            console.log('Correo del profesor: ', correoCell);
+            console.log('Contrasenia del profesor: ', contraseniaCell);
+            return;
+        }
+
+        // Reemplazar los valores por inputs
+        nombreCell.innerHTML = `<input type="text" class="input-nombre" value="${profesor.Nombre_Completo_P}" />`;
+        correoCell.innerHTML = `<input type="text" class="input-correo" value="${profesor.Correo}" />`;
+        contraseniaCell.innerHTML = `<input type="text" class="input-contrasenia" value="${profesor.Contrasenia}" />`;
+
+
+        // Si no se pudo cargar el departamento, permitir que el usuario lo edite
+        if (profesor.departamento && profesor.departamento.ID_Departamento) {
+            departamentoCell.innerHTML = `<select class="select-departamento">
+                <option value="${profesor.departamento.ID_Departamento}" selected>${profesor.departamento.Nombre}</option>
+                <!-- Aquí puedes agregar más opciones de departamentos -->
+            </select>`;
+        } else {
+            // Si no hay departamento, se permite seleccionar un valor predeterminado (ID 1)
+            departamentoCell.innerHTML = `<select class="select-departamento">
+                <option value="1" selected>Departamento no disponible</option>
+            </select>`;
+        }
+
+        // Si no se pudo cargar el área, permitir que el usuario lo edite
+        if (profesor.departamento && profesor.departamento.area_conocimiento) {
+            areaCell.innerHTML = `<select class="select-area">
+                <option value="${profesor.departamento.area_conocimiento.ID_Area}" selected>${profesor.departamento.area_conocimiento.Nombre}</option>
+                <!-- Aquí puedes agregar más opciones de áreas -->
+            </select>`;
+        } else {
+            // Si no hay área, se permite seleccionar el valor predeterminado (ID 1)
+            areaCell.innerHTML = `<select class="select-area">
+                <option value="1" selected>Área no disponible</option>
+            </select>`;
+        }
+
+        // Reemplazar perfil por un selector (si no se cargó el perfil, permitir su edición)
+        if (profesor.perfil && profesor.perfil.Nombre) {
+            perfilCell.innerHTML = `<select class="select-perfil">
+                <option value="${profesor.perfil.ID_Perfil}" selected>${profesor.perfil.Nombre}</option>
+                <!-- Aquí puedes agregar más opciones de perfiles -->
+            </select>`;
+        } else {
+            // Si no hay perfil, se permite seleccionar el valor predeterminado (ID 1)
+            perfilCell.innerHTML = `<select class="select-perfil">
+                <option value="1" selected>Perfil no disponible</option>
+            </select>`;
+        }
+
+        nombreCell.innerHTML = `<input type="text" class="input-nombre" value="${profesor.Nombre_Completo_P || 'Nombre no disponible'}" required />`;
+correoCell.innerHTML = `<input type="email" class="input-correo" value="${profesor.Correo || 'Correo no disponible'}" required />`;
+contraseniaCell.innerHTML = `<input type="password" class="input-contrasenia" value="${profesor.Contrasenia || 'Contraseña no disponible'}" required />`;
+
+
+
+
+
+        if (profesor.departamento && profesor.departamento.ID_Departamento) {
+            fetch(`/departamentos?idArea=${profesor.departamento.ID_Area}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Error en la respuesta del servidor: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (!Array.isArray(data)) {
+                        throw new Error('La respuesta del servidor no contiene un array válido.');
+                    }
+    
+                    const departamentoSelectP = document.createElement('select');
+                    departamentoSelectP.setAttribute('name', 'departamento');
+                    departamentoSelectP.classList.add('departamento-select');
+    
+                    data.forEach(departamento => {
+                        const option = document.createElement('option');
+                        option.value = departamento.ID_Departamento;
+                        option.textContent = departamento.Nombre;
+                        if (profesor.departamento.ID_Departamento === departamento.ID_Departamento) {
+                            option.selected = true;
+                        }
+                        departamentoSelectP.appendChild(option);
+                    });
+    
+                    if (data.length === 0) {
+                        const noDepartamentos = document.createElement('span');
+                        noDepartamentos.textContent = 'No hay departamentos disponibles para esta área.';
+                        departamentoCell.innerHTML = ''; // Limpiar la celda
+                        departamentoCell.appendChild(noDepartamentos);
+                    } else {
+                        departamentoCell.innerHTML = ''; // Limpiar la celda
+                        departamentoCell.appendChild(departamentoSelectP);
+                    } 
+                })
+                .catch(error => {
+                    console.error('Error al cargar los departamentos:', error);
+                });
+        } else {
+            console.error('No se pudo acceder al departamento de la profesor.');
+        }
+    
+        fetch('/area-conocimiento')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Error al cargar las áreas de conocimiento: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (!Array.isArray(data)) {
+                    throw new Error('La respuesta del servidor no contiene un array válido.');
+                }
+
+                const areaSelect = document.createElement('select');
+                areaSelect.setAttribute('name', 'areaConocimiento');
+                areaSelect.classList.add('area-select');
+
+                // Asegurarse de que el área seleccionada sea la correcta
+                data.forEach(area => {
+                    const option = document.createElement('option');
+                    option.value = area.ID_Area;
+                    option.textContent = area.Nombre;
+
+                    // Verificar si el área del departamento coincide con el área cargada
+                    if (profesor.departamento && profesor.departamento.area_conocimiento && profesor.departamento.area_conocimiento.ID_Area === area.ID_Area) {
+                        option.selected = true; // Seleccionar el área correspondiente
+                    }
+
+                    areaSelect.appendChild(option);
+                });
+
+                areaCell.innerHTML = ''; // Limpiar la celda
+                areaCell.appendChild(areaSelect);
+
+                // Escuchar el cambio del área para actualizar los departamentos
+                areaSelect.addEventListener('change', function () {
+                    const areaId = areaSelect.value;
+                    fetch(`/departamentos?idArea=${areaId}`)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error(`Error al cargar los departamentos: ${response.status}`);
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            console.log('Departamentos para el área seleccionada:', data);
+
+                            const departamentoSelectP = departamentoCell.querySelector('select');
+                            if (departamentoSelectP) {
+                                departamentoSelectP.innerHTML = ''; // Limpiar el selector de departamentos
+                            }
+
+                            if (data.length === 0) {
+                                const noDepartamentos = document.createElement('select');
+                                noDepartamentos.textContent = 'Sin Departamentos';
+                                departamentoCell.innerHTML = ''; // Limpiar la celda
+                                departamentoCell.appendChild(noDepartamentos);
+                            } else {
+                                const select = document.createElement('select');
+                                select.setAttribute('name', 'departamento');
+                                select.classList.add('departamento-select');
+
+                                data.forEach(departamento => {
+                                    const option = document.createElement('option');
+                                    option.value = departamento.ID_Departamento;
+                                    option.textContent = departamento.Nombre;
+                                    select.appendChild(option);
+                                });
+
+                                departamentoCell.innerHTML = ''; // Limpiar la celda
+                                departamentoCell.appendChild(select);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error al cargar los departamentos:', error);
+                        });
+                });
+            })
+            .catch(error => {
+                console.error('Error al cargar las áreas de conocimiento:', error);
+                areaCell.textContent = 'Error al cargar áreas.';
+            });
+    
+        // Reemplazar perfil por un selector
+        fetch('/perfil')
+            .then(response => response.json())
+            .then(data => {
+                const perfilSelect = document.createElement('select');
+                perfilSelect.setAttribute('name', 'perfil');
+                data.forEach(perfil => {
+                    const option = document.createElement('option');
+                    option.value = perfil.ID_Perfil;
+                    option.textContent = perfil.Nombre;
+                    if (profesor.perfil.ID_Perfil === perfil.ID_Perfil) {
+                        option.selected = true;
+                    }
+                    perfilSelect.appendChild(option);
+                });
+                perfilCell.innerHTML = ''; // Limpiar la celda
+                perfilCell.appendChild(perfilSelect);
+            })
+            .catch(error => console.error('Error al cargar los perfiles:', error));
+    
+        // Mostrar y ocultar botones
+        const btnAceptar = row.querySelector('.btn-aceptar');
+        const btnEditar = row.querySelector('.btn-editar');
+        const btnEliminar = row.querySelector('.btn-eliminar');
+    
+        if (btnAceptar && btnEditar) {
+            btnAceptar.style.display = 'inline';
+            btnEditar.style.display = 'none';
+            btnEliminar.style.display = 'none';
+        } else {
+            console.error('No se encontraron los botones aceptar o editar en la fila.');
+        }
+    }
+
+    function guardarCambios(profesorId) {
+        const row = document.querySelector(`tr[data-id="${profesorId}"]`);
+        const nombreInput = row.querySelector('.input-nombre');
+        const correoInput = row.querySelector('.input-correo');
+        const contraseniaInput = row.querySelector('.input-contrasenia');
+        const departamentoSelectP = row.querySelector('select[name="departamento"]');
+        const perfilSelect = row.querySelector('select[name="perfil"]');
+    
+        // Crear el objeto con los datos actualizados
+        const updatedProfesor = {
+            ID_Profesor: profesorId,
+            Nombre_Completo_P: nombreInput.value,
+            Correo: correoInput.value,
+            Contrasenia: contraseniaInput.value,
+            ID_Departamento: departamentoSelectP.value,
+            ID_Perfil: perfilSelect.value
+        };
+    
+        // Enviar los cambios al servidor
+        fetch(`/profesor/actualizar/ajax/${profesorId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify(updatedProfesor)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                console.log('Profesor actualizado exitosamente');
+                cargarProfesores(); // Recargar la lista de profesores
+            } else {
+                console.log('Error al actualizar el profesor:', data.message);
+            }
+        })
+        .catch(error => {
+            console.log('Ocurrió un error al actualizar el profesor:', error);
+            alert('Ocurrió un error al actualizar el profesor, por favor intente nuevamente.');
+        });
+    }
+    
+    
 
 
 

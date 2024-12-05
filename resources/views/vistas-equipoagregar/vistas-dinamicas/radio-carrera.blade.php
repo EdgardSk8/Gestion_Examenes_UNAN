@@ -37,20 +37,22 @@
 
         <h2 style="text-align: center; margin-top: 20px;">Lista de Carreras</h2>
         
-        <table id="carreraTable" class="display">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Departamento</th>
-                    <th>Area de Conocimiento</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Aquí se cargarán dinámicamente las localidades -->
-            </tbody>
-        </table>
+            <table id="carreraTable" class="display">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Departamento</th>
+                        <th>Area de Conocimiento</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <!-- Aquí se cargarán dinámicamente las localidades -->
+                </tbody>
+                
+            </table>
     </div>
 
 </div>
