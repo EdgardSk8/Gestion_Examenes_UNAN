@@ -85,8 +85,6 @@ class EstudianteController extends Controller
         }
     }
     
-
-
     public function AgregarEstudianteAjax(Request $request){
 
         // Validar la entrada del usuario
