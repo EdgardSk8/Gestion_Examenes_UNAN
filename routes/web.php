@@ -105,6 +105,13 @@ Route::get('/carrera/editar/ajax/{id}', [CarreraController::class, 'EditarCarrer
 Route::put('/carrera/actualizar/ajax/{id}', [CarreraController::class, 'ActualizarCarreraAJAX'])->name('carrera.actualizar.ajax');
 Route::delete('/carrera/eliminar/ajax/{id}', [CarreraController::class, 'EliminarCarreraAJAX'])->name('carrera.eliminar.ajax');
 
+Route::get('/estudiante/ajax', [EstudianteController::class, 'ObtenerTodosEstudiantesAJAX'])->name('estudiantes.ajax');
+Route::post('/estudiante/agregar/ajax', [EstudianteController::class, 'AgregarEstudianteAJAX'])->name('estudiante.agregar.ajax');
+Route::delete('/estudiante/eliminar/ajax/{id}', [EstudianteController::class, 'EliminarEstudianteAJAX'])->name('estudiante.eliminar.ajax');
+Route::get('/estudiante/editar/ajax/{id}', [EstudianteController::class, 'EditarEstudianteAJAX'])->name('estudiante.editar.ajax');
+Route::put('/estudiante/actualizar/ajax/{id}', [EstudianteController::class, 'ActualizarEstudianteAJAX'])->name('estudiante.actualizar.ajax');
+
+
 Route::get('/profesor/ajax', [ProfesorController::class, 'ObtenerTodosLosProfesoresAJAX'])->name('profesor.ajax');
 Route::post('/profesor/agregar/ajax', [ProfesorController::class, 'AgregarProfesorAJAX'])->name('profesor.agregar.ajax');
 Route::delete('/profesor/eliminar/ajax/{id}', [ProfesorController::class, 'EliminarProfesorAJAX'])->name('profesor.eliminar.ajax');
