@@ -24,7 +24,7 @@
     @vite(['resources/js/fechahora.js']) <!-- logica de fecha y hora con Flatpickr -->
     @vite(['resources/js/editarequipo.js'])
 
-    @vite(['resources/js/mostrar-datos/area_conocimiento.js']) <!-- archivo js personalizado -->
+    @vite(['resources/js/agregarequipo.js']) <!-- archivo js personalizado -->
     @vite(['resources/js/mostrar-datos/departamento.js']) <!-- archivo js personalizado -->
     @vite(['resources/js/mostrar-datos/carreras.js']) <!-- archivo js personalizado -->
     @vite(['resources/js/mostrar-datos/profesor.js']) <!-- archivo js personalizado -->
@@ -64,11 +64,11 @@
 
     <div id='calendar-container'> <!-- Obtenido de fullcalendar.css -->
 
-        <div id="vista-agregar" class="vista" style="display: none" >
+        <div id="vista-agregar" class="vista" style="display: block" >
             @include('vistas-principales.vista-lateral-derecha.equipoagregar') <!-- /views/cuadro-equipos/equipodetalle.blade.php -->
         </div>
         
-        <div id="vista-editar-equipo" class="vista" style="display: block">
+        <div id="vista-editar-equipo" class="vista" style="display: none">
             @include('vistas-principales.editarequipo')
         </div>
         
