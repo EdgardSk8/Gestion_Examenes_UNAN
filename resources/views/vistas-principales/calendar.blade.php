@@ -25,17 +25,7 @@
     @vite(['resources/js/editarequipo.js'])
 
     @vite(['resources/js/agregarequipo.js']) <!-- archivo js personalizado -->
-    @vite(['resources/js/mostrar-datos/departamento.js']) <!-- archivo js personalizado -->
-    @vite(['resources/js/mostrar-datos/carreras.js']) <!-- archivo js personalizado -->
-    @vite(['resources/js/mostrar-datos/profesor.js']) <!-- archivo js personalizado -->
-    @vite(['resources/js/mostrar-datos/estudiante.js']) <!-- archivo js personalizado -->
-    @vite(['resources/js/mostrar-datos/edificio.js']) <!-- archivo js personalizado -->
-    @vite(['resources/js/mostrar-datos/aula.js']) <!-- archivo js personalizado -->
-    @vite(['resources/js/mostrar-datos/tipoexamen.js']) <!-- archivo js personalizado -->
     
-
-
-
     <!-- Script de la libreria Flatpickr -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
