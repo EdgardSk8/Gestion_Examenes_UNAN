@@ -33,7 +33,7 @@ class EquipoController extends Controller
                 'ID_Aula' => 'required|integer|min:1|exists:aulas,ID_Aula',
                 'ID_Tipo_Examen' => 'required|integer|exists:tipo_examen,ID_Tipo_Examen',
                 'Calificacion' => 'nullable|numeric|min:0|max:100',
-                'Tutor_ID' => 'required|integer|exists:profesores,ID_Profesor',
+                'Tutor_ID' => 'nullable|integer|exists:profesores,ID_Profesor',
                 'Juez1_ID' => 'nullable|integer|exists:profesores,ID_Profesor',
                 'Juez2_ID' => 'nullable|integer|exists:profesores,ID_Profesor',
                 'Juez3_ID' => 'nullable|integer|exists:profesores,ID_Profesor'

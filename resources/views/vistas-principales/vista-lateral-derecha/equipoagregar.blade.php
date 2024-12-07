@@ -134,7 +134,7 @@
         
             <div>
                 <label>Tutor:</label>
-                <select id="tutor" name="Tutor_ID" required></select>
+                <select id="tutor" name="Tutor_ID"></select>
             </div>
         
             <div style="display: flex; gap: 10px; width: 100%;">
