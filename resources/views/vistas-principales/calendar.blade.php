@@ -55,7 +55,7 @@
 
     <div id='calendar-container'> <!-- Obtenido de fullcalendar.css -->
 
-        <div id="vista-agregar" class="vista" style="display: block" >
+        <div id="vista-agregar" class="vista" style="display: none" >
             @include('vistas-principales.vista-lateral-derecha.equipoagregar') <!-- /views/cuadro-equipos/equipodetalle.blade.php -->
         </div>
         
@@ -63,7 +63,7 @@
             @include('vistas-principales.editarequipo')
         </div>
         
-        <div id='calendar' class="vista-principal" style="display: none" ></div>
+        <div id='calendar' class="vista-principal"></div>
 
         <div id='equipos-list'> <!-- Obtenido de equipos.css -->
 
