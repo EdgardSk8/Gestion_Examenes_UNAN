@@ -128,36 +128,39 @@
                 <label>Tipo de Examen:</label>
                 <select id="tipoexamen-select" name="ID_Tipo_Examen" required></select>
             </div>
+
+            <div id="examen">
+                 <!-- Tutor y jueces en una fila -->
+                <h3>Tutor y Jueces</h3>
+            
+                <div>
+                    <label>Tutor:</label>
+                    <select id="tutor" name="Tutor_ID" required></select>
+                </div>
+            
+                <div style="display: flex; gap: 10px; width: 100%;">
+                    
+                    <div style="flex: 1;">
+                        <label>Juez 1:</label>
+                        <select id="juez1" name="Juez1_ID"></select>
+                    </div>
+            
+                    <div style="flex: 1;">
+                        <label>Juez 2 (Opcional):</label>
+                        <select id="juez2" name="Juez2_ID"></select>
+                    </div>
+            
+                    <div style="flex: 1;">
+                        <label>Juez 3 (Opcional):</label>
+                        <select id="juez3" name="Juez3_ID"></select>
+                    </div>
         
-            <!-- Tutor y jueces en una fila -->
-            <h3>Tutor y Jueces</h3>
-        
-            <div>
-                <label>Tutor:</label>
-                <select id="tutor" name="Tutor_ID"></select>
+                </div>
+
             </div>
-        
-            <div style="display: flex; gap: 10px; width: 100%;">
-                
-                <div style="flex: 1;">
-                    <label>Juez 1:</label>
-                    <select id="juez1" name="Juez1_ID"></select>
-                </div>
-        
-                <div style="flex: 1;">
-                    <label>Juez 2 (Opcional):</label>
-                    <select id="juez2" name="Juez2_ID"></select>
-                </div>
-        
-                <div style="flex: 1;">
-                    <label>Juez 3 (Opcional):</label>
-                    <select id="juez3" name="Juez3_ID"></select>
-                </div>
-        
-            </div>
-        
+    
             <!-- Botón de guardar -->
-            <div style="text-align: center; margin-top: 10px; margin-bottom: 20px">
+            <div style="text-align: center; margin-top: 50px; margin-bottom: 20px">
                 <button type="submit" class="button"> <!-- clase en equipoagregar.css -->
                     <span class="label">Guardar Equipo</span>
                     <span class="gradient"></span>

@@ -25,6 +25,7 @@
     @vite(['resources/js/editarequipo.js'])
 
     @vite(['resources/js/agregarequipo.js']) <!-- archivo js personalizado -->
+    @vite(['resources/js/profesor.js'])
     
     <!-- Script de la libreria Flatpickr -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
