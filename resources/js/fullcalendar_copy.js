@@ -57,6 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
         },
         eventClick: function(info) { // Evento cuando se hace clic en un evento del calendario
             var eventId = info.event.id; // Obtiene el ID del evento clicado
+            //console.log('Evento seleccionado con ID:', eventId);
 
             fetch(`/events/${eventId}`) // Realiza una solicitud para obtener detalles del evento
                 .then(response => response.json())
@@ -103,20 +104,21 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     // Asignar el ID del evento al botón de eliminación
                     const deleteButton = document.getElementById('eliminar-evento');
-                    deleteButton.setAttribute('data-event-id', eventId); // Asigna el ID del evento al botón
-                    console.log('ID del evento clickeado: ', eventId);
-                    document.getElementById('eliminar-evento').disabled = false;
-                    document.getElementById('editar-evento').disabled = false; // Habilita el botón
-                    deleteButton.style.display = 'block'; // Muestra el botón de eliminación
+                    deleteButton.setAttribute('data-event-id', eventId);
+
+                    const editButton = document.getElementById('editar-evento');
+                    editButton.setAttribute('data-event-id', eventId);
 
                     if(eventId){
-                        console.log('ID reconocido Correctamente');
+                        //console.log('ID del evento clickeado: ', eventId);
+                        document.getElementById('editar-evento').disabled = false;
+                        document.getElementById('eliminar-evento').disabled = false;
                     } else {
                         console.error('Error al buscar el ID del evento', Error);
                     }
 
                 })
-                .catch(error => console.error('Error al obtener los detalles del evento:', error)); // Manejo de errores en la solicitud
+                .catch(error => console.error('Error al obtener los detalles del evento:', error));
         },
         eventDrop: function (info) { // Evento cuando se arrastra un evento a una nueva posición
             console.log('Evento movido:', info.event); // Muestra el evento que ha sido movido
@@ -235,14 +237,10 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    document.getElementById('editar-evento').addEventListener('click', function(){
-        const eventId = this.getAttribute('data-event-id');
-        console.log('ID del evento clickeado: ', eventId);
-        
-    })
-
     if(calendar){
         calendar.render(); //Mostrar Calendario en la interfaz
     } else { console.log("Error al Mostrar el Calendario"); }
+
+    
 
 });

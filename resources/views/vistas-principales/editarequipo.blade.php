@@ -1,19 +1,19 @@
-<!-- resources/views/vistas-principales-vista-lateral-derecha/equipoagregar.blade.php -->
+<!-- resources/views/vistas-principales/editarequipo.blade.php -->
 
 @vite(['resources/css/Vista_Principal/contenedoreditarequipo.css'])
 
 <div class="contenedor-editar" style="background-color: #bbc5f1"> <!-- Contenedor Principal -->
     
-    <div id="agregar-equipo"> <!-- Mostrará la vista para agregar equipos -->
+    <div>
 
-        <form id="equipo-form">
+        <form id="editarequipo-form">
 
             <h2 style="margin-top: 0px; text-align: center;">Editar Equipo</h2>
             @csrf <!-- Protección contra ataques CSRF -->
             
             <div>
                 <label>Título del equipo:</label>
-                <input type="text" id="titulo" name="Titulo" placeholder="Título" required>
+                <input type="text" id="editartitulo" placeholder="Título" required>
             </div>
         
             <!-- Área de Conocimiento y Departamento en una fila -->
@@ -21,19 +21,19 @@
         
                 <div style="flex: 1;">
                     <label>Área de Conocimiento:</label>
-                    <select id="area-select" class="area-select" name="ID_Area_Conocimiento" required></select>
+                    <select id="editararea" required></select>
                 </div>
         
                 <div style="flex: 1;">
                     <label>Departamento:</label>
-                    <select id="departamento-select" class="departamento-select" name="ID_Departamento" required></select>
+                    <select id="editardepartamento"></select>
                 </div>
         
             </div>
         
             <div>
                 <label>Carrera:</label>
-                <select id="carrera-select" class="carrera-select" name="ID_Carrera" required></select>
+                <select id="editarcarrera" required></select>
             </div>
         
             <!-- Integrantes del equipo en una fila -->
@@ -43,17 +43,17 @@
         
                 <div style="flex: 1;">
                     <label>Integrante 1:</label>
-                    <select id="integrante1" name="Integrante1" required></select>
+                    <select id="editarintegrante1" required></select>
                 </div>
         
                 <div style="flex: 1;">
                     <label>Integrante 2:</label>
-                    <select id="integrante2" name="Integrante2"></select>
+                    <select id="editarintegrante2"></select>
                 </div>
         
                 <div style="flex: 1;">
                     <label>Integrante 3:</label>
-                    <select id="integrante3" name="Integrante3"></select>
+                    <select id="editarintegrante3"></select>
                 </div>
         
             </div>
@@ -64,17 +64,29 @@
                 <label>Fecha Asignada:</label>
                 <input type="text" id="fecha_asignada" placeholder="Selecciona una fecha" name="Fecha_Asignada" required>
             </div><br>
+
+            <div>
+                <label>Fecha Aprobada:</label>
+                <input type="text" id="fecha_aprobada" placeholder="Selecciona una fecha" name="Fecha_Aprobada" required>
+            </div><br>
             
             <div style="display: flex; gap: 10px; width: 100%;">
                 <div style="flex: 1;">
                     <label>Hora de Inicio:</label>
                     <input type="text" id="hora_inicio" placeholder="Hora de Inicio" name="Hora_Inicio" required>
                 </div>
+
                 <div style="flex: 1;">
                     <label>Hora de Fin:</label>
                     <input type="text" id="hora_fin" placeholder="Hora de Fin" name="Hora_Fin" required>
                 </div>
             </div>
+
+            
+            <div>
+                <label>Calificacion:</label>
+                <input type="text" id="calificacion" placeholder="Califica" name="calificacion" required>
+            </div><br>
             
             <h3 id="resultado"></h3>
             <p id="aviso" style="color:red;"></p>
@@ -87,12 +99,12 @@
         
                 <div style="flex: 1;">
                     <label>Edificio:</label>
-                    <select id="edificio-select" class="edificio-select" name="ID_Edificio" required></select>
+                    <select id="editaredificio" required></select>
                 </div>
         
                 <div style="flex: 1;">
                     <label>Aula:</label>
-                    <select id="aula-select" name="ID_Aula" required></select>
+                    <select id="editaraula" required></select>
                 </div>
         
             </div>
@@ -102,7 +114,7 @@
         
             <div>
                 <label>Tipo de Examen:</label>
-                <select id="tipoexamen-select" name="ID_Tipo_Examen" required></select>
+                <select id="editartipoexamen" required></select>
             </div>
         
             <!-- Tutor y jueces en una fila -->
@@ -110,29 +122,29 @@
         
             <div>
                 <label>Tutor:</label>
-                <select id="tutor" name="Tutor_ID" required></select>
+                <select id="editartutor" required></select>
             </div>
         
             <div style="display: flex; gap: 10px; width: 100%;">
                 
                 <div style="flex: 1;">
                     <label>Juez 1:</label>
-                    <select id="juez1" name="Juez1_ID"></select>
+                    <select id="editarjuez1"></select>
                 </div>
         
                 <div style="flex: 1;">
                     <label>Juez 2 (Opcional):</label>
-                    <select id="juez2" name="Juez2_ID"></select>
+                    <select id="editarjuez2"></select>
                 </div>
         
                 <div style="flex: 1;">
                     <label>Juez 3 (Opcional):</label>
-                    <select id="juez3" name="Juez3_ID"></select>
+                    <select id="editarjuez3"></select>
                 </div>
         
             </div>
         
-            <!-- Botón de guardar -->
+            <!-- Botón de subir -->
             <div style="text-align: center; margin-top: 10px; margin-bottom: 20px">
                 <button type="submit" class="button"> <!-- clase en equipoagregar.css -->
                     <span class="label">Guardar Cambios</span>
@@ -149,8 +161,6 @@
                     };
                 </script>
             @endif
-        
-            
         
         </form>
 

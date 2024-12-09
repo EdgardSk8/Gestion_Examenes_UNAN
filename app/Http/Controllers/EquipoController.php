@@ -68,16 +68,50 @@ class EquipoController extends Controller
     public function EditarEquipo($id)
     {
         try {
-            // Buscar el equipo por ID
-            $equipo = Equipo::findOrFail($id);
-
-            // Retornar los datos del equipo como JSON
-            return response()->json(['success' => true, 'data' => $equipo]);
+            // Buscar el equipo con las relaciones necesarias
+            $equipo = Equipo::with([
+                'carrera.departamento.areaConocimiento',
+                'aula.edificio.areaConocimiento',
+                'integrante1', // Relación con el primer integrante
+                'integrante2', // Relación con el segundo integrante
+                'integrante3', // Relación con el tercer integrante
+                'tutor',
+                'juez1',
+                'juez2',
+                'juez3',
+                'tipoExamen'
+            ])->findOrFail($id);
+    
+            // Preparar la respuesta con los datos de los integrantes (nombres)
+            $equipoData = [
+                'titulo' => $equipo->Titulo,
+                'integrante1' => $equipo->integrante1 ? $equipo->integrante1->Nombre_Completo : '', // Nombre del primer integrante
+                'integrante2' => $equipo->integrante2 ? $equipo->integrante2->Nombre_Completo : '', // Nombre del segundo integrante
+                'integrante3' => $equipo->integrante3 ? $equipo->integrante3->Nombre_Completo : '', // Nombre del tercer integrante
+                'fecha_asignada' => $equipo->Fecha_Asignada,
+                'fecha_aprobada' => $equipo->Fecha_Aprobada,
+                'hora_inicio' => $equipo->Hora_Inicio,
+                'hora_fin' => $equipo->Hora_Fin,
+                'aula' => $equipo->aulas ? $equipo->aulas->Nombre_Aula : '', // Nombre del aula
+                'tipo_examen' => $equipo->tipoExamen ? $equipo->tipoExamen->Nombre : '', // Tipo de examen
+                'tutor' => $equipo->tutor ? $equipo->tutor->Nombre_Completo_P : '', // Nombre del tutor
+                'calificacion' => $equipo->Calificacion,
+                'juez1' => $equipo->juez1 ? $equipo->juez1->Nombre_Completo_P : '', // Nombre del juez 1
+                'juez2' => $equipo->juez2 ? $equipo->juez2->Nombre_Completo_P : '', // Nombre del juez 2
+                'juez3' => $equipo->juez3 ? $equipo->juez3->Nombre_Completo_P : '', // Nombre del juez 3
+                'carrera' => $equipo->carrera ? $equipo->carrera->Nombre : '', // Nombre de la carrera
+            ];
+    
+            // Retornar los datos del equipo y sus relaciones como JSON
+            return response()->json(['success' => true, 'data' => $equipoData]);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return response()->json(['success' => false, 'message' => 'Equipo no encontrado'], 404);
         } catch (\Exception $e) {
-            // Manejar errores y devolver un mensaje adecuado
-            return response()->json(['success' => false, 'message' => $e->getMessage()], 404);
+            return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
         }
     }
+    
+    
 
     // Método para actualizar los datos de un equipo en la base de datos
     public function ActualizarEquipo(Request $request, $id)
