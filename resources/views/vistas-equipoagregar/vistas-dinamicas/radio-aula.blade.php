@@ -33,7 +33,7 @@
 
     <div class="tabla-mostrar-datos">
 
-        <h2 style="text-align: center; margin-top: 20px;">Lista de Tipos de Examen</h2>
+        <h2 style="text-align: center; margin-top: 20px;">Lista de Aulas</h2>
 
         <table id="aulaTable" class="display">
             <thead>

@@ -1,5 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const table = $('#localidadTable').DataTable(); // Inicializamos DataTable
+    const table = $('#localidadTable').DataTable({
+        language: {
+            emptyTable: "No hay datos disponibles en esta tabla." // Mensaje personalizado
+        }
+    }); // Inicializamos DataTable
 
     // Función para cargar las localidades
     function cargarLocalidades() {
@@ -64,8 +68,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value,
             },
             success: function (response) {
-                cargarLocalidades(); // Recargar la tabla
                 console.log('¡Localidad eliminada correctamente!');
+                cargarLocalidades();
             },
             error: function (error) {
                 console.error('Error al eliminar la localidad:', error);

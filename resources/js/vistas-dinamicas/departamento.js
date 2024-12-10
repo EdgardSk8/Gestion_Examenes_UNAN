@@ -3,7 +3,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const table = $('#departamentoTable').DataTable({
         "paging": true,   // Habilitar paginación
         "searching": true, // Habilitar búsqueda
-        "info": true // Información de la tabla
+        "info": true, // Información de la tabla
+        language: {
+            emptyTable: "No hay datos disponibles en esta tabla." // Mensaje personalizado
+        }
     });
     const areaSelect = document.querySelector('#area-vista-departamento');
     const form = document.querySelector('form');

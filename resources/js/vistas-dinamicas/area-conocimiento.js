@@ -1,5 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const table = $('#areaConocimientoTable').DataTable(); // Inicializar DataTable
+    const table = $('#areaConocimientoTable').DataTable({
+        language: {
+            emptyTable: "No hay datos disponibles en esta tabla." // Mensaje personalizado
+        }
+    }); // Inicializar DataTable
 
     // Función para cargar los datos
     function cargar_areasdeconocimiento() {

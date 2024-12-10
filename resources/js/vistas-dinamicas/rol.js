@@ -1,5 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const table = $('#rolTable').DataTable(); // Inicializamos DataTable
+    const table = $('#rolTable').DataTable({
+        language: {
+            emptyTable: "No hay datos disponibles en esta tabla." // Mensaje personalizado
+        }
+    }); // Inicializamos DataTable
 
     // Función para cargar los roles
     function cargarRoles() {

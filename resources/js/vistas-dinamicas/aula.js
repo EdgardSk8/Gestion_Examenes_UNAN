@@ -7,6 +7,9 @@ document.addEventListener('DOMContentLoaded', function () {
         "paging": true,  // Habilitar paginación
         "searching": true,  // Habilitar búsqueda
         "info": true,  // Mostrar información
+        language: {
+            emptyTable: "No hay datos disponibles en esta tabla." // Mensaje personalizado
+        }
     });
 
     cargarAulas();

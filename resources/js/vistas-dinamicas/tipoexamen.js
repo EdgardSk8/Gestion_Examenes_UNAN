@@ -1,5 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const table = $('#tipoExamenTable').DataTable(); // Inicializamos DataTable
+    const table = $('#tipoExamenTable').DataTable({
+        language: {
+            emptyTable: "No hay datos disponibles en esta tabla." // Mensaje personalizado
+        }
+    }); // Inicializamos DataTable
 
     // Función para cargar los tipos de examen
     function cargarTipoExamenes() {
