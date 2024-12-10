@@ -62,30 +62,30 @@
         
             <div>
                 <label>Fecha Asignada:</label>
-                <input type="text" id="fecha_asignada" placeholder="Selecciona una fecha" name="Fecha_Asignada" required>
+                <input type="text" id="editarfecha_asignada" placeholder="Selecciona una fecha" name="Fecha_Asignada" required>
             </div><br>
 
             <div>
                 <label>Fecha Aprobada:</label>
-                <input type="text" id="fecha_aprobada" placeholder="Selecciona una fecha" name="Fecha_Aprobada" required>
+                <input type="text" id="editarfecha_aprobada" placeholder="Selecciona una fecha" name="Fecha_Aprobada" required>
             </div><br>
             
             <div style="display: flex; gap: 10px; width: 100%;">
                 <div style="flex: 1;">
                     <label>Hora de Inicio:</label>
-                    <input type="text" id="hora_inicio" placeholder="Hora de Inicio" name="Hora_Inicio" required>
+                    <input type="text" id="editarhora_inicio" placeholder="Hora de Inicio" name="Hora_Inicio" required>
                 </div>
 
                 <div style="flex: 1;">
                     <label>Hora de Fin:</label>
-                    <input type="text" id="hora_fin" placeholder="Hora de Fin" name="Hora_Fin" required>
+                    <input type="text" id="editarhora_fin" placeholder="Hora de Fin" name="Hora_Fin" required>
                 </div>
             </div>
 
             
             <div>
                 <label>Calificacion:</label>
-                <input type="text" id="calificacion" placeholder="Califica" name="calificacion" required>
+                <input type="text" id="editarcalificacion" placeholder="Califica" name="calificacion" required>
             </div><br>
             
             <h3 id="resultado"></h3>
@@ -114,7 +114,7 @@
         
             <div>
                 <label>Tipo de Examen:</label>
-                <select id="editartipoexamen" required></select>
+                <select id="editartipo_examen" required></select>
             </div>
         
             <!-- Tutor y jueces en una fila -->
@@ -122,7 +122,7 @@
         
             <div>
                 <label>Tutor:</label>
-                <select id="editartutor" required></select>
+                <select id="editartutor"></select>
             </div>
         
             <div style="display: flex; gap: 10px; width: 100%;">

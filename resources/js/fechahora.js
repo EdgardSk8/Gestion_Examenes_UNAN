@@ -93,6 +93,18 @@ flatpickr("#fecha_asignada", {
     onChange: mostrarResultado
 });
 
+flatpickr("#editarfecha_asignada", {
+    dateFormat: "Y-m-d",
+    minDate: "today",
+    onChange: mostrarResultado
+});
+
+flatpickr("#editarfecha_aprobada", {
+    dateFormat: "Y-m-d",
+    minDate: "today",
+    onChange: mostrarResultado
+});
+
 flatpickr("#hora_inicio", {
     enableTime: true,
     noCalendar: true,
@@ -103,7 +115,27 @@ flatpickr("#hora_inicio", {
     onChange: mostrarResultado
 });
 
+flatpickr("#editarhora_inicio", {
+    enableTime: true,
+    noCalendar: true,
+    dateFormat: "h:i K", // Mostrar en formato 12 horas para el usuario
+    minTime: "08:00",
+    maxTime: "17:00",
+    minuteIncrement: 30,
+    onChange: mostrarResultado
+});
+
 flatpickr("#hora_fin", {
+    enableTime: true,
+    noCalendar: true,
+    dateFormat: "h:i K", // Mostrar en formato 12 horas para el usuario
+    minTime: "08:00",
+    maxTime: "17:00",
+    minuteIncrement: 30,
+    onChange: mostrarResultado
+});
+
+flatpickr("#editarhora_fin", {
     enableTime: true,
     noCalendar: true,
     dateFormat: "h:i K", // Mostrar en formato 12 horas para el usuario

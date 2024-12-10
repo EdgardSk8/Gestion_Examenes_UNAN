@@ -92,7 +92,7 @@ class EquipoController extends Controller
                 'fecha_aprobada' => $equipo->Fecha_Aprobada,
                 'hora_inicio' => $equipo->Hora_Inicio,
                 'hora_fin' => $equipo->Hora_Fin,
-                'aula' => $equipo->aulas ? $equipo->aulas->Nombre_Aula : '', // Nombre del aula
+                'aula' => $equipo->aula ? $equipo->aula->Nombre_Aula : '', // Nombre del aula
                 'tipo_examen' => $equipo->tipoExamen ? $equipo->tipoExamen->Nombre : '', // Tipo de examen
                 'tutor' => $equipo->tutor ? $equipo->tutor->Nombre_Completo_P : '', // Nombre del tutor
                 'calificacion' => $equipo->Calificacion,
@@ -100,6 +100,12 @@ class EquipoController extends Controller
                 'juez2' => $equipo->juez2 ? $equipo->juez2->Nombre_Completo_P : '', // Nombre del juez 2
                 'juez3' => $equipo->juez3 ? $equipo->juez3->Nombre_Completo_P : '', // Nombre del juez 3
                 'carrera' => $equipo->carrera ? $equipo->carrera->Nombre : '', // Nombre de la carrera
+                'departamento' => $equipo->carrera && $equipo->carrera->departamento
+                ? $equipo->carrera->departamento->Nombre
+                : '',
+                'area_conocimiento' => $equipo->carrera && $equipo->carrera->departamento && $equipo->carrera->departamento->areaConocimiento
+                ? $equipo->carrera->departamento->areaConocimiento->Nombre
+                : '', 
             ];
     
             // Retornar los datos del equipo y sus relaciones como JSON

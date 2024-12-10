@@ -18,29 +18,29 @@ editButton.addEventListener('click', function () {
             return response.json();
         })
         .then(data => {
+            
             if (data.success) {
                 const equipo = data.data;
 
-                console.log('Título del equipo:', equipo.titulo || 'No especificado');
-                console.log('Integrante 1:', equipo.integrante1 || 'No especificado');
-                console.log('Integrante 2:', equipo.integrante2 || 'No especificado');
-                console.log('Integrante 3:', equipo.integrante3 || 'No especificado');
-                console.log('Fecha asignada:', equipo.fecha_asignada || 'No especificada');
-                console.log('Fecha aprobada:', equipo.fecha_aprobada || 'No especificada');
-                console.log('Hora de inicio:', equipo.hora_inicio || 'No especificada');
-                console.log('Hora de fin:', equipo.hora_fin || 'No especificada');
-                console.log('Aula:', equipo.aula || 'No especificada');
-                console.log('Tipo de examen:', equipo.tipo_examen || 'No especificado');
-                console.log('Tutor:', equipo.tutor || 'No especificado');
-                console.log('Calificación:', equipo.calificacion || 'No especificada');
-                console.log('Juez 1:', equipo.juez1 || 'No especificado');
-                console.log('Juez 2:', equipo.juez2 || 'No especificado');
-                console.log('Juez 3:', equipo.juez3 || 'No especificado');
-                console.log('Carrera:', equipo.carrera || 'No especificada');
+                // console.log('Título del equipo:', equipo.titulo || 'No especificado'); //funciona
+                // console.log('Integrante 1:', equipo.integrante1 || 'No especificado'); //funciona
+                // console.log('Integrante 2:', equipo.integrante2 || 'No especificado'); //funciona
+                // console.log('Integrante 3:', equipo.integrante3 || 'No especificado'); //funciona
+                // console.log('Fecha asignada:', equipo.fecha_asignada || 'No especificada'); //funciona
+                // console.log('Fecha aprobada:', equipo.fecha_aprobada || 'No especificada'); //funciona
+                // console.log('Hora de inicio:', equipo.hora_inicio || 'No especificada'); //funciona
+                // console.log('Hora de fin:', equipo.hora_fin || 'No especificada'); //funciona
+                // console.log('Aula:', equipo.aula || 'No especificada'); //funciona
+                // console.log('Tipo de examen:', equipo.tipo_examen || 'No especificado'); //funciona
+                // console.log('Tutor:', equipo.tutor || 'No especificado'); //funciona 
+                // console.log('Calificación:', equipo.calificacion || 'No especificada'); //funciona
+                // console.log('Juez 1:', equipo.juez1 || 'No especificado'); //funciona 
+                // console.log('Juez 2:', equipo.juez2 || 'No especificado'); //funciona
+                // console.log('Juez 3:', equipo.juez3 || 'No especificado'); //funciona
+                // console.log('Carrera:', equipo.carrera || 'No especificada'); //funciona
+                // console.log('Departamento:', equipo.departamento || 'No'); //funciona
+                // console.log('Area:', equipo.area_conocimiento || 'No'); //funciona
 
-                //REVISAR CONTROLADORES, MODELOS, Y ESTE JS
-                //VERIFICAR MEDIANTE LOS CONSOLE 
-        
                 // Asignar los valores de los integrantes (nombres de estudiantes)
                 document.getElementById('editarintegrante1').value = equipo.integrante1 || '';
                 document.getElementById('editarintegrante2').value = equipo.integrante2 || '';
@@ -48,8 +48,8 @@ editButton.addEventListener('click', function () {
         
                 // Rellenar otros campos de equipo, si es necesario
                 document.getElementById('editartitulo').value = equipo.titulo || '';
-                document.getElementById('fechaasignada').value = equipo.fecha_asignada || '';
-                document.getElementById('fecha_aprobada').value = equipo.fecha_aprobada || '';
+                document.getElementById('editarfecha_asignada').value = equipo.fecha_asignada || '';
+                document.getElementById('editarfecha_aprobada').value = equipo.fecha_aprobada || '';
                 document.getElementById('editarhora_inicio').value = equipo.hora_inicio || '';
                 document.getElementById('editarhora_fin').value = equipo.hora_fin || '';
                 document.getElementById('editaraula').value = equipo.aula || '';
