@@ -89,17 +89,19 @@
             <div id="login" class="vista" style="margin-top: 10px; display: none" > 
                 
                 <h2>Agregar Nuevos Datos</h2>
+                <!-- 
                     
                 <div style="margin-top: 10px; text-align: center;">
                     <input type="text" placeholder="Nombre de Usuario" style="padding: 0.5em; width: 80%; margin-bottom: 10px;">
                     <input type="password" placeholder="Contraseña" style="padding: 0.5em; width: 80%;">
                 </div>
+                -->
 
                 <!-- Nueva Vista -->
                 <form action="{{ route('VistaAgregarDatos') }}" method="GET">
                     <div style="text-align: center; margin-top: 10px; margin-bottom: 20px">
                         <button type="submit" class="button">
-                            <span class="label">Iniciar Sesion</span>
+                            <span class="label">Ingresar</span>
                             <span class="gradient"></span>
                             <span class="transition"></span>
                         </button>

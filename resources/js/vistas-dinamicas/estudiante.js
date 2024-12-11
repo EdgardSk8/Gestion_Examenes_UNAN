@@ -705,6 +705,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     row.querySelector('.nombre').textContent = nombre;
                     row.querySelector('.carnet').textContent = carnet;
                     row.querySelector('.genero').textContent = genero;
+                    row.querySelector('.correo').textContent = correo;
                     row.querySelector('.localidad').textContent = row.querySelector('.localidad-select').selectedOptions[0].textContent;
                     row.querySelector('.area').textContent = row.querySelector('.area-select').selectedOptions[0].textContent;
                     row.querySelector('.departamento').textContent = row.querySelector('.departamento-select').selectedOptions[0].textContent;
@@ -720,7 +721,6 @@ document.addEventListener('DOMContentLoaded', function () {
                         btnEditar.style.display = 'inline';
                         btnEliminar.style.display = 'inline';
                     }
-        
                     // Informar al usuario que la actualización fue exitosa
                     //alert('Estudiante actualizado correctamente');
                 } else {
@@ -741,7 +741,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 const data = await response.json();
         
                 if (data.exists) {
-                    alert("El carnet ya está registrado.");
+                    //alert("El carnet ya está registrado.");
                     return false;
                 }
                 return true;

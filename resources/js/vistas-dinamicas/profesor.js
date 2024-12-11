@@ -307,7 +307,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         nombreCell.innerHTML = `<input type="text" class="input-nombre" value="${profesor.Nombre_Completo_P || 'Nombre no disponible'}" required />`;
         correoCell.innerHTML = `<input type="email" class="input-correo" value="${profesor.Correo || 'Correo no disponible'}" required />`;
-        contraseniaCell.innerHTML = `<input type="password" class="input-contrasenia" value="${profesor.Contrasenia || 'Contraseña no disponible'}" required />`;
+        contraseniaCell.innerHTML = `<input type="text" class="input-contrasenia" value="${profesor.Contrasenia || 'Contraseña no disponible'}" required />`;
 
         if (profesor.departamento && profesor.departamento.ID_Departamento) {
             fetch(`/departamentos?idArea=${profesor.departamento.ID_Area}`)

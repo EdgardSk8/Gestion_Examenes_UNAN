@@ -240,6 +240,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // Mostrar botón de aceptar
         row.querySelector('.btn-aceptar').style.display = 'inline';
         row.querySelector('.btn-editar').style.display = 'none';
+        row.querySelector('.btn-eliminar').style.display = 'none';
     }
 
     // Función para eliminar el aula

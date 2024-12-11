@@ -82,35 +82,20 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     }
 
-    // Función para eliminar un departamento
-    function eliminarDepartamento(id) {
-        if (confirm('¿Estás seguro de que deseas eliminar este departamento?')) {
-            fetch(`/departamento/eliminar/ajax/${id}`, {
-                method: 'DELETE',
-                headers: {
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    console.log('Departamento eliminado correctamente');
-                    cargarDepartamentos();
-                } else {
-                    alert('Error al eliminar el departamento: ' + data.message);
-                }
-            })
-            .catch(error => {
-                console.log('Ocurrió un error al eliminar el departamento:', error);
-            });
-        }
-    }
-
     // Función para editar un departamento
     function editarDepartamento(departamento) {
         const row = document.querySelector(`tr[data-id="${departamento.ID_Departamento}"]`);
         const nombreCell = row.querySelector('.nombre');
         const areaCell = row.querySelector('.area');
+
+        console.log(row);
+        console.log(nombreCell);
+        console.log(areaCell);
+
+        if (!row) {
+            console.error('Fila no encontrada');
+            return;
+        }
 
         // Reemplazar el nombre por un input y enfocarlo automáticamente
         nombreCell.innerHTML = `<input type="text" class="input-nombre" value="${departamento.Nombre}" />`;
@@ -179,6 +164,30 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log('Ocurrió un error al actualizar el departamento:', error);
         });
     }
+    
+    // Función para eliminar un departamento
+    function eliminarDepartamento(id) {
+        if (confirm('¿Estás seguro de que deseas eliminar este departamento?')) {
+            fetch(`/departamento/eliminar/ajax/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log('Departamento eliminado correctamente');
+                    cargarDepartamentos();
+                } else {
+                    alert('Error al eliminar el departamento: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.log('Ocurrió un error al eliminar el departamento:', error);
+            });
+        }
+    }
 
     // Función para agregar un nuevo departamento (con AJAX usando jQuery)
     document.getElementById("agregarDepartamentoForm").addEventListener("submit", function (event) {
@@ -210,8 +219,6 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     });
-
-
     // Llamar la función para cargar los departamentos al cargar la página
     cargarDepartamentos();
 });

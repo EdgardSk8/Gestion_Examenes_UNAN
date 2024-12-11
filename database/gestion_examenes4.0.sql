@@ -20,8 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `gestion_examenes`
 --
-CREATE DATABASE IF NOT EXISTS `gestion_examenes` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `gestion_examenes`;
+CREATE DATABASE IF NOT EXISTS `gestion_examenes2` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `gestion_examenes2`;
 
 -- --------------------------------------------------------
 

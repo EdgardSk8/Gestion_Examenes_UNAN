@@ -106,6 +106,9 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     });
+    document.addEventListener('areasCargadas', function() {
+        cargar_areasdeconocimiento(); // Llamar la función desde el otro archivo
+    });
 });
 
 // Función para editar el área
@@ -135,7 +138,6 @@ function editarArea(button) {
     });
 }
 
-// Función para actualizar el área
 // Función para actualizar el área
 function actualizarArea(ID_Area) {
     const nuevoNombre = document.querySelector(`#input-nombre-${ID_Area}`).value;
