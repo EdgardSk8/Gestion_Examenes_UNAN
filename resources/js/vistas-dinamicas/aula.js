@@ -150,18 +150,19 @@ document.addEventListener('DOMContentLoaded', function () {
     // Función para editar el aula
     function editarAula(aula) {
         const row = document.querySelector(`tr[data-id="${aula.ID_Aula}"]`);
-        const nombreCell = row.querySelector('.nombre');
+        const nombreaulaCell = row.querySelector('.nombre');
         const edificioCell = row.querySelector('.nombre:nth-child(3)'); // Cambiar por la clase correcta
         const areaCell = row.querySelector('.area'); // Cambiar por la clase correcta
 
-        if (!row || !nombreCell || !edificioCell || !areaCell) {
+        if (!row || !nombreaulaCell || !edificioCell || !areaCell) {
             console.error('Error: No se encontraron algunas celdas en el DOM.');
+            console.log("Nombre de la celda: ", nombreaulaCell);
             return;
         }
 
         // Reemplazar el nombre por un input
-        nombreCell.innerHTML = `<input type="text" class="input-nombre" value="${aula.Nombre_Aula}" />`;
-        const inputNombre = nombreCell.querySelector('.input-nombre');
+        nombreaulaCell.innerHTML = `<input type="text" class="input-nombre" value="${aula.Nombre_Aula}" />`;
+        const inputNombre = nombreaulaCell.querySelector('.input-nombre');
         inputNombre.focus();
 
         // Reemplazar el área por un selector
