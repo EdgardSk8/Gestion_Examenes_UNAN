@@ -1,3 +1,4 @@
+console.log(nombre);
 document.addEventListener('DOMContentLoaded', function () {
     const departamentoTableBody = document.querySelector('#departamentoTable tbody');
     const table = $('#departamentoTable').DataTable({
