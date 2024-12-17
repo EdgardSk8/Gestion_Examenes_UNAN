@@ -1,3 +1,4 @@
+console.log(nombre);
 document.addEventListener("DOMContentLoaded", function () {
     const table = $('#areaConocimientoTable').DataTable({
         language: {
@@ -6,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }); // Inicializar DataTable
 
     // Función para cargar los datos
-    function cargar_areasdeconocimiento() {
+    function cargar_area_conocimiento() {
         $.ajax({
             url: '/area-conocimiento', // La ruta de tu API Laravel para obtener datos
             method: 'GET',
@@ -50,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Delegar el evento de edición al contenedor de la tabla
     $('#areaConocimientoTable').on('click', '.btn-editar', function () {
-        editarArea(this); // Llamar a la función editarArea cuando se haga clic en editar
+        editar_area_conocimiento(this); // Llamar a la función editar_area_conocimiento cuando se haga clic en editar
     });
 
     $('#areaConocimientoTable').on('click', '.btn-aceptar', function () {
@@ -70,7 +71,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value,
             },
             success: function (response) {
-                cargar_areasdeconocimiento(); // Recargar la tabla
+                cargar_area_conocimiento(); // Recargar la tabla
+                console.log("Area eliminada con exito");
             },
             error: function (error) {
                 console.error('Error al eliminar el área:', error);
@@ -79,25 +81,22 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Llamar la función al cargar la página
-    cargar_areasdeconocimiento();
-
     // Función para agregar una nueva área
     document.getElementById("agregarAreaForm").addEventListener("submit", function (event) {
         event.preventDefault(); // Evitar que el formulario se envíe de manera tradicional
 
-        const nombre = document.getElementById("nombre").value;
+        const nombre_area = document.getElementById("nombre").value;
 
         $.ajax({
             url: '/area-conocimiento/agregar', // Ruta para agregar área
             method: 'POST',
             data: {
                 _token: document.querySelector('input[name="_token"]').value,
-                Nombre: nombre
+                Nombre: nombre_area
             },
             success: function (response) {
                 alert('¡Área agregada correctamente!');
-                cargar_areasdeconocimiento(); // Recargar la tabla
+                cargar_area_conocimiento(); // Recargar la tabla
                 document.getElementById("nombre").value = ''; // Limpiar el campo de entrada
             },
             error: function (error) {
@@ -106,70 +105,70 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     });
-    document.addEventListener('areasCargadas', function() {
-        cargar_areasdeconocimiento(); // Llamar la función desde el otro archivo
-    });
-});
 
-// Función para editar el área
-function editarArea(button) {
-    const row = button.closest('tr'); // Seleccionar la fila (tr) correspondiente al botón de editar
-    const ID_Area = row.getAttribute('data-id'); // Obtener el data-id de la fila
-    const nombreCell = row.querySelector('td:nth-child(2)');
-    const nombre = nombreCell.textContent;
+    // Llamar la función al cargar la página
+    cargar_area_conocimiento();
 
-    // Reemplazar el nombre por un campo input con el valor actual
-    nombreCell.innerHTML = `<input type="text" value="${nombre}" id="input-nombre-${ID_Area}" />`;
+    // Función para editar el área
+    function editar_area_conocimiento(button) {
+        const row = button.closest('tr'); // Seleccionar la fila (tr) correspondiente al botón de editar
+        const ID_Area = row.getAttribute('data-id'); // Obtener el data-id de la fila
+        const nombreCell_Area = row.querySelector('td:nth-child(2)');
+        const nombre_area = nombreCell_Area.textContent;
 
-    // Ocultar los botones de editar y eliminar, y mostrar el botón de aceptar
-    row.querySelector('.btn-editar').style.display = 'none';
-    row.querySelector('.btn-eliminar').style.display = 'none';
-    row.querySelector('.btn-aceptar').style.display = 'inline-block';
+        // Reemplazar el nombre por un campo input con el valor actual
+        nombreCell_Area.innerHTML = `<input type="text" value="${nombre_area}" id="input-nombre_area-${ID_Area}" />`;
 
-    // Enfocar el campo de entrada automáticamente para poder escribir sin mover el ratón
-    const input = document.getElementById(`input-nombre-${ID_Area}`);
-    input.focus();
+        // Ocultar los botones de editar y eliminar, y mostrar el botón de aceptar
+        row.querySelector('.btn-editar').style.display = 'none';
+        row.querySelector('.btn-eliminar').style.display = 'none';
+        row.querySelector('.btn-aceptar').style.display = 'inline-block';
 
-    // Detectar el evento de Enter para guardar los cambios
-    input.addEventListener('keydown', function(event) {
-        if (event.key === 'Enter') {
-            actualizarArea(ID_Area);
-        }
-    });
-}
+        // Enfocar el campo de entrada automáticamente para poder escribir sin mover el ratón
+        const input = document.getElementById(`input-nombre_area-${ID_Area}`);
+        input.focus();
 
-// Función para actualizar el área
-function actualizarArea(ID_Area) {
-    const nuevoNombre = document.querySelector(`#input-nombre-${ID_Area}`).value;
-
-    // Enviar una petición AJAX para actualizar el área
-    $.ajax({
-        url: `/area-conocimiento/actualizar/${ID_Area}`,
-        method: 'PUT',
-        data: {
-            _token: document.querySelector('input[name="_token"]').value,
-            Nombre: nuevoNombre
-        },
-        success: function (response) {
-            if (response.success) {
-                // Actualizar la fila en lugar de recargar la tabla
-                const row = document.querySelector(`tr[data-id="${ID_Area}"]`);
-                const nombreCell = row.querySelector('td:nth-child(2)');
-
-                // Restaurar el texto del área
-                nombreCell.innerHTML = nuevoNombre;
-
-                // Restaurar los botones
-                row.querySelector('.btn-editar').style.display = 'inline-block';
-                row.querySelector('.btn-eliminar').style.display = 'inline-block';
-                row.querySelector('.btn-aceptar').style.display = 'none';
-            } else {
-                alert(response.message);
+        // Detectar el evento de Enter para guardar los cambios
+        input.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                actualizarArea(ID_Area);
             }
-        },
-        error: function (error) {
-            console.error('Error al actualizar el área:', error);
-            alert('Ocurrió un error al actualizar. Por favor, intenta nuevamente.');
-        }
-    });
-}
+        });
+    }
+
+    // Función para actualizar el área
+    function actualizarArea(ID_Area) {
+        const nuevoNombre_Area = document.querySelector(`#input-nombre_area-${ID_Area}`).value;
+
+        // Enviar una petición AJAX para actualizar el área
+        $.ajax({
+            url: `/area-conocimiento/actualizar/${ID_Area}`,
+            method: 'PUT',
+            data: {
+                _token: document.querySelector('input[name="_token"]').value,
+                Nombre: nuevoNombre_Area
+            },
+            success: function (response) {
+                if (response.success) {
+                    // Actualizar la fila en lugar de recargar la tabla
+                    const row = document.querySelector(`tr[data-id="${ID_Area}"]`);
+                    const nombreCell_Area = row.querySelector('td:nth-child(2)');
+
+                    // Restaurar el texto del área
+                    nombreCell_Area.innerHTML = nuevoNombre_Area;
+
+                    // Restaurar los botones
+                    row.querySelector('.btn-editar').style.display = 'inline-block';
+                    row.querySelector('.btn-eliminar').style.display = 'inline-block';
+                    row.querySelector('.btn-aceptar').style.display = 'none';
+                } else {
+                    alert(response.message);
+                }
+            },
+            error: function (error) {
+                console.error('Error al actualizar el área:', error);
+                alert('Ocurrió un error al actualizar. Por favor, intenta nuevamente.');
+            }
+        });
+    }
+});

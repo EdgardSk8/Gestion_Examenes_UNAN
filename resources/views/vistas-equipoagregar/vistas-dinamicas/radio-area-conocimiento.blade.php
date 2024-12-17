@@ -9,7 +9,7 @@
         @csrf
         <div>
             <label for="nombre">Nombre del Área de Conocimiento:</label>
-            <input type="text" id="nombre" name="Nombre" required>
+            <input type="text" id="nombre" required>
         </div>
         <button type="submit" class="btn">Agregar</button>
     </form>
