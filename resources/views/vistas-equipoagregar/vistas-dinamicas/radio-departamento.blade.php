@@ -18,7 +18,7 @@
 
         <div>
             <label>Nuevo Departamento:</label>
-            <input type="text" name="Nombre" placeholder="Nuevo Departamento" required>
+            <input type="text" name="Nombre_Nuevo_Departamento" placeholder="Nuevo Departamento" required>
         </div>
 
         <button type="submit" class="btn">Agregar</button><!-- Botón para enviar el formulario -->

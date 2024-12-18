@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         row.setAttribute('data-id', departamento.ID_Departamento); // Añadir el data-id a la fila
                         row.innerHTML = `
                             <td>${departamento.ID_Departamento}</td>
-                            <td class="nombre">${departamento.Nombre}</td>
+                            <td class="nombre_departamento">${departamento.Nombre}</td>
                             <td class="area">${departamento.area_conocimiento ? departamento.area_conocimiento.Nombre : 'N/A'}</td>
                             <td>
                                 <button class="btn-editar" data-id="${departamento.ID_Departamento}">✏️Editar</button>
@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Función para editar un departamento
     function editarDepartamento(departamento) {
         const row = document.querySelector(`tr[data-id="${departamento.ID_Departamento}"]`);
-        const nombreCell = row.querySelector('.nombre');
+        const nombreCell = row.querySelector('.nombre_departamento');
         const areaCell = row.querySelector('.area');
 
         console.log(row);
@@ -99,8 +99,8 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         // Reemplazar el nombre por un input y enfocarlo automáticamente
-        nombreCell.innerHTML = `<input type="text" class="input-nombre" value="${departamento.Nombre}" />`;
-        const inputNombre = nombreCell.querySelector('.input-nombre');
+        nombreCell.innerHTML = `<input type="text" class="input_nombre_departamento" value="${departamento.Nombre}" />`;
+        const inputNombre = nombreCell.querySelector('.input_nombre_departamento');
         inputNombre.focus();
 
         // Reemplazar el área por un selector con las áreas disponibles
@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Función para guardar los cambios realizados en el departamento
     function guardarCambios(id) {
         const row = document.querySelector(`tr[data-id="${id}"]`);
-        const newNombre = row.querySelector('.input-nombre').value;
+        const newNombre = row.querySelector('.input_nombre_departamento').value;
         const newArea = row.querySelector('select').value;
 
         fetch(`/departamento/actualizar/ajax/${id}`, {
