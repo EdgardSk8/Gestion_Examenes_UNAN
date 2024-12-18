@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         // Validar relaciones para evitar errores si no existen
                         const nombreDepartamento = carrera.departamento?.Nombre || 'Sin departamento';
                         const nombreArea = carrera.departamento?.area_conocimiento?.Nombre || 'Sin área';
-    
+
                         const row = document.createElement('tr');
                         row.setAttribute('data-id', carrera.ID_Carrera); // Añadir el ID_Carrera a la fila
                         row.innerHTML = `
@@ -166,19 +166,27 @@ document.addEventListener('DOMContentLoaded', function () {
                 alert('Ocurrió un error al cargar las carreras, por favor intente nuevamente.');
             });
     }
-    
-
-
 
     function editarCarrera(carrera) {
         if (!carrera || !carrera.ID_Carrera) {
             console.error('El objeto carrera no tiene un ID válido:', carrera);
             return;
         }
+
+        const nombreDepartamento = carrera.departamento?.Nombre || 'Sin departamento';
+        if (nombreDepartamento == "Sin departamento"){
+            console.log("Arreglar carreras sin departamentos");
+        }
     
-        const row = document.querySelector(`tr[data-id="${carrera.ID_Carrera}"]`);
+        const table = document.getElementById('carreraTable'); // Especificar la tabla
+        if (!table) {
+            console.error('La tabla con ID "carreraTable" no se encontró en el DOM.');
+            return;
+        }
+    
+        const row = table.querySelector(`tr[data-id="${carrera.ID_Carrera}"]`);
         if (!row) {
-            console.error(`Fila con ID_Carrera ${carrera.ID_Carrera} no encontrada.`);
+            console.error(`Fila con ID_Carrera ${carrera.ID_Carrera} no encontrada en la tabla específica.`);
             return;
         }
     
@@ -190,26 +198,18 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error('No se encontraron algunas celdas en el DOM. Verifica las clases td.nombre, td.departamento, td.area.');
             return;
         }
-    
+        
         // Reemplazar el nombre por un input
-        nombreCell.innerHTML = `<input type="text" class="input-nombre" value="${carrera.Nombre}" />`;
+        nombreCell.innerHTML = `<input type="text" class="input-nombre" value="${carrera.Nombre || ''}" />`;
         const inputNombre = nombreCell.querySelector('.input-nombre');
         inputNombre.focus();
     
         // Reemplazar el departamento por un selector dinámico
         if (carrera.departamento && carrera.departamento.ID_Departamento) {
+            // Cargar departamentos basados en el área seleccionada
             fetch(`/departamentos?idArea=${carrera.departamento.ID_Area}`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`Error en la respuesta del servidor: ${response.status}`);
-                    }
-                    return response.json();
-                })
+                .then(response => response.json())
                 .then(data => {
-                    if (!Array.isArray(data)) {
-                        throw new Error('La respuesta del servidor no contiene un array válido.');
-                    }
-    
                     const departamentoSelect = document.createElement('select');
                     departamentoSelect.setAttribute('name', 'departamento');
                     departamentoSelect.classList.add('departamento-select');
@@ -224,122 +224,118 @@ document.addEventListener('DOMContentLoaded', function () {
                         departamentoSelect.appendChild(option);
                     });
     
-                    if (data.length === 0) {
-                        const noDepartamentos = document.createElement('span');
-                        noDepartamentos.textContent = 'No hay departamentos disponibles para esta área.';
-                        departamentoCell.innerHTML = ''; // Limpiar la celda
-                        departamentoCell.appendChild(noDepartamentos);
-                    } else {
-                        departamentoCell.innerHTML = ''; // Limpiar la celda
-                        departamentoCell.appendChild(departamentoSelect);
-                    } 
+                    departamentoCell.innerHTML = ''; // Limpiar la celda
+                    departamentoCell.appendChild(departamentoSelect);
                 })
-                .catch(error => {
-                    console.error('Error al cargar los departamentos:', error);
-                });
-        } else {
-            console.error('No se pudo acceder al departamento de la carrera.');
+                .catch(error => console.error('Error al cargar los departamentos:', error));
+        }else{
+            console.log("Sin departamento");
         }
     
+        // Reemplazar el área por un selector dinámico
         fetch('/area-conocimiento')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`Error al cargar las áreas de conocimiento: ${response.status}`);
-                }
-                return response.json();
-            })
+            .then(response => response.json())
             .then(data => {
-                if (!Array.isArray(data)) {
-                    throw new Error('La respuesta del servidor no contiene un array válido.');
-                }
-
                 const areaSelect = document.createElement('select');
                 areaSelect.setAttribute('name', 'areaConocimiento');
                 areaSelect.classList.add('area-select');
-
-                // Asegurarse de que el área seleccionada sea la correcta
+    
                 data.forEach(area => {
                     const option = document.createElement('option');
                     option.value = area.ID_Area;
                     option.textContent = area.Nombre;
-
-                    // Verificar si el área de la carrera coincide con el área cargada
+    
                     if (carrera.departamento && carrera.departamento.area_conocimiento && carrera.departamento.area_conocimiento.ID_Area === area.ID_Area) {
-                        option.selected = true; // Seleccionar el área correspondiente
+                        option.selected = true;
                     }
-
+    
                     areaSelect.appendChild(option);
                 });
-
+    
                 areaCell.innerHTML = ''; // Limpiar la celda
                 areaCell.appendChild(areaSelect);
-
-                // Escuchar el cambio del área para actualizar los departamentos
+    
+                // Actualizar departamentos dinámicamente al cambiar el área
                 areaSelect.addEventListener('change', function () {
                     const areaId = areaSelect.value;
                     fetch(`/departamentos?idArea=${areaId}`)
-                        .then(response => {
-                            if (!response.ok) {
-                                throw new Error(`Error al cargar los departamentos: ${response.status}`);
-                            }
-                            return response.json();
-                        })
+                        .then(response => response.json())
                         .then(data => {
-                            console.log('Departamentos para el área seleccionada:', data);
-
                             const departamentoSelect = departamentoCell.querySelector('select');
-                            if (departamentoSelect) {
-                                departamentoSelect.innerHTML = ''; // Limpiar el selector de departamentos
-                            }
-
-                            if (data.length === 0) {
-                                const noDepartamentos = document.createElement('span');
-                                noDepartamentos.textContent = 'No hay departamentos disponibles para esta área.';
-                                departamentoCell.innerHTML = ''; // Limpiar la celda
-                                departamentoCell.appendChild(noDepartamentos);
-                            } else {
-                                const select = document.createElement('select');
-                                select.setAttribute('name', 'departamento');
-                                select.classList.add('departamento-select');
-
-                                data.forEach(departamento => {
-                                    const option = document.createElement('option');
-                                    option.value = departamento.ID_Departamento;
-                                    option.textContent = departamento.Nombre;
-                                    select.appendChild(option);
-                                });
-
-                                departamentoCell.innerHTML = ''; // Limpiar la celda
-                                departamentoCell.appendChild(select);
+                            departamentoSelect.innerHTML = ''; // Limpiar el selector
+    
+                            data.forEach(departamento => {
+                                const option = document.createElement('option');
+                                option.value = departamento.ID_Departamento;
+                                option.textContent = departamento.Nombre;
+                                departamentoSelect.appendChild(option);
+                            });
+    
+                            // Seleccionar automáticamente el primer departamento de la lista
+                            if (data.length > 0) {
+                                departamentoSelect.value = data[0].ID_Departamento;
                             }
                         })
-                        .catch(error => {
-                            console.error('Error al cargar los departamentos:', error);
-                        });
+                        .catch(error => console.error('Error al cargar los departamentos:', error));
                 });
             })
-            .catch(error => {
-                console.error('Error al cargar las áreas de conocimiento:', error);
-                areaCell.textContent = 'Error al cargar áreas.';
-            });
-
+            .catch(error => console.error('Error al cargar las áreas de conocimiento:', error));
     
         // Mostrar y ocultar botones
         const btnAceptar = row.querySelector('.btn-aceptar');
         const btnEditar = row.querySelector('.btn-editar');
         const btnEliminar = row.querySelector('.btn-eliminar');
     
-        if (btnAceptar && btnEditar) {
+        if (btnAceptar && btnEditar && btnEliminar) {
             btnAceptar.style.display = 'inline';
             btnEditar.style.display = 'none';
             btnEliminar.style.display = 'none';
         } else {
-            console.error('No se encontraron los botones aceptar o editar en la fila.');
+            console.error('No se encontraron los botones en la fila.');
         }
     }
     
-    
 
+    // Función para guardar los cambios
+    function guardarCambios(carreraId) {
+        const table = document.getElementById('carreraTable'); // Especificar la tabla
+        if (!table) {
+            console.error('La tabla con ID "tabla-carreras" no se encontró en el DOM.');
+            return;
+        }
+
+        const row = table.querySelector(`tr[data-id="${carreraId}"]`);
+        const nombreInput = row.querySelector('.input-nombre');
+        const departamentoSelect = row.querySelector('select[name="departamento"]');
+
+        const updatedCarrera = {
+            ID_Carrera: carreraId,
+            Nombre: nombreInput.value,
+            ID_Departamento: departamentoSelect.value
+        };
+
+        fetch(`/carrera/actualizar/ajax/${carreraId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify(updatedCarrera)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                console.log('Carrera actualizada exitosamente');
+                cargarCarreras(); // Recargar la tabla
+            } else {
+                console.error('Error al actualizar la carrera:', data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Ocurrió un error al actualizar la carrera:', error);
+        });
+    }
+    
     // Función para eliminar la carrera
     function eliminarCarrera(carreraId) {
         if (confirm('¿Estás seguro de eliminar esta carrera?')) {
@@ -365,38 +361,4 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // Función para guardar los cambios
-    function guardarCambios(carreraId) {
-        const row = document.querySelector(`tr[data-id="${carreraId}"]`);
-        const nombreInput = row.querySelector('.input-nombre');
-        const departamentoSelect = row.querySelector('select[name="departamento"]');
-
-        const updatedCarrera = {
-            ID_Carrera: carreraId,
-            Nombre: nombreInput.value,
-            ID_Departamento: departamentoSelect.value
-        };
-
-        fetch(`/carrera/actualizar/ajax/${carreraId}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-            },
-            body: JSON.stringify(updatedCarrera)
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                console.log('Carrera actualizada exitosamente');
-                cargarCarreras();
-            } else {
-                console.log('Error al actualizar la carrera:', data.message);
-            }
-        })
-        .catch(error => {
-            console.log('Ocurrió un error al actualizar la carrera:', error);
-            alert('Ocurrió un error al actualizar la carrera, por favor intente nuevamente.');
-        });
-    }
 });

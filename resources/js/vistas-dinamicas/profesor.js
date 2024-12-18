@@ -126,7 +126,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         });
                     });
                 } else {
-                    console.log('No se pudieron cargar los profesores:', data.message);
+                    //console.log('No se pudieron cargar los profesores:', data.message);
                 }
             })
             .catch(error => {

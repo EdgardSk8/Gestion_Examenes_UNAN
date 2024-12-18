@@ -109,11 +109,17 @@ document.addEventListener('DOMContentLoaded', function () {
                     data.data.forEach(aula => {
                         const row = document.createElement('tr');
                         row.setAttribute('data-id', aula.ID_Aula); // Añadir el ID_Aula a la fila
+
+                        // Usar valores por defecto en caso de datos nulos o indefinidos
+                        const nombreAula = aula.Nombre_Aula || 'Sin nombre';
+                        const edificio = aula.edificio ? aula.edificio.Nombre_Edificio : 'Sin edificio';
+                        const area = aula.edificio && aula.edificio.area_conocimiento ? aula.edificio.area_conocimiento.Nombre : 'Sin área';
+
                         row.innerHTML = `
                             <td>${aula.ID_Aula}</td>
-                            <td class="nombre">${aula.Nombre_Aula}</td>
-                            <td class="nombre">${aula.edificio.Nombre_Edificio}</td>
-                            <td class="area">${aula.edificio.area_conocimiento.Nombre}</td>
+                            <td class="nombre_aula">${nombreAula}</td>
+                            <td class="nombre_edificio">${edificio}</td>
+                            <td class="area_aula">${area}</td>
                             <td>
                                 <button class="btn-editar" data-id="${aula.ID_Aula}">✏️ Editar</button>
                                 <button class="btn-eliminar" data-id="${aula.ID_Aula}">❌ Eliminar</button>
@@ -147,102 +153,6 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     }
 
-    // Función para editar el aula
-    function editarAula(aula) {
-        const row = document.querySelector(`tr[data-id="${aula.ID_Aula}"]`);
-        const nombreaulaCell = row.querySelector('.nombre');
-        const edificioCell = row.querySelector('.nombre:nth-child(3)'); // Cambiar por la clase correcta
-        const areaCell = row.querySelector('.area'); // Cambiar por la clase correcta
-
-        if (!row || !nombreaulaCell || !edificioCell || !areaCell) {
-            console.error('Error: No se encontraron algunas celdas en el DOM.');
-            console.log("Nombre de la celda: ", nombreaulaCell);
-            return;
-        }
-
-        // Reemplazar el nombre por un input
-        nombreaulaCell.innerHTML = `<input type="text" class="input-nombre" value="${aula.Nombre_Aula}" />`;
-        const inputNombre = nombreaulaCell.querySelector('.input-nombre');
-        inputNombre.focus();
-
-        // Reemplazar el área por un selector
-        fetch('/area-conocimiento')
-            .then(response => response.json())
-            .then(data => {
-                const areaSelect = document.createElement('select');
-                areaSelect.setAttribute('name', 'area');
-                areaSelect.classList.add('area-select');
-
-                data.forEach(area => {
-                    const option = document.createElement('option');
-                    option.value = area.ID_Area;
-                    option.textContent = area.Nombre;
-
-                    if (aula.edificio && aula.edificio.area_conocimiento.ID_Area === area.ID_Area) {
-                        option.selected = true; // Marcar como seleccionado
-                    }
-
-                    areaSelect.appendChild(option);
-                });
-
-                areaCell.innerHTML = ''; // Limpiar la celda del área
-                areaCell.appendChild(areaSelect);
-
-                // Añadir listener para cargar edificios al cambiar el área
-                areaSelect.addEventListener('change', function () {
-                    const selectedAreaId = areaSelect.value;
-
-                    // Filtrar los edificios relacionados con el área seleccionada
-                    fetch(`/edificio/obtener-por-area/ajax/?areaId=${selectedAreaId}`)
-                        .then(response => response.json())
-                        .then(edificios => {
-                            let edificioSelect = row.querySelector('select[name="edificio"]');
-
-                            // Limpiar las opciones existentes en el select
-                            if (!edificioSelect) {
-                                edificioSelect = document.createElement('select');
-                                edificioSelect.setAttribute('name', 'edificio');
-                                edificioSelect.classList.add('edificio-select');
-                            } else {
-                                edificioSelect.innerHTML = '';
-                            }
-
-                            if (edificios.length > 0) {
-                                edificios.forEach(edificio => {
-                                    const option = document.createElement('option');
-                                    option.value = edificio.ID_Edificio;
-                                    option.textContent = edificio.Nombre_Edificio;
-
-                                    if (aula.ID_Edificio === edificio.ID_Edificio) {
-                                        option.selected = true; // Marcar como seleccionado
-                                    }
-
-                                    edificioSelect.appendChild(option);
-                                });
-                            } else {
-                                edificioSelect.innerHTML = '<option value="">Area sin edificios</option>';
-                            }
-
-                            edificioCell.innerHTML = ''; // Limpiar la celda
-                            edificioCell.appendChild(edificioSelect); // Añadir el select
-                        })
-                        .catch(error => {
-                            console.error('Error al cargar los edificios:', error);
-                        });
-                });
-
-                // Disparar el evento 'change' para cargar edificios del área seleccionada por defecto
-                areaSelect.dispatchEvent(new Event('change'));
-            })
-            .catch(error => {
-                console.error('Error al cargar las áreas:', error);
-            });
-
-        // Mostrar botón de aceptar
-        row.querySelector('.btn-aceptar').style.display = 'inline';
-        row.querySelector('.btn-editar').style.display = 'none';
-        row.querySelector('.btn-eliminar').style.display = 'none';
-    }
 
     // Función para eliminar el aula
     function eliminarAula(aulaId) {
@@ -268,39 +178,139 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // Función para guardar los cambios
-    function guardarCambios(aulaId) {
-        const row = document.querySelector(`tr[data-id="${aulaId}"]`);
-        const nombreInput = row.querySelector('.input-nombre');
-        const areaSelect = row.querySelector('select[name="area"]');
-        const edificioSelect = row.querySelector('select[name="edificio"]');
-    
-        const updatedAula = {
-            ID_Aula: aulaId,
-            Nombre_Aula: nombreInput.value,
-            ID_Area: areaSelect.value,
-            ID_Edificio: edificioSelect.value
-        };
-    
-        fetch(`/aulas/actualizar/ajax/${aulaId}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-            },
-            body: JSON.stringify(updatedAula)
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                console.log('Aula actualizada exitosamente');
-                cargarAulas();
-            } else {
-                console.log('Error al actualizar el aula:', data.message);
+        // Función para editar el aula
+        function editarAula(aula) {
+            const table = document.getElementById('aulaTable');
+            const row = table.querySelector(`tr[data-id="${aula.ID_Aula}"]`);
+            const nombreaulaCell = row.querySelector('.nombre_aula');
+            const edificioCell = row.querySelector('.nombre_edificio'); // Cambiar por la clase correcta
+            const areaCell = row.querySelector('.area_aula'); // Cambiar por la clase correcta
+
+            if (!row || !nombreaulaCell || !edificioCell || !areaCell) {
+                console.error('Error: No se encontraron algunas celdas en el DOM.');
+                return;
             }
-        })
-        .catch(error => {
-            console.log('Ocurrió un error al actualizar el aula:', error);
-        });
-    }
+
+            // Reemplazar el nombre por un input
+            nombreaulaCell.innerHTML = `<input type="text" class="input-nombre_aula" value="${aula.Nombre_Aula}" />`;
+            const inputNombre = nombreaulaCell.querySelector('.input-nombre_aula');
+            inputNombre.focus();
+
+            // Reemplazar el área por un selector
+            fetch('/area-conocimiento')
+                .then(response => response.json())
+                .then(data => {
+                    const areaSelect = document.createElement('select');
+                    areaSelect.setAttribute('name', 'area_aula');
+                    areaSelect.classList.add('area-select');
+
+                    data.forEach(area => {
+                        const option = document.createElement('option');
+                        option.value = area.ID_Area;
+                        option.textContent = area.Nombre;
+
+                        if (aula.edificio && aula.edificio.area_conocimiento.ID_Area === area.ID_Area) {
+                            option.selected = true; // Marcar como seleccionado
+                        }
+
+                        areaSelect.appendChild(option);
+                    });
+
+                    areaCell.innerHTML = ''; // Limpiar la celda del área
+                    areaCell.appendChild(areaSelect);
+
+                    // Añadir listener para cargar edificios al cambiar el área
+                    areaSelect.addEventListener('change', function () {
+                        const selectedAreaId = areaSelect.value;
+
+                        // Filtrar los edificios relacionados con el área seleccionada
+                        fetch(`/edificio/obtener-por-area/ajax/?areaId=${selectedAreaId}`)
+                            .then(response => response.json())
+                            .then(edificios => {
+                                let edificioSelect = row.querySelector('select[name="edificio"]');
+
+                                // Limpiar las opciones existentes en el select
+                                if (!edificioSelect) {
+                                    edificioSelect = document.createElement('select');
+                                    edificioSelect.setAttribute('name', 'edificio');
+                                    edificioSelect.classList.add('edificio-select');
+                                } else {
+                                    edificioSelect.innerHTML = '';
+                                }
+
+                                if (edificios.length > 0) {
+                                    edificios.forEach(edificio => {
+                                        const option = document.createElement('option');
+                                        option.value = edificio.ID_Edificio;
+                                        option.textContent = edificio.Nombre_Edificio;
+
+                                        if (aula.ID_Edificio === edificio.ID_Edificio) {
+                                            option.selected = true; // Marcar como seleccionado
+                                        }
+
+                                        edificioSelect.appendChild(option);
+                                    });
+                                } else {
+                                    edificioSelect.innerHTML = '<option value="">Área sin edificios</option>';
+                                }
+
+                                edificioCell.innerHTML = ''; // Limpiar la celda
+                                edificioCell.appendChild(edificioSelect); // Añadir el select
+                            })
+                            .catch(error => {
+                                console.error('Error al cargar los edificios:', error);
+                            });
+                    });
+
+                    // Disparar el evento 'change' para cargar edificios del área seleccionada por defecto
+                    areaSelect.dispatchEvent(new Event('change'));
+                })
+                .catch(error => {
+                    console.error('Error al cargar las áreas:', error);
+                });
+
+            // Mostrar botón de aceptar
+            row.querySelector('.btn-aceptar').style.display = 'inline';
+            row.querySelector('.btn-editar').style.display = 'none';
+            row.querySelector('.btn-eliminar').style.display = 'none';
+        }
+
+        // Función para guardar los cambios
+        function guardarCambios(aulaId) {
+            const table = document.getElementById('aulaTable');
+            const row = table.querySelector(`tr[data-id="${aulaId}"]`);
+            const nombreInput = row.querySelector('.input-nombre_aula');
+            const areaSelect = row.querySelector('select[name="area_aula"]');
+            const edificioSelect = row.querySelector('select[name="edificio"]');
+
+            const updatedAula = {
+                ID_Aula: aulaId,
+                Nombre_Aula: nombreInput.value,
+                ID_Area: areaSelect.value,
+                ID_Edificio: edificioSelect.value
+            };
+
+            fetch(`/aulas/actualizar/ajax/${aulaId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify(updatedAula)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log('Aula actualizada exitosamente');
+                    cargarAulas();
+                } else {
+                    console.error('Error al actualizar el aula:', data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Ocurrió un error al actualizar el aula:', error);
+            });
+        }
+
+
 });

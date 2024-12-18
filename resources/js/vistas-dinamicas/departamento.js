@@ -1,4 +1,4 @@
-console.log(nombre);
+console.log(Nombre);
 document.addEventListener('DOMContentLoaded', function () {
     const departamentoTableBody = document.querySelector('#departamentoTable tbody');
     const table = $('#departamentoTable').DataTable({
@@ -9,8 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
             emptyTable: "No hay datos disponibles en esta tabla." // Mensaje personalizado
         }
     });
-    const areaSelect = document.querySelector('#area-vista-departamento');
-    const form = document.querySelector('form');
+    const areaSelect = document.querySelector('#area-vista-departamento');``
 
     // Cargar las áreas de conocimiento al cargar la página
     fetch('/area-conocimiento')
@@ -33,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
         .catch(error => console.error('Error al cargar las áreas:', error));
 
     // Función para obtener todos los departamentos desde el backend
-    function cargarDepartamentos() {
+    function cargar_departamentos() {
         fetch('/departamento/ajax')
             .then(response => response.json())
             .then(data => {
@@ -47,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         row.innerHTML = `
                             <td>${departamento.ID_Departamento}</td>
                             <td class="nombre_departamento">${departamento.Nombre}</td>
-                            <td class="area">${departamento.area_conocimiento ? departamento.area_conocimiento.Nombre : 'N/A'}</td>
+                            <td class="area_departamento">${departamento.area_conocimiento ? departamento.area_conocimiento.Nombre : 'Sin Area de Conocimiento'}</td>
                             <td>
                                 <button class="btn-editar" data-id="${departamento.ID_Departamento}">✏️Editar</button>
                                 <button class="btn-eliminar" data-id="${departamento.ID_Departamento}">❌Eliminar</button>
@@ -60,11 +59,11 @@ document.addEventListener('DOMContentLoaded', function () {
                         table.row.add($(row)).draw();
 
                         row.querySelector('.btn-eliminar').addEventListener('click', function () {
-                            eliminarDepartamento(departamento.ID_Departamento);
+                            eliminar_departamento(departamento.ID_Departamento);
                         });
 
                         row.querySelector('.btn-editar').addEventListener('click', function () {
-                            editarDepartamento(departamento);
+                            editar_departamento(departamento);
                         });
 
                         row.querySelector('.btn-aceptar').addEventListener('click', function () {
@@ -83,27 +82,53 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     }
 
-    // Función para editar un departamento
-    function editarDepartamento(departamento) {
-        const row = document.querySelector(`tr[data-id="${departamento.ID_Departamento}"]`);
-        const nombreCell = row.querySelector('.nombre_departamento');
-        const areaCell = row.querySelector('.area');
-
-        console.log(row);
-        console.log(nombreCell);
-        console.log(areaCell);
-
+    function editar_departamento(departamento) {
+        // Limitar la búsqueda de filas a la tabla específica
+        const table = document.querySelector('#departamentoTable');
+        if (!table) {
+            console.error('Tabla no encontrada');
+            return;
+        }
+    
+        const row = table.querySelector(`tr[data-id="${departamento.ID_Departamento}"]`);
         if (!row) {
             console.error('Fila no encontrada');
             return;
         }
-
+    
+        const nombreCell_Departamento = row.querySelector('td:nth-child(2)');
+        const areaCell_Departamento = row.querySelector('td:nth-child(3)');
+    
         // Reemplazar el nombre por un input y enfocarlo automáticamente
-        nombreCell.innerHTML = `<input type="text" class="input_nombre_departamento" value="${departamento.Nombre}" />`;
-        const inputNombre = nombreCell.querySelector('.input_nombre_departamento');
-        inputNombre.focus();
-
+        const inputNombre = crearCamposInput(nombreCell_Departamento, departamento.Nombre);
+    
         // Reemplazar el área por un selector con las áreas disponibles
+        actualizarAreaSelect(areaCell_Departamento, departamento.ID_Area);
+    
+        // Mostrar el botón de aceptar y ocultar los otros
+        botonesAlternar(row, 'none', 'inline-block');
+    
+        // Detectar "Enter" en el input de nombre
+        inputNombre.addEventListener('keypress', function (event) {
+            if (event.key === 'Enter') {
+                guardarCambios(departamento.ID_Departamento);
+            }
+        });
+    }
+    
+    // Crear un input para el nombre del departamento
+    function crearCamposInput(cell, value) {
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.value = value;
+        cell.innerHTML = ''; // Limpiar el contenido de la celda
+        cell.appendChild(input);
+        input.focus();
+        return input;
+    }
+    
+    // Actualizar la celda de área con un selector de áreas
+    function actualizarAreaSelect(cell, selectedID_Area) {
         fetch('/area-conocimiento')
             .then(response => response.json())
             .then(data => {
@@ -112,35 +137,42 @@ document.addEventListener('DOMContentLoaded', function () {
                     const option = document.createElement('option');
                     option.value = area.ID_Area;
                     option.textContent = area.Nombre;
-                    if (departamento.ID_Area === area.ID_Area) {
+                    if (selectedID_Area === area.ID_Area) {
                         option.selected = true;
                     }
                     select.appendChild(option);
                 });
-                areaCell.innerHTML = '';
-                areaCell.appendChild(select);
+                cell.innerHTML = ''; // Limpiar la celda
+                cell.appendChild(select);
             })
             .catch(error => console.error('Error al cargar las áreas:', error));
-
-        // Mostrar el botón de aceptar y ocultar los otros
-        row.querySelector('.btn-editar').style.display = 'none';
-        row.querySelector('.btn-eliminar').style.display = 'none';
-        row.querySelector('.btn-aceptar').style.display = 'inline-block';
-
-        // Detectar "Enter" en el input de nombre
-        inputNombre.addEventListener('keypress', function (event) {
-            if (event.key === 'Enter') {
-                guardarCambios(departamento.ID_Departamento);
-            }
-        });
     }
-
+    
+    // Alternar visibilidad de los botones de editar/eliminar/aceptar
+    function botonesAlternar(row, editarEliminarDisplay, aceptarDisplay) {
+        row.querySelector('.btn-editar').style.display = editarEliminarDisplay;
+        row.querySelector('.btn-eliminar').style.display = editarEliminarDisplay;
+        row.querySelector('.btn-aceptar').style.display = aceptarDisplay;
+    }
+    
     // Función para guardar los cambios realizados en el departamento
     function guardarCambios(id) {
-        const row = document.querySelector(`tr[data-id="${id}"]`);
-        const newNombre = row.querySelector('.input_nombre_departamento').value;
-        const newArea = row.querySelector('select').value;
-
+        // Limitar la búsqueda de filas a la tabla específica
+        const table = document.querySelector('#departamentoTable');
+        if (!table) {
+            console.error('Tabla no encontrada');
+            return;
+        }
+    
+        const row = table.querySelector(`tr[data-id="${id}"]`);
+        if (!row) {
+            console.error('Fila no encontrada');
+            return;
+        }
+    
+        const NuevoNombre_Departamento = row.querySelector('td:nth-child(2) input').value;
+        const NuevaArea_Departamento = row.querySelector('td:nth-child(3) select').value;
+    
         fetch(`/departamento/actualizar/ajax/${id}`, {
             method: 'PUT',
             headers: {
@@ -148,26 +180,27 @@ document.addEventListener('DOMContentLoaded', function () {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                Nombre: newNombre,
-                ID_Area: newArea
+                Nombre: NuevoNombre_Departamento,
+                ID_Area: NuevaArea_Departamento
             })
         })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                console.log('Departamento actualizado correctamente');
-                cargarDepartamentos(); // Recargar la lista de departamentos
-            } else {
-                alert('Error al actualizar el departamento: ' + data.message);
-            }
-        })
-        .catch(error => {
-            console.log('Ocurrió un error al actualizar el departamento:', error);
-        });
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log('Departamento actualizado correctamente');
+                    cargar_departamentos(); // Recargar la lista de departamentos
+                } else {
+                    alert('Error al actualizar el departamento: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.log('Ocurrió un error al actualizar el departamento:', error);
+            });
     }
     
+
     // Función para eliminar un departamento
-    function eliminarDepartamento(id) {
+    function eliminar_departamento(id) {
         if (confirm('¿Estás seguro de que deseas eliminar este departamento?')) {
             fetch(`/departamento/eliminar/ajax/${id}`, {
                 method: 'DELETE',
@@ -179,7 +212,7 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(data => {
                 if (data.success) {
                     console.log('Departamento eliminado correctamente');
-                    cargarDepartamentos();
+                    cargar_departamentos();
                 } else {
                     alert('Error al eliminar el departamento: ' + data.message);
                 }
@@ -197,7 +230,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const form = this; // Referencia al formulario
         const formData = {
             _token: document.querySelector('input[name="_token"]').value, // Token CSRF
-            Nombre: form.querySelector('input[name="Nombre"]').value, // Valor del campo 'Nombre'
+            Nombre: form.querySelector('input[name="Nombre_Departamento"]').value, // Valor del campo 'Nombre'
             ID_Area: form.querySelector('select[name="ID_Area"]').value // Valor del área seleccionada
         };
 
@@ -208,7 +241,7 @@ document.addEventListener('DOMContentLoaded', function () {
             success: function (response) {
                 if (response.success) {
                     alert('¡Departamento agregado correctamente!');
-                    cargarDepartamentos(); // Recargar la tabla con los nuevos datos
+                    cargar_departamentos(); // Recargar la tabla con los nuevos datos
                     form.reset(); // Limpiar el formulario
                 } else {
                     alert('Error al agregar el departamento: ' + response.message);
@@ -220,6 +253,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     });
-    // Llamar la función para cargar los departamentos al cargar la página
-    cargarDepartamentos();
+
+    // Inicializar los departamentos al cargar la página
+    cargar_departamentos();
 });

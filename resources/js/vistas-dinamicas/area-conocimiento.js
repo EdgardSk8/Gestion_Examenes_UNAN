@@ -1,4 +1,4 @@
-console.log(nombre);
+console.log(Nombre);
 document.addEventListener("DOMContentLoaded", function () {
     const table = $('#areaConocimientoTable').DataTable({
         language: {
@@ -138,7 +138,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Función para actualizar el área
     function actualizarArea(ID_Area) {
-        const nuevoNombre_Area = document.querySelector(`#input-nombre_area-${ID_Area}`).value;
+        const NuevoNombre_Area = document.querySelector(`#input-nombre_area-${ID_Area}`).value;
 
         // Enviar una petición AJAX para actualizar el área
         $.ajax({
@@ -146,7 +146,7 @@ document.addEventListener("DOMContentLoaded", function () {
             method: 'PUT',
             data: {
                 _token: document.querySelector('input[name="_token"]').value,
-                Nombre: nuevoNombre_Area
+                Nombre: NuevoNombre_Area
             },
             success: function (response) {
                 if (response.success) {
@@ -155,7 +155,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     const nombreCell_Area = row.querySelector('td:nth-child(2)');
 
                     // Restaurar el texto del área
-                    nombreCell_Area.innerHTML = nuevoNombre_Area;
+                    nombreCell_Area.innerHTML = NuevoNombre_Area;
 
                     // Restaurar los botones
                     row.querySelector('.btn-editar').style.display = 'inline-block';
