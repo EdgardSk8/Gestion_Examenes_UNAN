@@ -233,8 +233,10 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error('El objeto profesor no tiene un ID válido:', profesor);
             return;
         }
-    
-        const row = document.querySelector(`tr[data-id="${profesor.ID_Profesor}"]`);
+        const table = document.getElementById('profesorTable');
+        const row = table.querySelector(`tr[data-id="${profesor.ID_Profesor}"]`);
+
+        //const row = document.querySelector(`tr[data-id="${profesor.ID_Profesor}"]`);
 
         if (!row) {
             console.error(`Fila con ID_Profesor ${profesor.ID_Profesor} no encontrada.`);
@@ -470,7 +472,11 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function guardarCambios(profesorId) {
-        const row = document.querySelector(`tr[data-id="${profesorId}"]`);
+
+        const table = document.getElementById('profesorTable');
+        const row = table.querySelector(`tr[data-id="${profesorId}"]`);
+
+        //const row = document.querySelector(`tr[data-id="${profesorId}"]`);
         const nombreInput = row.querySelector('.input-nombre');
         const correoInput = row.querySelector('.input-correo');
         const contraseniaInput = row.querySelector('.input-contrasenia');

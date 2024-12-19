@@ -379,8 +379,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.error('El objeto estudiante no tiene un ID válido:', estudiante);
                 return;
             }
+            const table = document.getElementById('estudianteTable');
+            //const row = table.querySelector(`tr[data-id="${edificio.ID_Edificio}"]`);
         
-            const row = document.querySelector(`tr[data-id="${estudiante.ID_Estudiante}"]`);
+            //const row = document.querySelector(`tr[data-id="${estudiante.ID_Estudiante}"]`);
+            const row = table.querySelector(`tr[data-id="${estudiante.ID_Estudiante}"]`);
             console.log(row);
         
             if (!row) {
@@ -626,7 +629,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
         function guardarCambios(estudianteId) {
             // Obtener los nuevos valores de los campos
-            const row = document.querySelector(`tr[data-id="${estudianteId}"]`);
+            const table = document.getElementById('estudianteTable');
+            const row = table.querySelector(`tr[data-id="${estudianteId}"]`);
+            //const row = document.querySelector(`tr[data-id="${estudianteId}"]`);
         
             if (!row) {
                 console.error(`Fila con ID_Estudiante ${estudianteId} no encontrada.`);
