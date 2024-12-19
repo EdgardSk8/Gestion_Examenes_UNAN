@@ -1,4 +1,3 @@
-console.log(Nombre);
 document.addEventListener("DOMContentLoaded", function () {
     const table = $('#areaConocimientoTable').DataTable({
         language: {

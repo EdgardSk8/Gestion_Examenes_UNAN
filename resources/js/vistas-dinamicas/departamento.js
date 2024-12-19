@@ -1,4 +1,3 @@
-console.log(Nombre);
 document.addEventListener('DOMContentLoaded', function () {
     const departamentoTableBody = document.querySelector('#departamentoTable tbody');
     const table = $('#departamentoTable').DataTable({
@@ -30,6 +29,8 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         })
         .catch(error => console.error('Error al cargar las áreas:', error));
+
+        
 
     // Función para obtener todos los departamentos desde el backend
     function cargar_departamentos() {
@@ -84,13 +85,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function editar_departamento(departamento) {
         // Limitar la búsqueda de filas a la tabla específica
-        const table = document.querySelector('#departamentoTable');
+        const table = document.querySelector('#departamentoTable');    
+        const row = table.querySelector(`tr[data-id="${departamento.ID_Departamento}"]`);
+
         if (!table) {
             console.error('Tabla no encontrada');
             return;
         }
-    
-        const row = table.querySelector(`tr[data-id="${departamento.ID_Departamento}"]`);
+
         if (!row) {
             console.error('Fila no encontrada');
             return;
