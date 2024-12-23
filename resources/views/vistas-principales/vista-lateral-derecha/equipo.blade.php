@@ -29,8 +29,6 @@
 <div style="background-color: burlywood; padding: 21px;"> 
 
 <p>1- Revisar el recargado de pagina al navegar (Boton de inicio de sesion) </p>
-<p>Arreglar problemas con las variables de nombres en las tablas dinamicas</p>
-<p>Para evitar choques entre ID</p>
 <p>Arreglar codigo de agregar equipos, revisar los escuchadores de eventos</p>
 <p>Linea 343</p>
 <p>6- Agregar un boton de editar equipo</p>

@@ -116,32 +116,36 @@
                 <label>Tipo de Examen:</label>
                 <select id="editartipo_examen" required></select>
             </div>
+
+            <div id="tipoexameneditar">
         
-            <!-- Tutor y jueces en una fila -->
-            <h3>Tutor y Jueces</h3>
-        
-            <div>
-                <label>Tutor:</label>
-                <select id="editartutor"></select>
-            </div>
-        
-            <div style="display: flex; gap: 10px; width: 100%;">
-                
-                <div style="flex: 1;">
-                    <label>Juez 1:</label>
-                    <select id="editarjuez1"></select>
+                <!-- Tutor y jueces en una fila -->
+                <h3>Tutor y Jueces</h3>
+            
+                <div>
+                    <label>Tutor:</label>
+                    <select id="editartutor"></select>
                 </div>
-        
-                <div style="flex: 1;">
-                    <label>Juez 2 (Opcional):</label>
-                    <select id="editarjuez2"></select>
+            
+                <div style="display: flex; gap: 10px; width: 100%;">
+                    
+                    <div style="flex: 1;">
+                        <label>Juez 1:</label>
+                        <select id="editarjuez1"></select>
+                    </div>
+            
+                    <div style="flex: 1;">
+                        <label>Juez 2 (Opcional):</label>
+                        <select id="editarjuez2"></select>
+                    </div>
+            
+                    <div style="flex: 1;">
+                        <label>Juez 3 (Opcional):</label>
+                        <select id="editarjuez3"></select>
+                    </div>
+            
                 </div>
-        
-                <div style="flex: 1;">
-                    <label>Juez 3 (Opcional):</label>
-                    <select id="editarjuez3"></select>
-                </div>
-        
+
             </div>
         
             <!-- Botón de subir -->
