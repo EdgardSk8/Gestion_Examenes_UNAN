@@ -19,10 +19,14 @@ if (editButton) {
                 if (data.success) {
                         const equipo = data.data;
                     
-                        //Depurador(equipo);
+                        Depurador(equipo);
                         AsignarInputs(equipo);
                         RetornarTipoExamen(equipo);
                         RetornarArea_Conocimiento(equipo);
+                        RetornarDepartamento(equipo);
+                        RetornarCarrera(equipo);
+                        RetornarEdificio(equipo);
+                        RetornarAula(equipo);
 
                     }
             });
@@ -55,6 +59,34 @@ if (editButton) {
         editarArea_ConocimientoSelect.appendChild(optionarea_conocimiento);
     }
 
+    function RetornarDepartamento(equipo){ //Funcion para mostrar mostrar en option el tipo de departamento retornado
+        const editarDepartamentoSelect = document.getElementById('editardepartamento');
+        let optiondepartamento = document.createElement('option');
+        optiondepartamento.textContent = equipo.departamento;
+        editarDepartamentoSelect.appendChild(optiondepartamento);
+    }
+
+    function RetornarCarrera(equipo){ //Funcion para mostrar mostrar en option el tipo de carrera retornada
+        const editarCarreraSelect = document.getElementById('editarcarrera');
+        let optioncarrera = document.createElement('option');
+        optioncarrera.textContent = equipo.carrera;
+        editarCarreraSelect.appendChild(optioncarrera);
+    }
+
+    function RetornarEdificio(equipo){ //Funcion para mostrar mostrar en option el tipo de carrera retornada
+        const editarEdificioSelect = document.getElementById('editaredificio');
+        let optionedificio = document.createElement('option');
+        optionedificio.textContent = equipo.edificio;
+        editarEdificioSelect.appendChild(optionedificio);
+    }
+
+    function RetornarAula(equipo){ //Funcion para mostrar mostrar en option el tipo de carrera retornada
+        const editarAulaSelect = document.getElementById('editaraula');
+        let optionaula = document.createElement('option');
+        optionaula.textContent = equipo.aula;
+        editarAulaSelect.appendChild(optionaula);
+    }
+
     function Depurador(equipo) { // Función para depurar los datos
         console.log('Título del equipo:', equipo.titulo || 'No especificado');
         console.log('Integrante 1:', equipo.integrante1 || 'No especificado');
@@ -74,6 +106,7 @@ if (editButton) {
         console.log('Carrera:', equipo.carrera || 'No especificada');
         console.log('Departamento:', equipo.departamento || 'No especificado');
         console.log('Área:', equipo.area_conocimiento || 'No especificado');
+        console.log('Edificio:', equipo.edificio || 'No especificado');
     }
 
 }

@@ -93,6 +93,7 @@ class EquipoController extends Controller
                 'hora_inicio' => $equipo->Hora_Inicio,
                 'hora_fin' => $equipo->Hora_Fin,
                 'aula' => $equipo->aula ? $equipo->aula->Nombre_Aula : '', // Nombre del aula
+                'edificio' => $equipo->aula && $equipo->aula->edificio ? $equipo->aula->edificio->Nombre_Edificio : '', //Nombre Edificio
                 'tipo_examen' => $equipo->tipoExamen ? $equipo->tipoExamen->Nombre : '', // Tipo de examen
                 'tutor' => $equipo->tutor ? $equipo->tutor->Nombre_Completo_P : '', // Nombre del tutor
                 'calificacion' => $equipo->Calificacion,

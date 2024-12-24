@@ -96,6 +96,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     document.querySelector('#equipo-detalle .equipos-table tr:nth-of-type(15) td:nth-of-type(2)').textContent = data.juez3; // Muestra el juez 3
                     document.querySelector('#equipo-detalle .equipos-table tr:nth-of-type(16) td:nth-of-type(2)').textContent = data.carrera; // Muestra la carrera
 
+
                     // Actualiza la interfaz de usuario
                     document.getElementById('vista-inicio').style.display = 'none'; // Oculta la vista de inicio
                     document.querySelector('.equipos-table').style.display = 'table'; // Muestra la tabla de detalles
