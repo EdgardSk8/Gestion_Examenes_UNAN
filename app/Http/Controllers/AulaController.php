@@ -47,18 +47,146 @@ class AulaController extends Controller
         }
     }
 
-    // Método para obtener los edificios asociados a un área de conocimiento
-    public function ObtenerEdificiosPorArea(Request $request)
+    //Metodos AJAX
+    public function ObtenerTodasAulasAJAX()
     {
-        $areaId = $request->input('idArea');
+        $aulas = Aula::with(['edificio.areaConocimiento'])->get();
+        return response()->json([
+            'success' => true,
+            'data' => $aulas
+        ]);
+    }
 
-        if ($areaId) {
-            // Obtener edificios asociados al área de conocimiento seleccionada
-            $edificios = Edificio::where('ID_Area', $areaId)->get();
-            return response()->json($edificios);
+    // Agregar un aula
+    public function agregarAulaAjax(Request $request)
+    {
+        // Validar los datos recibidos del formulario
+        $validated = $request->validate([
+            'ID_Edificio' => 'required|exists:edificio,ID_Edificio',
+            'Nombre_Aula' => 'required|string|max:255',
+        ]);
+    
+        try {
+            // Crear el nuevo aula usando los datos validados
+            $aula = new Aula();
+            $aula->ID_Edificio = $validated['ID_Edificio'];
+            $aula->Nombre_Aula = $validated['Nombre_Aula'];
+    
+            // Guardar el aula en la base de datos
+            $aula->save();
+    
+            return response()->json([
+                'success' => true,
+                'message' => 'Aula agregada exitosamente.',
+                'data' => $aula // Opcional: Puedes devolver el aula creada si es necesario
+            ]);
+        } catch (\Exception $e) {
+            // Retornar una respuesta JSON de error
+            return response()->json([
+                'success' => false,
+                'message' => 'Ocurrió un error al agregar el aula: ' . $e->getMessage()
+            ], 500); // 500 indica un error interno del servidor
         }
-        
-        return response()->json([]); // Retorna un array vacío si no hay ID de área
+    }    
+
+    // Editar un aula (Retorna los datos de un aula para edición)
+    public function EditarAulaAJAX($id)
+    {
+        // Obtener el aula con la relación del edificio cargada
+        $aula = Aula::with('edificio.area_conocimiento')->find($id);
+
+        if ($aula) {
+            // Verificar si el área de conocimiento está presente en el edificio
+            $area = $aula->edificio && $aula->edificio->area_conocimiento ? $aula->edificio->area_conocimiento : null;
+
+            return response()->json([
+                'success' => true,
+                'data' => [
+                    'ID_Aula' => $aula->ID_Aula,
+                    'Nombre_Aula' => $aula->Nombre_Aula,
+                    'ID_Edificio' => $aula->ID_Edificio,
+                    'ID_Area' => $area ? $area->ID_Area : null, // Solo asignar ID_Area si el área existe
+                    'Edificio' => $aula->edificio,
+                ]
+            ]);
+        }
+
+        return response()->json([
+            'success' => false,
+            'message' => 'Aula no encontrada.'
+        ], 404);
+    }
+
+    // Actualizar un aula
+    public function ActualizarAulaAJAX(Request $request, $id)
+    {
+        // Validar los datos recibidos
+        $validatedData = $request->validate([
+            'Nombre_Aula' => 'nullable|string|max:255',
+            'ID_Edificio' => 'nullable|exists:edificio,ID_Edificio', // Validación del ID_Edificio
+        ]);
+    
+        // Buscar el aula en la base de datos
+        $aula = Aula::find($id);
+    
+        // Verificar si el aula existe
+        if ($aula) {
+            try {
+                // Actualizar los campos con los datos validados
+                $aula->update([
+                    'Nombre_Aula' => $validatedData['Nombre_Aula'],
+                    'ID_Edificio' => $validatedData['ID_Edificio'],
+                ]);
+    
+                // Devolver una respuesta exitosa con los datos actualizados
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Aula actualizada exitosamente.',
+                    'data' => $aula
+                ]);
+            } catch (\Exception $e) {
+                // Si ocurre un error, devolver una respuesta con el error
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Ocurrió un error al actualizar el aula: ' . $e->getMessage()
+                ], 500);
+            }
+        }
+    
+        // Si no se encuentra el aula, devolver un error 404
+        return response()->json([
+            'success' => false,
+            'message' => 'Aula no encontrada.'
+        ], 404);
+    }
+    
+
+    // Eliminar un aula
+    public function EliminarAulaAJAX($id)
+    {
+        $aula = Aula::find($id);
+
+        if ($aula) {
+            try {
+                // Eliminar el aula
+                $aula->delete();
+
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Aula eliminada exitosamente.',
+                ]);
+            } catch (\Exception $e) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Ocurrió un error al eliminar el aula: ' . $e->getMessage()
+                ], 500);
+            }
+        }
+
+        return response()->json([
+            'success' => false,
+            'message' => 'Aula no encontrada.'
+        ], 404);
     }
 
 }

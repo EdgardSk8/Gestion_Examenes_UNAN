@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-11-2024 a las 17:27:29
+-- Tiempo de generación: 11-12-2024 a las 06:29:57
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -18,10 +18,10 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `gestion_examenes`
+-- Base de datos: `gestion_examenes2`
 --
-CREATE DATABASE IF NOT EXISTS `gestion_examenes4` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `gestion_examenes4`;
+CREATE DATABASE IF NOT EXISTS `gestion_examenes2` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `gestion_examenes2`;
 
 -- --------------------------------------------------------
 
@@ -38,14 +38,13 @@ CREATE TABLE `area_conocimiento` (
 -- Volcado de datos para la tabla `area_conocimiento`
 --
 
-INSERT INTO `area_conocimiento` (`ID_Area`, `Nombre`) VALUES
-(5, 'Agrarias y Veterinarias'),
-(1, 'Ciencias Y Tecnologia'),
-(8, 'Economicas y Empresariales'),
-(6, 'Educacion y Humanidades'),
-(7, 'Medica'),
-(4, 'Odontologia'),
-(3, 'Quimica');
+INSERT INTO `area_conocimiento` VALUES(5, 'Agrarias y Veterinarias');
+INSERT INTO `area_conocimiento` VALUES(1, 'Ciencias Y Tecnologia');
+INSERT INTO `area_conocimiento` VALUES(8, 'Economicas y Empresariales');
+INSERT INTO `area_conocimiento` VALUES(6, 'Educacion y Humanidades');
+INSERT INTO `area_conocimiento` VALUES(7, 'Medica');
+INSERT INTO `area_conocimiento` VALUES(4, 'Odontologia');
+INSERT INTO `area_conocimiento` VALUES(3, 'Quimica');
 
 -- --------------------------------------------------------
 
@@ -63,11 +62,9 @@ CREATE TABLE `aulas` (
 -- Volcado de datos para la tabla `aulas`
 --
 
-INSERT INTO `aulas` (`ID_Aula`, `Nombre_Aula`, `ID_Edificio`) VALUES
-(1, 'Laboratorio Hardware', 1),
-(2, 'Laboratorio 2', 1),
-(3, 'Sala de maestria', 1),
-(4, 'Alcala2', 3);
+INSERT INTO `aulas` VALUES(9, 'A6', 99);
+INSERT INTO `aulas` VALUES(10, 'Laboratorio Cisco', 98);
+INSERT INTO `aulas` VALUES(12, 'Laboratorio Hardware', 97);
 
 -- --------------------------------------------------------
 
@@ -85,10 +82,9 @@ CREATE TABLE `carrera` (
 -- Volcado de datos para la tabla `carrera`
 --
 
-INSERT INTO `carrera` (`ID_Carrera`, `Nombre`, `ID_Departamento`) VALUES
-(1, 'Ingenieria en sistemas de informacion', 1),
-(2, 'Telematica', 1),
-(3, 'Medicina Veterinaria', 7);
+INSERT INTO `carrera` VALUES(29, 'Ingenieria en sistemas de informacion', 33);
+INSERT INTO `carrera` VALUES(30, 'Telematica', 33);
+INSERT INTO `carrera` VALUES(36, 'Medicina Veterinaria', 37);
 
 -- --------------------------------------------------------
 
@@ -106,15 +102,9 @@ CREATE TABLE `departamento` (
 -- Volcado de datos para la tabla `departamento`
 --
 
-INSERT INTO `departamento` (`ID_Departamento`, `Nombre`, `ID_Area`) VALUES
-(1, 'Computacion', 1),
-(2, 'Biologia', 1),
-(3, 'Quimica', 1),
-(4, 'Estadistica - Matematica', 1),
-(5, 'Agroecologia', 5),
-(6, 'Acuicola', 5),
-(7, 'Zootecnia', 5),
-(10, 'l', 1);
+INSERT INTO `departamento` VALUES(33, 'Computacion', 1);
+INSERT INTO `departamento` VALUES(34, 'Estadistica - Matematica', 1);
+INSERT INTO `departamento` VALUES(37, 'Veterinaria', 5);
 
 -- --------------------------------------------------------
 
@@ -131,10 +121,9 @@ CREATE TABLE `dia_asignado` (
 -- Volcado de datos para la tabla `dia_asignado`
 --
 
-INSERT INTO `dia_asignado` (`ID_Dia`, `Dia`) VALUES
-(1, 'Lunes'),
-(2, 'Martes'),
-(3, 'Miercoles');
+INSERT INTO `dia_asignado` VALUES(1, 'Lunes');
+INSERT INTO `dia_asignado` VALUES(2, 'Martes');
+INSERT INTO `dia_asignado` VALUES(3, 'Miercoles');
 
 -- --------------------------------------------------------
 
@@ -152,10 +141,9 @@ CREATE TABLE `edificio` (
 -- Volcado de datos para la tabla `edificio`
 --
 
-INSERT INTO `edificio` (`ID_Edificio`, `Nombre_Edificio`, `ID_Area`) VALUES
-(1, 'Cids', 1),
-(2, 'ATM', 1),
-(3, 'Basico', 1);
+INSERT INTO `edificio` VALUES(97, 'Cids', 1);
+INSERT INTO `edificio` VALUES(98, 'Basico', 1);
+INSERT INTO `edificio` VALUES(99, 'ATM', 1);
 
 -- --------------------------------------------------------
 
@@ -188,16 +176,16 @@ CREATE TABLE `equipos` (
 -- Volcado de datos para la tabla `equipos`
 --
 
-INSERT INTO `equipos` (`ID_Equipo`, `Titulo`, `Integrante1`, `Integrante2`, `Integrante3`, `Fecha_Asignada`, `Fecha_Aprobada`, `ID_Dia`, `Hora_Inicio`, `Hora_Fin`, `ID_Aula`, `ID_Tipo_Examen`, `Calificacion`, `Tutor_ID`, `Juez1_ID`, `Juez2_ID`, `Juez3_ID`, `ID_Carrera`) VALUES
-(1, 'Servicio Web para el colegio La Salle', 1, 1, 1, '2024-11-15', '2024-09-11', 2, '07:00:00', '08:00:00', 3, 1, 80, 4, 1, 2, 3, 1),
-(3, 'Sistema react', 3, 4, NULL, '2024-09-21', NULL, NULL, NULL, NULL, 1, NULL, 80, 3, 1, NULL, NULL, 1),
-(4, 'aplicacion android de contabilidad', 3, NULL, NULL, '2024-09-05', NULL, NULL, NULL, NULL, 2, NULL, NULL, 3, 2, NULL, NULL, 1),
-(5, 'aplicacion windows form', 4, NULL, NULL, '2024-09-09', '2024-09-11', NULL, NULL, NULL, 3, 2, NULL, 4, 2, NULL, NULL, 1),
-(6, 'Servicio de camaras con IA en Banco ', 3, NULL, NULL, '2024-08-28', NULL, NULL, NULL, NULL, 2, NULL, NULL, 4, 4, NULL, NULL, 1),
-(7, 'Software de tienda en linea', 1, NULL, NULL, '2024-09-14', NULL, NULL, NULL, NULL, 3, 1, NULL, 4, 2, NULL, NULL, 1),
-(8, 'Reparacion de computadoras y laptops a domicilio', 3, NULL, NULL, '2024-09-08', NULL, NULL, NULL, NULL, 2, NULL, NULL, 2, 1, NULL, NULL, 1),
-(29, 'Tecnologías Emergentes en la Educación: Oportunidades y Retos', 1, 2, 3, '2024-11-21', NULL, NULL, '12:00:00', '14:00:00', 4, 2, NULL, 2, 3, 4, 1, 1),
-(30, 'Investigacion', 1, 3, NULL, '2024-11-22', NULL, NULL, '12:00:00', '15:00:00', 1, 1, NULL, 4, 3, 5, 1, 1);
+INSERT INTO `equipos` VALUES(1, 'Servicio Web para el colegio La Salle', 1, 1, 1, '2024-12-04', '2024-09-11', 2, '07:00:00', '08:00:00', 3, 1, 80, 4, 1, 2, 3, 1);
+INSERT INTO `equipos` VALUES(3, 'Sistema react', 3, 4, NULL, '2024-09-21', NULL, NULL, NULL, NULL, 1, NULL, 80, 3, 1, NULL, NULL, 1);
+INSERT INTO `equipos` VALUES(4, 'aplicacion android de contabilidad', 3, NULL, NULL, '2024-09-05', NULL, NULL, NULL, NULL, 2, NULL, NULL, 3, 2, NULL, NULL, 1);
+INSERT INTO `equipos` VALUES(5, 'aplicacion windows form', 4, NULL, NULL, '2024-09-09', '2024-09-11', NULL, NULL, NULL, 3, 2, NULL, 4, 2, NULL, NULL, 1);
+INSERT INTO `equipos` VALUES(6, 'Servicio de camaras con IA en Banco ', 3, NULL, NULL, '2024-08-28', NULL, NULL, NULL, NULL, 2, NULL, NULL, 4, 4, NULL, NULL, 1);
+INSERT INTO `equipos` VALUES(7, 'Software de tienda en linea', 1, NULL, NULL, '2024-09-14', NULL, NULL, NULL, NULL, 3, 1, NULL, 4, 2, NULL, NULL, 1);
+INSERT INTO `equipos` VALUES(8, 'Reparacion de computadoras y laptops a domicilio', 3, NULL, NULL, '2024-09-08', NULL, NULL, NULL, NULL, 2, NULL, NULL, 2, 1, NULL, NULL, 1);
+INSERT INTO `equipos` VALUES(29, 'Tecnologías Emergentes en la Educación: Oportunidades y Retos', 1, 2, 3, '2024-12-19', NULL, NULL, '12:00:00', '14:00:00', 4, 2, NULL, 2, 3, 4, 1, 1);
+INSERT INTO `equipos` VALUES(30, 'Investigacion', 1, 3, NULL, '2024-12-06', NULL, NULL, '12:00:00', '15:00:00', 1, 1, NULL, 4, 3, 5, 1, 1);
+INSERT INTO `equipos` VALUES(31, 'Investigacion Documental acerca de la importancia de la fisioterapia', 13, 2, NULL, '2024-12-12', NULL, NULL, '12:00:00', '14:00:00', 12, 2, NULL, 16, 17, 18, NULL, 29);
 
 -- --------------------------------------------------------
 
@@ -231,11 +219,9 @@ CREATE TABLE `estudiantes` (
 -- Volcado de datos para la tabla `estudiantes`
 --
 
-INSERT INTO `estudiantes` (`ID_Estudiante`, `Nombre_Completo`, `Carnet`, `Genero`, `ID_Localidad`, `ID_Carrera`, `Correo_Institucional`) VALUES
-(1, 'Edgard Jose Tellez Munguia', '20-00613-0', 'Masculino', 1, 1, 'Edgard@gmail.com'),
-(2, 'Mynor Miguel Aruaz Rugama', '20-96973-0', 'Masculino', 1, 1, 'Mynor@gmail.com'),
-(3, 'Erick Alberto Salgado Suazo', '20-43424-0', 'Masculino', 1, 1, 'Erick@gmail.com'),
-(4, 'Eliezer Valentin Chavarria Hernandez', '20-04643-0', 'Masculino', 1, 1, 'Eliezer@gmail.com');
+INSERT INTO `estudiantes` VALUES(2, 'Mynor Miguel Aruaz Rugama', '20-96973-0', 'Masculino', 1, 29, 'Mynor@gmail.com');
+INSERT INTO `estudiantes` VALUES(13, 'Edgard Jose Tellez Munguia', '20-00613-3', 'Masculino', 1, 29, 'Edgarda@gmail.com');
+INSERT INTO `estudiantes` VALUES(14, 'Andrea Sofia Martinez Plata', '20-00613-6', 'Masculino', 1, 29, 'Andrea@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -252,12 +238,13 @@ CREATE TABLE `localidades` (
 -- Volcado de datos para la tabla `localidades`
 --
 
-INSERT INTO `localidades` (`ID_Localidad`, `Nombre`) VALUES
-(1, 'Leon'),
-(2, 'Chinandega'),
-(3, 'Managua'),
-(4, 'Masaya'),
-(21, 'Managua');
+INSERT INTO `localidades` VALUES(1, 'Leon');
+INSERT INTO `localidades` VALUES(2, 'Chinandega');
+INSERT INTO `localidades` VALUES(3, 'Managua');
+INSERT INTO `localidades` VALUES(4, 'Masaya');
+INSERT INTO `localidades` VALUES(21, 'Managua');
+INSERT INTO `localidades` VALUES(28, 'Jinotega');
+INSERT INTO `localidades` VALUES(30, 'Carazo');
 
 -- --------------------------------------------------------
 
@@ -274,10 +261,9 @@ CREATE TABLE `perfil` (
 -- Volcado de datos para la tabla `perfil`
 --
 
-INSERT INTO `perfil` (`ID_Perfil`, `Nombre`) VALUES
-(1, 'Admin'),
-(2, 'Secretario'),
-(3, 'Profesor');
+INSERT INTO `perfil` VALUES(1, 'Admin');
+INSERT INTO `perfil` VALUES(2, 'Secretario');
+INSERT INTO `perfil` VALUES(3, 'Profesor');
 
 -- --------------------------------------------------------
 
@@ -298,13 +284,10 @@ CREATE TABLE `profesores` (
 -- Volcado de datos para la tabla `profesores`
 --
 
-INSERT INTO `profesores` (`ID_Profesor`, `Nombre_Completo_P`, `Correo`, `Contrasenia`, `ID_Departamento`, `ID_Perfil`) VALUES
-(1, 'WILLIAM NOEL MARTINEZ OROZCO', 'William@gmail.com', '', 1, 3),
-(2, 'Jerson Pastrán', 'Gerson@gmail.com', '', 1, 3),
-(3, 'David Antonio Maradiaga Gutierrez', 'David@gmail.com', '', 1, 3),
-(4, 'Francisco Rafael Zepeda Coronado', 'Francisco@gmail.com', '', 1, 2),
-(5, 'Juan Carlos Leyton Briones', 'Juan@gmail.com', '', 1, 3),
-(16, 'hnnnnnnnnnn', 'aax@gmail.com', 'nmnm', 6, 1);
+INSERT INTO `profesores` VALUES(16, 'WILLIAM NOEL MARTINEZ OROZCO', 'William@gmail.com', '1234', 33, 3);
+INSERT INTO `profesores` VALUES(17, 'Francisco Rafael Zepeda Coronadoa', 'Francisco@gmail.com', '1234', 33, 3);
+INSERT INTO `profesores` VALUES(18, 'Rina del Pilar Arauz Altamirano', 'Rina@gmail.com', '1234', 33, 3);
+INSERT INTO `profesores` VALUES(19, 'David Antonio Maradiaga Gutierrez', 'David@gmail.com', '12345', 33, 3);
 
 -- --------------------------------------------------------
 
@@ -321,9 +304,8 @@ CREATE TABLE `rol` (
 -- Volcado de datos para la tabla `rol`
 --
 
-INSERT INTO `rol` (`ID_Rol`, `Nombre`) VALUES
-(1, 'Jurado'),
-(2, 'Tutor');
+INSERT INTO `rol` VALUES(1, 'Jurado');
+INSERT INTO `rol` VALUES(2, 'Tutor');
 
 -- --------------------------------------------------------
 
@@ -340,9 +322,8 @@ CREATE TABLE `tipo_examen` (
 -- Volcado de datos para la tabla `tipo_examen`
 --
 
-INSERT INTO `tipo_examen` (`ID_Tipo_Examen`, `Nombre`) VALUES
-(1, 'Grado'),
-(2, 'Tesis');
+INSERT INTO `tipo_examen` VALUES(1, 'Grado');
+INSERT INTO `tipo_examen` VALUES(2, 'Tesis');
 
 --
 -- Índices para tablas volcadas
@@ -435,73 +416,83 @@ ALTER TABLE `tipo_examen`
 -- AUTO_INCREMENT de la tabla `area_conocimiento`
 --
 ALTER TABLE `area_conocimiento`
-  MODIFY `ID_Area` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `ID_Area` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
 -- AUTO_INCREMENT de la tabla `aulas`
 --
 ALTER TABLE `aulas`
-  MODIFY `ID_Aula` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `ID_Aula` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de la tabla `carrera`
 --
 ALTER TABLE `carrera`
-  MODIFY `ID_Carrera` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `ID_Carrera` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT de la tabla `departamento`
 --
 ALTER TABLE `departamento`
-  MODIFY `ID_Departamento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `ID_Departamento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT de la tabla `edificio`
 --
 ALTER TABLE `edificio`
-  MODIFY `ID_Edificio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ID_Edificio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
 
 --
 -- AUTO_INCREMENT de la tabla `equipos`
 --
 ALTER TABLE `equipos`
-  MODIFY `ID_Equipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `ID_Equipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT de la tabla `estudiantes`
 --
 ALTER TABLE `estudiantes`
-  MODIFY `ID_Estudiante` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `ID_Estudiante` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `localidades`
 --
 ALTER TABLE `localidades`
-  MODIFY `ID_Localidad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `ID_Localidad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT de la tabla `perfil`
 --
 ALTER TABLE `perfil`
-  MODIFY `ID_Perfil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `ID_Perfil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `profesores`
 --
 ALTER TABLE `profesores`
-  MODIFY `ID_Profesor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `ID_Profesor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de la tabla `rol`
 --
 ALTER TABLE `rol`
-  MODIFY `ID_Rol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `ID_Rol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT de la tabla `tipo_examen`
 --
 ALTER TABLE `tipo_examen`
-  MODIFY `ID_Tipo_Examen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `ID_Tipo_Examen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `carrera`
+--
+ALTER TABLE `carrera`
+  ADD CONSTRAINT `fk_departamento` FOREIGN KEY (`ID_Departamento`) REFERENCES `departamento` (`ID_Departamento`) ON DELETE SET NULL ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

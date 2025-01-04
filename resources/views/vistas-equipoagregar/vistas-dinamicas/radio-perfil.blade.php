@@ -7,7 +7,7 @@
     <h2 style="text-align: center">Agregar Perfil</h2>
 
     <!-- Formulario para agregar un nuevo perfil -->
-    <form id="agregarPerfilForm"  method="POST"> <!-- Acción para agregar el perfil con AJAX -->
+    <form id="agregarPerfilForm"> <!-- Acción para agregar el perfil con AJAX -->
         @csrf <!-- Token de protección contra CSRF -->
 
         <div>

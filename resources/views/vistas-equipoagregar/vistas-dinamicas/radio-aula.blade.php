@@ -1,10 +1,12 @@
-<!-- resources/views/vistas-equipoagregar/agregardatos/radio-aula.blade.php -->
+<!-- resources/views/vistas-equipoagregar/vistas-dinamicas/radio-aula.blade.php -->
 
-<div class="agregar-Aula">
+@vite(['resources/js/vistas-dinamicas/aula.js']) <!-- archivo js personalizado -->
+
+<div id="agregarAulaForm" class="contenedor-agregar-datos">
 
     <h2 style="text-align: center">Agregar Aula</h2>
 
-    <form action="{{ route('aula.agregar') }}" method="POST">
+    <form action="{{ route('aulas.agregar.ajax') }}" method="POST">
         @csrf <!-- Token de protección contra CSRF -->
 
         <div>
@@ -28,64 +30,27 @@
 
         <button type="submit" class="btn">Agregar</button>
     </form>
+
+    <div class="tabla-mostrar-datos">
+
+        <h2 style="text-align: center; margin-top: 20px;">Lista de Aulas</h2>
+
+        <table id="aulaTable" class="display">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Edificio</th>
+                    <th>Area de Conocimiento</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <!-- Aquí se cargarán dinámicamente los tipos de examen -->
+            </tbody>
+        </table>
+    </div>
 </div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const areaSelect = document.getElementById('area-select-aula');
-        const edificioSelect = document.getElementById('edificio-vista-aula');
 
-        // Cargar las áreas de conocimiento
-        fetch('/area-conocimiento')
-            .then(response => response.json())
-            .then(data => {
-                if (data && data.length > 0) {
-                    data.forEach(area => {
-                        let option = document.createElement('option');
-                        option.value = area.ID_Area;
-                        option.textContent = area.Nombre;
-                        areaSelect.appendChild(option);
-                    });
-                } else {
-                    let option = document.createElement('option');
-                    option.textContent = 'No hay áreas disponibles';
-                    option.disabled = true;
-                    areaSelect.appendChild(option);
-                }
-            })
-            .catch(error => console.error('Error al cargar las áreas:', error));
-
-        // Cargar los edificios asociados cuando se selecciona un área
-        areaSelect.addEventListener('change', function () {
-            const areaId = areaSelect.value;
-            edificioSelect.innerHTML = '<option value="">Seleccione un edificio</option>';
-
-            if (areaId) {
-                fetch(`/edificio?areaId=${areaId}`)  // Usando el parámetro `areaId` como en tu controlador
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data && data.length > 0) {
-                            data.forEach(edificio => {
-                                let option = document.createElement('option');
-                                option.value = edificio.ID_Edificio;
-                                option.textContent = edificio.Nombre_Edificio;
-                                edificioSelect.appendChild(option);
-                            });
-                        } else {
-                            let option = document.createElement('option');
-                            option.textContent = 'No hay edificios disponibles';
-                            option.disabled = true;
-                            edificioSelect.appendChild(option);
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error al cargar los edificios:', error);
-                        let option = document.createElement('option');
-                        option.textContent = 'Error al cargar los edificios';
-                        option.disabled = true;
-                        edificioSelect.appendChild(option);
-                    });
-            }
-        });
-    });
-</script>

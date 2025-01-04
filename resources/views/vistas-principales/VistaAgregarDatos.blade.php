@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Agregar</title>
 
     @vite(['resources/css/Vista_Secundaria/app.css']) <!-- archivo css y js -->
     @vite(['resources/css/Recursos/selectstyle.css']) <!-- archivo css personalizado -->
     @vite(['resources/css/Recursos/btn.css']) <!-- archivo css personalizado -->
     @vite(['resources/css/Recursos/inputstyle.css']) <!-- archivo css personalizado -->
     @vite(['resources/css/Recursos/btnstyle.css']) <!-- archivo css personalizado -->
+    
     @vite(['resources/css/Vista_Secundaria/equipoagregar.css'])
     @vite(['resources/css/Vista_Secundaria/vista-agregardatos.css'])
     @vite(['resources/css/Vista_Secundaria/acciones.css'])

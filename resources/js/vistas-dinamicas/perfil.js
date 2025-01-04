@@ -1,5 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const table = $('#perfilTable').DataTable(); // Inicializamos DataTable
+    const table = $('#perfilTable').DataTable({
+        language: {
+            emptyTable: "No hay datos disponibles en esta tabla." // Mensaje personalizado
+        }
+    }); // Inicializamos DataTable
 
     // Función para cargar los perfiles
     function cargarPerfiles() {

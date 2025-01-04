@@ -1,11 +1,12 @@
-/* Estilos para centrar los botones */
+/* Asegura que los botones se alineen en una fila horizontal */
 td {
-    text-align: center;
+    text-align: center; /* Centra horizontalmente el contenido de la celda */
+    white-space: nowrap; /* Evita que los botones salten a otra línea */
 }
 
-.btn-eliminar, .btn-editar {
-    display: inline-block;
-    margin: 0 5px;  /* Espaciado entre los botones */
+.btn-eliminar, .btn-editar, .btn-aceptar {
+    display: inline-block; /* Mantén los botones en línea */
+    margin: 0 5px; /* Espaciado horizontal entre botones */
     padding: 8px 12px;
     border-radius: 5px;
     font-size: 12px;
@@ -35,8 +36,9 @@ td {
     background-color: #45a049;
 }
 
+/* Estilos para el botón de aceptar */
 .btn-aceptar {
-    background-color: #28a745; /* Verde */
+    background-color: #28a745;
     color: white;
     border: none;
     padding: 5px 10px;
@@ -47,9 +49,9 @@ td {
 }
 
 .btn-aceptar:hover {
-    background-color: #218838; /* Verde más oscuro al pasar el ratón */
+    background-color: #218838;
 }
 
 .btn-aceptar:active {
-    background-color: #1e7e34; /* Efecto al hacer clic */
+    background-color: #1e7e34;
 }

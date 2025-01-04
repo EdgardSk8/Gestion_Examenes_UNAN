@@ -45,7 +45,7 @@ class EdificioController extends Controller
 
     //Metodos AJAX
 
-    public function ObtenerTodosEdificiosAJAX()
+    public function ObtenerTodosEdificiosAJAXaula()
     {
         try {
             // Obtener todos los edificios con sus áreas de conocimiento asociadas
@@ -61,42 +61,42 @@ class EdificioController extends Controller
             }
 
             // Respuesta exitosa con todos los edificios y sus áreas de conocimiento asociadas
-            return response()->json([
-                'success' => true,
-                'data' => $edificios // Retorna todos los edificios con sus áreas asociadas
-            ]);
-
+            return response()->json($edificios);
         } catch (\Exception $e) {
-            // Si hay un error, se devuelve un mensaje de error con success: false
-            return response()->json([
-                'success' => false,
-                'message' => 'Error al obtener los edificios: ' . $e->getMessage(),
-                'data' => []
-            ]);
+            return response()->json([], 500);
         }
     }
+    
+    public function ObtenerTodosEdificiosAJAX()
+    {
+        try {
+            $edificios = Edificio::with('areaConocimiento')->get();
+
+            if ($edificios->isEmpty()) {
+                return response()->json(['success' => false, 'message' => 'No hay edificios disponibles', 'data' => []]);
+            }
+
+            return response()->json(['success' => true, 'data' => $edificios]);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Error al obtener edificios.'], 500);
+        }
+    }
+
+// Las demás mejoras seguirían el mismo esquema mostrado anteriormente.
+
     
 
 
     public function ObtenerEdificioPorAreaAJAX(Request $request)
     {
-        $areaId = $request->input('areaId'); // Obtener ID del área
+        $areaId = $request->input('areaId'); // Obtiene el ID del área
 
-        if (!$areaId) {
-            return response()->json([
-                'success' => false,
-                'message' => 'El ID del área es requerido.',
-                'data' => []
-            ]);
+        if ($areaId) {
+            // Obtiene los edificios asociados al área seleccionada
+            $edificios = Edificio::where('ID_Area', $areaId)->get();
+            return response()->json($edificios); // Retorna los edificios en formato JSON
         }
-
-        $edificios = Edificio::where('ID_Area', $areaId)->get();
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Edificios obtenidos correctamente.',
-            'data' => $edificios
-        ]);
+        return response()->json([]); // Si no se proporciona un ID de área, retorna un array vacío en JSON
     }
 
     public function AgregarEdificioAJAX(Request $request)
@@ -106,11 +106,14 @@ class EdificioController extends Controller
             'Nombre_Edificio' => 'required|string|max:255',
             'ID_Area' => 'required|exists:area_conocimiento,ID_Area',
         ]);
-
+    
         try {
+            // Asegurarse de que ID_Area sea un número entero
+            $validatedData['ID_Area'] = (int) $validatedData['ID_Area'];
+    
             // Crear el edificio
             $edificio = Edificio::create($validatedData);
-
+    
             return response()->json([
                 'success' => true,
                 'message' => 'Edificio agregado exitosamente.',
@@ -123,6 +126,7 @@ class EdificioController extends Controller
             ]);
         }
     }
+    
 
 
     public function EditarEdificioAJAX($id)
@@ -136,6 +140,8 @@ class EdificioController extends Controller
         // Devolver el edificio con su área de conocimiento
         return response()->json(['success' => true, 'data' => $edificio]);
     }
+    
+
     // Actualizar un edificio existente
     public function ActualizarEdificioAJAX(Request $request, $id)
     {
@@ -151,12 +157,19 @@ class EdificioController extends Controller
             'ID_Area' => 'required|exists:area_conocimiento,ID_Area', // Asegúrate de que el ID del área sea válido
         ]);
 
+        // Actualizar los datos del edificio
         $edificio->Nombre_Edificio = $validated['Nombre_Edificio'];
         $edificio->ID_Area = $validated['ID_Area'];
         $edificio->save();
 
-        return response()->json(['success' => true, 'message' => 'Edificio actualizado correctamente']);
+        // Respuesta en formato JSON
+        return response()->json([
+            'success' => true,
+            'message' => 'Edificio actualizado correctamente',
+            'data' => $edificio
+        ]);
     }
+
 
     // Eliminar un edificio
     public function EliminarEdificioAJAX($id)

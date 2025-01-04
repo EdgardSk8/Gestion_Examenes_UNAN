@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-11-2024 a las 17:27:29
+-- Tiempo de generación: 28-11-2024 a las 23:54:09
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -20,8 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `gestion_examenes`
 --
-CREATE DATABASE IF NOT EXISTS `gestion_examenes4` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `gestion_examenes4`;
+CREATE DATABASE IF NOT EXISTS `gestion_examenes2` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `gestion_examenes2`;
 
 -- --------------------------------------------------------
 
@@ -64,10 +64,9 @@ CREATE TABLE `aulas` (
 --
 
 INSERT INTO `aulas` (`ID_Aula`, `Nombre_Aula`, `ID_Edificio`) VALUES
-(1, 'Laboratorio Hardware', 1),
-(2, 'Laboratorio 2', 1),
-(3, 'Sala de maestria', 1),
-(4, 'Alcala2', 3);
+(77, 'A3', 97),
+(80, 'A4', 99),
+(81, 'A5', 99);
 
 -- --------------------------------------------------------
 
@@ -86,9 +85,8 @@ CREATE TABLE `carrera` (
 --
 
 INSERT INTO `carrera` (`ID_Carrera`, `Nombre`, `ID_Departamento`) VALUES
-(1, 'Ingenieria en sistemas de informacion', 1),
-(2, 'Telematica', 1),
-(3, 'Medicina Veterinaria', 7);
+(29, 'Ingenieria en sistemas', 33),
+(30, 'telematica', 33);
 
 -- --------------------------------------------------------
 
@@ -107,14 +105,8 @@ CREATE TABLE `departamento` (
 --
 
 INSERT INTO `departamento` (`ID_Departamento`, `Nombre`, `ID_Area`) VALUES
-(1, 'Computacion', 1),
-(2, 'Biologia', 1),
-(3, 'Quimica', 1),
-(4, 'Estadistica - Matematica', 1),
-(5, 'Agroecologia', 5),
-(6, 'Acuicola', 5),
-(7, 'Zootecnia', 5),
-(10, 'l', 1);
+(33, 'Computacion', 1),
+(34, 'Estadistica - Matematica', 1);
 
 -- --------------------------------------------------------
 
@@ -153,9 +145,9 @@ CREATE TABLE `edificio` (
 --
 
 INSERT INTO `edificio` (`ID_Edificio`, `Nombre_Edificio`, `ID_Area`) VALUES
-(1, 'Cids', 1),
-(2, 'ATM', 1),
-(3, 'Basico', 1);
+(97, 'Cids', 8),
+(98, 'basico', 1),
+(99, 'ATM', 1);
 
 -- --------------------------------------------------------
 
@@ -276,7 +268,7 @@ CREATE TABLE `perfil` (
 
 INSERT INTO `perfil` (`ID_Perfil`, `Nombre`) VALUES
 (1, 'Admin'),
-(2, 'Secretario'),
+(2, 'Chinandega'),
 (3, 'Profesor');
 
 -- --------------------------------------------------------
@@ -341,7 +333,7 @@ CREATE TABLE `tipo_examen` (
 --
 
 INSERT INTO `tipo_examen` (`ID_Tipo_Examen`, `Nombre`) VALUES
-(1, 'Grado'),
+(1, 'Ciencias Y Tecnologia'),
 (2, 'Tesis');
 
 --
@@ -435,31 +427,31 @@ ALTER TABLE `tipo_examen`
 -- AUTO_INCREMENT de la tabla `area_conocimiento`
 --
 ALTER TABLE `area_conocimiento`
-  MODIFY `ID_Area` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `ID_Area` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
 -- AUTO_INCREMENT de la tabla `aulas`
 --
 ALTER TABLE `aulas`
-  MODIFY `ID_Aula` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `ID_Aula` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
 
 --
 -- AUTO_INCREMENT de la tabla `carrera`
 --
 ALTER TABLE `carrera`
-  MODIFY `ID_Carrera` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `ID_Carrera` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT de la tabla `departamento`
 --
 ALTER TABLE `departamento`
-  MODIFY `ID_Departamento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `ID_Departamento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT de la tabla `edificio`
 --
 ALTER TABLE `edificio`
-  MODIFY `ID_Edificio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ID_Edificio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
 
 --
 -- AUTO_INCREMENT de la tabla `equipos`
@@ -483,7 +475,7 @@ ALTER TABLE `localidades`
 -- AUTO_INCREMENT de la tabla `perfil`
 --
 ALTER TABLE `perfil`
-  MODIFY `ID_Perfil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `ID_Perfil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `profesores`
@@ -495,13 +487,23 @@ ALTER TABLE `profesores`
 -- AUTO_INCREMENT de la tabla `rol`
 --
 ALTER TABLE `rol`
-  MODIFY `ID_Rol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `ID_Rol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT de la tabla `tipo_examen`
 --
 ALTER TABLE `tipo_examen`
-  MODIFY `ID_Tipo_Examen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `ID_Tipo_Examen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `carrera`
+--
+ALTER TABLE `carrera`
+  ADD CONSTRAINT `fk_departamento` FOREIGN KEY (`ID_Departamento`) REFERENCES `departamento` (`ID_Departamento`) ON DELETE SET NULL ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

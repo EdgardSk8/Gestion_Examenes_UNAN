@@ -21,6 +21,12 @@ document.addEventListener('DOMContentLoaded', function() {
         mostrarlogin();
     });
 
+    document.getElementById('editar-evento').addEventListener('click', function() {
+        mostrarVista('vista-editar-equipo');
+        ocultarCalendar();
+        mostrarlogin();
+    });
+
 
     // Función para mostrar la vista seleccionada y ocultar las demás
     function mostrarVista(vistaId) {
@@ -38,11 +44,11 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('calendar').style.display = 'block';
     }
 
-    function ocultarlogin() { // Función para ocultar el calendario
+    function ocultarlogin() { 
         document.getElementById('login').style.display = 'none';
     }
 
-    function mostrarlogin() { // Función para mostrar el calendario
+    function mostrarlogin() { 
         document.getElementById('login').style.display = 'block';
     }
 

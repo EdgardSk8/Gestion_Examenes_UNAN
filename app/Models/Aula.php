@@ -25,6 +25,18 @@ class Aula extends Model
         return $this->belongsTo(Edificio::class, 'ID_Edificio');
     }
 
+    public function area_conocimiento()
+    {
+        return $this->hasOneThrough(
+            AreaConocimiento::class, // Modelo final
+            Edificio::class,         // Modelo intermediario
+            'ID_Edificio',           // Clave foránea en `Edificio`
+            'ID_Area',               // Clave foránea en `AreaConocimiento`
+            'ID_Edificio',           // Clave local en `Aula`
+            'ID_Area'                // Clave local en `Edificio`
+        );
+    }
+
     // Relación con la tabla 'equipos' (un aula puede tener muchos equipos asignados)
     public function equipos()
     {

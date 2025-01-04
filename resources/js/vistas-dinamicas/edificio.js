@@ -1,6 +1,13 @@
 document.addEventListener('DOMContentLoaded', function () {
     const edificioTableBody = document.querySelector('#edificioTable tbody');
-    const table = $('#edificioTable').DataTable();
+    const table = $('#edificioTable').DataTable({
+        "paging": true,   // Habilitar paginación
+        "searching": true, // Habilitar búsqueda
+        "info": true, // Información de la tabla
+        language: {
+            emptyTable: "No hay datos disponibles en esta tabla." // Mensaje personalizado
+        }
+    });
     const areaSelect = document.querySelector('.area-vista-edificio');
     const form = document.querySelector('#agregarEdificioForm');
 
@@ -31,6 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(data => {
                 if (data.success) {
                     edificioTableBody.innerHTML = '';
+                    table.clear(); // Limpiar DataTable antes de agregar los nuevos datos
 
                     data.data.forEach(edificio => {
                         const row = document.createElement('tr');
@@ -47,6 +55,9 @@ document.addEventListener('DOMContentLoaded', function () {
                         `;
                         edificioTableBody.appendChild(row);
 
+                        // Agregar la fila a DataTable
+                        table.row.add($(row)).draw();
+
                         row.querySelector('.btn-eliminar').addEventListener('click', function () {
                             eliminarEdificio(edificio.ID_Edificio);
                         });
@@ -59,6 +70,9 @@ document.addEventListener('DOMContentLoaded', function () {
                             guardarCambios(edificio.ID_Edificio);
                         });
                     });
+
+                    // Actualizar la paginación y el mensaje de la tabla
+                    table.draw();
                 } else {
                     console.log('No se pudieron cargar los edificios:', data.message);
                 }
@@ -91,10 +105,16 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
     }
-
+    
     // Función para editar un edificio
     function editarEdificio(edificio) {
-        const row = document.querySelector(`tr[data-id="${edificio.ID_Edificio}"]`);
+        const table = document.getElementById('edificioTable'); // Base para el selector
+        const row = table.querySelector(`tr[data-id="${edificio.ID_Edificio}"]`);
+        if (!row) {
+            console.error(`No se encontró la fila con ID_Edificio: ${edificio.ID_Edificio}`);
+            return;
+        }
+
         const nombreCell = row.querySelector('.nombre');
         const areaCell = row.querySelector('.area');
 
@@ -123,9 +143,13 @@ document.addEventListener('DOMContentLoaded', function () {
             .catch(error => console.error('Error al cargar las áreas:', error));
 
         // Mostrar el botón de aceptar y ocultar los otros
-        row.querySelector('.btn-editar').style.display = 'none';
-        row.querySelector('.btn-eliminar').style.display = 'none';
-        row.querySelector('.btn-aceptar').style.display = 'inline-block';
+        const btnEditar = row.querySelector('.btn-editar');
+        const btnEliminar = row.querySelector('.btn-eliminar');
+        const btnAceptar = row.querySelector('.btn-aceptar');
+
+        if (btnEditar) btnEditar.style.display = 'none';
+        if (btnEliminar) btnEliminar.style.display = 'none';
+        if (btnAceptar) btnAceptar.style.display = 'inline-block';
 
         // Detectar "Enter" en el input de nombre
         inputNombre.addEventListener('keypress', function (event) {
@@ -137,7 +161,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Función para guardar los cambios realizados en el edificio
     function guardarCambios(id) {
-        const row = document.querySelector(`tr[data-id="${id}"]`);
+        const table = document.getElementById('edificioTable'); // Base para el selector
+        const row = table.querySelector(`tr[data-id="${id}"]`);
+        if (!row) {
+            console.error(`No se encontró la fila con ID_Edificio: ${id}`);
+            return;
+        }
+
         const newNombre = row.querySelector('.input-nombre').value;
         const newArea = row.querySelector('select').value;
 
@@ -165,6 +195,7 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log('Ocurrió un error al actualizar el edificio:', error);
         });
     }
+
 
     // Función para agregar un nuevo edificio
     form.addEventListener('submit', function (event) {

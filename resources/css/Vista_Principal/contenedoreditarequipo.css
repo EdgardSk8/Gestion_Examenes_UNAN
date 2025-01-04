@@ -1,0 +1,18 @@
+#vista-editar-equipo{
+    flex: 3; /* Ocupa el 75% del ancho del contenedor */
+    margin: 5px;
+    border: 1px solid #719fe4;
+    border-radius: 20px;
+    overflow: hidden; /* Asegura que el contenido no se desborde */
+    display: flex; /* Usamos flex para que los elementos hijos se ajusten automáticamente */
+    flex-direction: column; /* Apilar los elementos de arriba a abajo */
+  }
+
+  .contenedor-editar{
+    padding: 5px;
+    height: 100%; /* Tamaño fijo del contenedor */
+    overflow-y: auto; /* Habilita el scroll cuando los equipos exceden el espacio disponible */
+    display: flex; /* Flex para hacer que el contenido se ajuste */
+    flex-direction: column; /* Mantiene el contenido en una columna */
+    flex-grow: 1; /* Permite que el contenedor crezca para llenar el espacio */
+  }

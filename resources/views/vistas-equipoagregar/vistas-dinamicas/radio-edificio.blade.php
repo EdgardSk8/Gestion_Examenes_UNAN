@@ -2,7 +2,6 @@
 
 @vite(['resources/js/vistas-dinamicas/edificio.js']) <!-- archivo js personalizado -->
 
-
 <div class="contenedor-agregar-datos">
 
     <h2 style="text-align: center">Agregar Edificio</h2>
@@ -31,7 +30,7 @@
 
     <div class="tabla-mostrar-datos">
 
-        <h2 style="text-align: center; margin-top: 20px;">Lista de Tipos de Examen</h2>
+        <h2 style="text-align: center; margin-top: 20px;">Lista de Edificios</h2>
 
         <table id="edificioTable" class="display">
             <thead>

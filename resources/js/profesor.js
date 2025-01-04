@@ -1,7 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Elementos de los select para los profesores
-    var departamentoSelect = document.getElementById('departamento-select');
-    var areaSelect = document.getElementById('area-select'); // Agregar el select de área
+
+    const areaSelect = document.getElementById('area-select'); 
+    const departamentoSelect = document.getElementById('departamento-select');
+
     var tutorSelect = document.getElementById('tutor');
     var juez1Select = document.getElementById('juez1');
     var juez2Select = document.getElementById('juez2');
@@ -124,4 +125,5 @@ document.addEventListener('DOMContentLoaded', function () {
         actualizarSelects();
         console.log('Has seleccionado al Juez 3:', juez3Select.options[juez3Select.selectedIndex].text);
     });
+
 });
