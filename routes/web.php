@@ -42,7 +42,7 @@ Route::get('/events/{id}', [EventoController::class, 'MostrarDetallesPorId']); /
 Route::put('/events/{id}', [EventoController::class, 'ActualizarEventoEnCalendario']); //Actualiza los cambios del evento hacia la BD
 
 Route::get('/equipo/editar/{id}', [EquipoController::class, 'EditarEquipo'])->name('equipo.editar');
-Route::get('/equipo/actualizar/{id}', [EquipoController::class, 'ActualizarEquipo'])->name('equipo.actualizar');
+Route::put('/equipo/actualizar/{id}', [EquipoController::class, 'ActualizarEquipo'])->name('equipo.actualizar');
 
 
 

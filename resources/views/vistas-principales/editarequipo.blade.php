@@ -26,7 +26,7 @@
         
                 <div style="flex: 1;">
                     <label>Departamento:</label>
-                    <select id="editardepartamento"></select>
+                    <select id="editardepartamento" required></select>
                 </div>
         
             </div>
@@ -148,9 +148,9 @@
 
             </div>
         
-            <!-- Botón de subir -->
-            <div style="text-align: center; margin-top: 10px; margin-bottom: 20px">
-                <button type="submit" class="button"> <!-- clase en equipoagregar.css -->
+            <!-- Botón de subir 
+            <div id="guardar_cambios_equipo" style="text-align: center; margin-top: 10px; margin-bottom: 20px">
+                <button type="submit" class="button"> <
                     <span class="label">Guardar Cambios</span>
                     <span class="gradient"></span>
                     <span class="transition"></span>
@@ -165,7 +165,9 @@
                     };
                 </script>
             @endif
-        
+        -->
+        <button id="guardar-cambios">Guardar Cambios</button>
+
         </form>
 
     </div>

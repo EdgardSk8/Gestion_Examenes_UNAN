@@ -118,46 +118,48 @@ class EquipoController extends Controller
         }
     }
     
-    
-
-    // Método para actualizar los datos de un equipo en la base de datos
     public function ActualizarEquipo(Request $request, $id)
-    {
-        try {
-            // Validar los datos recibidos
-            $validatedData = $request->validate([
-                'Titulo' => 'required|string|max:255',
-                'ID_Area_Conocimiento' => 'required|integer|exists:area_conocimiento,ID_Area',
-                'ID_Departamento' => 'required|integer|exists:departamento,ID_Departamento',
-                'ID_Carrera' => 'required|integer|exists:carrera,ID_Carrera',
-                'Integrante1' => 'required|integer|exists:estudiantes,ID_Estudiante',
-                'Integrante2' => 'nullable|integer|exists:estudiantes,ID_Estudiante',
-                'Integrante3' => 'nullable|integer|exists:estudiantes,ID_Estudiante',
-                'Fecha_Asignada' => 'required|date|after:Fecha_Aprobada',
-                'Fecha_Aprobada' => 'nullable|date|after_or_equal:Fecha_Asignada',
-                'Hora_Inicio' => 'required|date_format:H:i',
-                'Hora_Fin' => 'required|date_format:H:i',
-                'ID_Aula' => 'required|integer|min:1|exists:aulas,ID_Aula',
-                'ID_Tipo_Examen' => 'required|integer|exists:tipo_examen,ID_Tipo_Examen',
-                'Calificacion' => 'nullable|numeric|min:0|max:100',
-                'Tutor_ID' => 'required|integer|exists:profesores,ID_Profesor',
-                'Juez1_ID' => 'nullable|integer|exists:profesores,ID_Profesor',
-                'Juez2_ID' => 'nullable|integer|exists:profesores,ID_Profesor',
-                'Juez3_ID' => 'nullable|integer|exists:profesores,ID_Profesor'
-            ]);
+{
+    try {
+        // Validar los datos recibidos
+        $validatedData = $request->validate([
+            'Titulo' => 'required|string|max:255',
+            'ID_Area_Conocimiento' => 'required|integer|exists:area_conocimiento,ID_Area',
+            'ID_Departamento' => 'required|integer|exists:departamento,ID_Departamento',
+            'ID_Carrera' => 'required|integer|exists:carrera,ID_Carrera',
+            'Integrante1' => 'required|integer|exists:estudiantes,ID_Estudiante',
+            'Integrante2' => 'nullable|integer|exists:estudiantes,ID_Estudiante',
+            'Integrante3' => 'nullable|integer|exists:estudiantes,ID_Estudiante',
+            'Fecha_Asignada' => 'required|date|after:Fecha_Aprobada',
+            'Fecha_Aprobada' => 'nullable|date|after_or_equal:Fecha_Asignada',
+            'Hora_Inicio' => 'required|date_format:H:i',
+            'Hora_Fin' => 'required|date_format:H:i',
+            'ID_Aula' => 'required|integer|min:1|exists:aulas,ID_Aula',
+            'ID_Tipo_Examen' => 'required|integer|exists:tipo_examen,ID_Tipo_Examen',
+            'Calificacion' => 'nullable|numeric|min:0|max:100',
+            'Tutor_ID' => 'nullable|integer|exists:profesores,ID_Profesor',
+            'Juez1_ID' => 'nullable|integer|exists:profesores,ID_Profesor',
+            'Juez2_ID' => 'nullable|integer|exists:profesores,ID_Profesor',
+            'Juez3_ID' => 'nullable|integer|exists:profesores,ID_Profesor'
+        ]);
 
-            // Buscar el equipo por ID
-            $equipo = Equipo::findOrFail($id);
+        // Buscar el equipo por ID
+        $equipo = Equipo::findOrFail($id);
 
-            // Actualizar los datos del equipo
-            $equipo->update($validatedData);
+        // Actualizar los datos del equipo con los datos validados
+        $equipo->update($validatedData);
 
-            // Retornar respuesta JSON de éxito
-            return response()->json(['success' => true, 'message' => 'Equipo actualizado correctamente']);
-        } catch (\Exception $e) {
-            // Manejar errores y devolver un mensaje adecuado
-            return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
-        }
+        // Retornar respuesta JSON de éxito
+        return response()->json(['success' => true, 'message' => 'Equipo actualizado correctamente']);
+    } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+        // Manejar el caso en que el equipo no se encuentra
+        return response()->json(['success' => false, 'message' => 'Equipo no encontrado'], 404);
+    } catch (\Exception $e) {
+        // Manejar errores generales
+        return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
     }
+}
+
+    
     
 }

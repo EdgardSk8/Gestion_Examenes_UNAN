@@ -3,110 +3,137 @@ const editButton = document.getElementById('editar-evento');
 if (editButton) {
     editButton.addEventListener('click', function () {
         const eventId = editButton.getAttribute('data-event-id'); // Obtener el ID del evento asignado al botón
-
-        if (!eventId) {console.error('No se ha seleccionado ningún evento para editar.');
-            return;
+        if (!eventId) {
+            console.error('No se ha seleccionado ningún evento para editar.');
+        } else {
+            console.log("ID del evento: ", eventId);
+            Verificador();
+            EditarEquipo(eventId); // Pasar el eventId para cargar los datos específicos
         }
+    });
+}
 
-        fetch(`/equipo/editar/${eventId}`)
+function Verificador() {
+    const elementos = [
+        'editartitulo', 'editararea', 'editardepartamento', 'editarcarrera', 'editarintegrante1', 'editarintegrante2', 'editarintegrante3',
+        'editarfecha_asignada', 'editarfecha_aprobada', 'editarhora_inicio', 'editarhora_fin', 'editarcalificacion', 'editaredificio',
+        'editaraula', 'editartipo_examen', 'editartutor', 'editarjuez1', 'editarjuez2', 'editarjuez3', 'guardar-cambios', 'resultado',
+        'aviso'
+    ];
+
+    elementos.forEach(id => {
+        const elemento = document.getElementById(id);
+        if (!elemento) {
+            console.log(`El elemento con el ID '${id}' no existe.`);
+        }
+    });
+}
+
+function EditarEquipo(eventId) {
+
+    console.log("s", eventId);
+    // Función para cargar las áreas de conocimiento
+    fetch('/area-conocimiento')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Error al cargar las áreas de conocimiento: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            const areaSelect = document.getElementById('editararea');
+            areaSelect.innerHTML = '';
+
+            data.forEach(area => {
+                const option = document.createElement('option');
+                option.value = area.ID_Area;
+                option.textContent = area.Nombre;
+                areaSelect.appendChild(option);
+            });
+
+            areaSelect.addEventListener('change', (e) => {
+                const areaId = e.target.value;
+                cargarDepartamentos(areaId); 
+            });
+
+            cargarDepartamentos(areaSelect.value);
+        })
+        .catch(error => {
+            console.error('Error al cargar las áreas de conocimiento:', error);
+        });
+
+    // Función para cargar los departamentos según el área seleccionada
+    function cargarDepartamentos(areaId) {
+        fetch(`/departamentos?idArea=${areaId}`)
             .then(response => {
                 if (!response.ok) {
-                    throw new Error(`Error al obtener los datos del evento: ${response.statusText}`);
+                    throw new Error(`Error al cargar los departamentos: ${response.status}`);
                 }
                 return response.json();
             })
             .then(data => {
-                if (data.success) {
-                        const equipo = data.data;
-                    
-                        Depurador(equipo);
-                        AsignarInputs(equipo);
-                        RetornarTipoExamen(equipo);
-                        RetornarArea_Conocimiento(equipo);
-                        RetornarDepartamento(equipo);
-                        RetornarCarrera(equipo);
-                        RetornarEdificio(equipo);
-                        RetornarAula(equipo);
+                const departamentoSelect = document.getElementById('editardepartamento');
+                departamentoSelect.innerHTML = '';
 
-                    }
+                if (data.length === 0) {
+                    const noDepartamentosOption = document.createElement('option');
+                    noDepartamentosOption.textContent = 'Sin departamentos';
+                    noDepartamentosOption.disabled = true;
+                    noDepartamentosOption.selected = true;
+                    departamentoSelect.appendChild(noDepartamentosOption);
+                } else {
+                    data.forEach(departamento => {
+                        const option = document.createElement('option');
+                        option.value = departamento.ID_Departamento;
+                        option.textContent = departamento.Nombre;
+                        departamentoSelect.appendChild(option);
+                    });
+
+                    departamentoSelect.addEventListener('change', (e) => {
+                        const departamentoId = e.target.value;
+                        cargarCarreras(departamentoId);
+                    });
+                    cargarCarreras(departamentoSelect.value);
+                }
+            })
+            .catch(error => {
+                console.error('Error al cargar los departamentos:', error);
             });
-    });
-
-    function AsignarInputs(equipo){ //Funcion para mostrar los datos retornados en inputs
-        document.getElementById('editartitulo').value = equipo.titulo || 'No especificado';
-        document.getElementById('editarfecha_asignada').value = equipo.fecha_asignada || 'Sin Fecha Asignada';
-        document.getElementById('editarfecha_aprobada').value = equipo.fecha_aprobada || 'Asignar Fecha Aprobada';
-        document.getElementById('editarhora_inicio').value = equipo.hora_inicio || 'Sin Hora de Inicio';
-        document.getElementById('editarhora_fin').value = equipo.hora_fin || 'Sin Hora de Fin';
-        document.getElementById('editarcalificacion').value = equipo.calificacion || '0';
     }
 
-    function RetornarTipoExamen(equipo){ //Funcion para mostrar mostrar en option el tipo de examen retornado
-        const editartipoexamenSelect = document.getElementById('editartipo_examen');
-        let optiontipoexamen = document.createElement('option');
-        optiontipoexamen.textContent = equipo.tipo_examen;
-        editartipoexamenSelect.appendChild(optiontipoexamen);
+    // Función para cargar las carreras según el departamento seleccionado
+    function cargarCarreras(departamentoId) {
+        fetch(`/carreras?departamentoId=${departamentoId}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Error al cargar las carreras: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                const carreraSelect = document.getElementById('editarcarrera');
+                carreraSelect.innerHTML = '';
 
-        const exameneditarDIV = document.getElementById('tipoexameneditar');
-        if(editartipoexamenSelect.textContent === "Grado"){ exameneditarDIV.style.display = 'none';}
-        else{exameneditarDIV.style.display = 'block';}
+                if (data.length === 0) {
+                    const noCarrerasOption = document.createElement('option');
+                    noCarrerasOption.textContent = 'Sin carreras';
+                    noCarrerasOption.disabled = true;
+                    noCarrerasOption.selected = true;
+                    carreraSelect.appendChild(noCarrerasOption);
+                } else {
+                    data.forEach(carrera => {
+                        const option = document.createElement('option');
+                        option.value = carrera.ID_Carrera;
+                        option.textContent = carrera.Nombre;
+                        carreraSelect.appendChild(option);
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error al cargar las carreras:', error);
+            });
     }
 
-    function RetornarArea_Conocimiento(equipo){ //Funcion para mostrar mostrar en option el tipo de area retornado
-        const editarArea_ConocimientoSelect = document.getElementById('editararea');
-        let optionarea_conocimiento = document.createElement('option');
-        optionarea_conocimiento.textContent = equipo.area_conocimiento;
-        editarArea_ConocimientoSelect.appendChild(optionarea_conocimiento);
-    }
-
-    function RetornarDepartamento(equipo){ //Funcion para mostrar mostrar en option el tipo de departamento retornado
-        const editarDepartamentoSelect = document.getElementById('editardepartamento');
-        let optiondepartamento = document.createElement('option');
-        optiondepartamento.textContent = equipo.departamento;
-        editarDepartamentoSelect.appendChild(optiondepartamento);
-    }
-
-    function RetornarCarrera(equipo){ //Funcion para mostrar mostrar en option el tipo de carrera retornada
-        const editarCarreraSelect = document.getElementById('editarcarrera');
-        let optioncarrera = document.createElement('option');
-        optioncarrera.textContent = equipo.carrera;
-        editarCarreraSelect.appendChild(optioncarrera);
-    }
-
-    function RetornarEdificio(equipo){ //Funcion para mostrar mostrar en option el tipo de carrera retornada
-        const editarEdificioSelect = document.getElementById('editaredificio');
-        let optionedificio = document.createElement('option');
-        optionedificio.textContent = equipo.edificio;
-        editarEdificioSelect.appendChild(optionedificio);
-    }
-
-    function RetornarAula(equipo){ //Funcion para mostrar mostrar en option el tipo de carrera retornada
-        const editarAulaSelect = document.getElementById('editaraula');
-        let optionaula = document.createElement('option');
-        optionaula.textContent = equipo.aula;
-        editarAulaSelect.appendChild(optionaula);
-    }
-
-    function Depurador(equipo) { // Función para depurar los datos
-        console.log('Título del equipo:', equipo.titulo || 'No especificado');
-        console.log('Integrante 1:', equipo.integrante1 || 'No especificado');
-        console.log('Integrante 2:', equipo.integrante2 || 'No especificado');
-        console.log('Integrante 3:', equipo.integrante3 || 'No especificado');
-        console.log('Fecha asignada:', equipo.fecha_asignada || 'No especificada');
-        console.log('Fecha aprobada:', equipo.fecha_aprobada || 'No especificada');
-        console.log('Hora de inicio:', equipo.hora_inicio || 'No especificada');
-        console.log('Hora de fin:', equipo.hora_fin || 'No especificada');
-        console.log('Aula:', equipo.aula || 'No especificada');
-        console.log('Tipo de examen:', equipo.tipo_examen || 'No especificado');
-        console.log('Tutor:', equipo.tutor || 'No especificado');
-        console.log('Calificación:', equipo.calificacion || 'No especificada');
-        console.log('Juez 1:', equipo.juez1 || 'No especificado');
-        console.log('Juez 2:', equipo.juez2 || 'No especificado');
-        console.log('Juez 3:', equipo.juez3 || 'No especificado');
-        console.log('Carrera:', equipo.carrera || 'No especificada');
-        console.log('Departamento:', equipo.departamento || 'No especificado');
-        console.log('Área:', equipo.area_conocimiento || 'No especificado');
-        console.log('Edificio:', equipo.edificio || 'No especificado');
-    }
+     
 
 }
