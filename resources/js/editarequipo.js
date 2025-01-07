@@ -50,6 +50,7 @@ const departamentoSelectEditar = document.getElementById('editardepartamento');
 const carreraSelectEditar = document.getElementById('editarcarrera');
 const edificioSelectEditar = document.getElementById('editaredificio');
 const aulaSelectEditar = document.getElementById('editaraula');
+const tipoexamenSelectEditar = document.getElementById('editartipo_examen');
 
 function cargarAreaSelect(data) {
 
@@ -72,6 +73,7 @@ function cargarAreaSelect(data) {
             cargarDepartamentoSelect(data);
             cargarEdificioSelect(data);
             cargarInputs(data);
+            cargarTipoExamenSelect(data);
         })
         .catch(error => console.error('Error al cargar las áreas:', error));
 }
@@ -127,9 +129,7 @@ areaSelectEditar.addEventListener('change', function () {
                     option.textContent = edificio.Nombre_Edificio;
                     edificioSelectEditar.appendChild(option);
                 });
-
-                // Autoseleccionar la primera opción
-                edificioSelectEditar.selectedIndex = 0;
+                edificioSelectEditar.selectedIndex = 0;// Autoseleccionar la primera opción
                 edificioSelectEditar.dispatchEvent(new Event('change'));
             }
         })
@@ -305,6 +305,49 @@ edificioSelectEditar.addEventListener('change', function(){
         .catch(error => console.error('Error fetching departamentos:', error));
     }
 });
+
+function cargarTipoExamenSelect(data) {
+
+    fetch('/tipoexamen')
+        .then(response => response.json())
+        .then(tipoexamenes => {
+            tipoexamenes.forEach(tipoexamen => {
+                let option = document.createElement('option');
+                option.value = tipoexamen.ID_Tipo_Examen;
+                option.textContent = tipoexamen.Nombre;
+                tipoexamenSelectEditar.appendChild(option);
+            });
+
+            // Seleccionar automáticamente el tipo de examen asociada al evento
+            const tipoexamenSeleccionado = tipoexamenes.find(tipoexamen => tipoexamen.Nombre === data.tipo_examen);
+
+            if (tipoexamenSeleccionado) {tipoexamenSelectEditar.value = tipoexamenSeleccionado.ID_Tipo_Examen;
+                //console.log("Tipo Examen seleccionado automáticamente:", tipoexamenSeleccionado.Nombre);
+            } else if (tipoexamen.length > 0) {tipoexamenSelectEditar.selectedIndex = 0;
+                console.log("No se encontró el carrera del evento, se seleccionó el primero.");
+            }
+            tipoexamenSelectEditar.dispatchEvent(new Event('change')); 
+        })
+        .catch(error => {
+            console.error('Error al obtener los tipos de examen:', error);
+        });
+
+        const examenDiv = document.getElementById('tipoexameneditar');
+
+        tipoexamenSelectEditar.addEventListener('change', function () {
+
+            const opcionSeleccionadaTE = tipoexamenSelectEditar.options[tipoexamenSelectEditar.selectedIndex];
+
+                // Condición para ocultar o mostrar el div "tipoexameneditar"
+                if (opcionSeleccionadaTE.text === 'Grado') {examenDiv.style.display = 'none'; // Oculta el formulario
+                    const tutoreditar = document.getElementById('editartutor'); tutoreditar.innerHTML = ''; //Limpiar los Selectores
+                    const juez1editar = document.getElementById('editarjuez1'); juez1editar.innerHTML = '';
+                    const juez2editar = document.getElementById('editarjuez2'); juez2editar.innerHTML = '';
+                    const juez3editar = document.getElementById('editarjuez3'); juez3editar.innerHTML = '';
+                } else {examenDiv.style.display = 'block';} // Muestra el formulario
+                //console.log(`Opción seleccionada: ${opcionSeleccionadaTE.text} (Valor: ${opcionSeleccionadaTE.value})`);
+        });
+}
 
 function cargarInputs(data){
     
