@@ -74,6 +74,7 @@ function cargarAreaSelect(data) {
             cargarEdificioSelect(data);
             cargarInputs(data);
             cargarTipoExamenSelect(data);
+            CargarEstudiantesSelect(data);
         })
         .catch(error => console.error('Error al cargar las áreas:', error));
 }
@@ -188,6 +189,7 @@ function cargarCarreraSelect(data){
                 console.log("No se encontró el carrera del evento, se seleccionó el primero.");
             }
             carreraSelectEditar.dispatchEvent(new Event('change'));
+            CargarEstudiantesSelect(data);
         })
         .catch(error => console.error('Error al cargar las carreras:', error));
 }
@@ -308,6 +310,8 @@ edificioSelectEditar.addEventListener('change', function(){
 
 function cargarTipoExamenSelect(data) {
 
+    tipoexamenSelectEditar.innerHTML = '';
+
     fetch('/tipoexamen')
         .then(response => response.json())
         .then(tipoexamenes => {
@@ -348,6 +352,107 @@ function cargarTipoExamenSelect(data) {
                 //console.log(`Opción seleccionada: ${opcionSeleccionadaTE.text} (Valor: ${opcionSeleccionadaTE.value})`);
         });
 }
+
+function CargarEstudiantesSelect(data) {
+    var integranteSelects = [
+        document.getElementById('editarintegrante1'),
+        document.getElementById('editarintegrante2'),
+        document.getElementById('editarintegrante3'),
+    ];
+
+    var estudiantes = []; // Lista global de estudiantes disponibles
+
+    // Función para llenar un select con opciones
+    function llenarSelectEstudiante(selectElement, estudiantesDisponibles) {
+        selectElement.innerHTML = '';
+
+        if (estudiantesDisponibles.length > 0) {
+            estudiantesDisponibles.forEach(estudiante => {
+                let option = document.createElement('option');
+                option.value = estudiante.ID_Estudiante;
+                option.textContent = estudiante.Nombre_Completo;
+                selectElement.appendChild(option);
+            });
+        }
+    }
+
+    // Función para cargar estudiantes según la carrera seleccionada
+    function cargarEstudiantesPorCarrera(carreraId) {
+        if (!carreraId) {
+            console.error("Carrera no seleccionada");
+            return;
+        }
+
+        fetch(`/estudiante?carreraId=${encodeURIComponent(carreraId)}`)
+            .then(response => response.json())
+            .then(dataEstudiantes => {
+                estudiantes = dataEstudiantes;
+                if (estudiantes.length > 0) {
+                    integrarSelectsConEstudiantes(estudiantes, data); // Pasar también los datos para la selección automática
+                } else {
+                    console.warn("No hay estudiantes disponibles para esta carrera.");
+                }
+            })
+            .catch(error => {
+                console.error('Error al obtener los estudiantes:', error);
+            });
+    }
+
+    // Función para integrar selects con la lista de estudiantes y autoseleccionarlos
+    function integrarSelectsConEstudiantes(estudiantes, data) {
+        integranteSelects.forEach((select, index) => {
+            llenarSelectEstudiante(select, estudiantes);
+
+            // Autoseleccionar si hay datos en `data`
+            const estudianteSeleccionado = estudiantes.find(
+                estudiante => estudiante.ID_Estudiante === data[`integrante${index + 1}`]
+            );
+
+            if (estudianteSeleccionado) {
+                select.value = estudianteSeleccionado.ID_Estudiante;
+            } else {
+                console.warn(`No se encontró el estudiante para el integrante ${index + 1}`);
+            }
+        });
+
+        // Actualizar para evitar duplicados
+        actualizarSelects();
+    }
+
+    // Función para actualizar los selects y evitar duplicados
+    function actualizarSelects() {
+        const seleccionados = integranteSelects.map(select => select.value);
+
+        integranteSelects.forEach(select => {
+            Array.from(select.options).forEach(option => {
+                if (seleccionados.includes(option.value) && option.value !== '') {
+                    option.style.display = 'none'; // Ocultar opciones ya seleccionadas
+                } else {
+                    option.style.display = ''; // Mostrar opciones no seleccionadas
+                }
+            });
+        });
+    }
+
+    // Event listener para cuando se cambie la carrera seleccionada
+    carreraSelectEditar.addEventListener('change', function () {
+        const carreraId = carreraSelectEditar.value;
+        cargarEstudiantesPorCarrera(carreraId);
+    });
+
+    // Cargar estudiantes para la carrera seleccionada inicialmente
+    const carreraIdInicial = carreraSelectEditar.value;
+    if (carreraIdInicial) {
+        cargarEstudiantesPorCarrera(carreraIdInicial);
+    }
+
+    // Event listeners para actualizar los selects al cambiar un integrante
+    integranteSelects.forEach(select => {
+        select.addEventListener('change', actualizarSelects);
+    });
+}
+
+
 
 function cargarInputs(data){
     
