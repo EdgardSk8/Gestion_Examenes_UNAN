@@ -38,13 +38,16 @@ function EditarEquipo(id) {
         .then(data => {
             console.log("Datos del equipo:", data);
             cargarAreaSelect(data.data); //Carga las areas y selecciona el area del evento
-            cargarDepartamentoSelect(data.data);
         })
         .catch(error => console.error('Error al cargar los datos del equipo:', error));
 }
 
-const areaSelectEditar = document.getElementById('editararea');
+/*-------------------------------------------------------------------------------------------------------------------------------------------*/
+
+//Referencias de ID de los selectores
+const areaSelectEditar = document.getElementById('editararea'); 
 const departamentoSelectEditar = document.getElementById('editardepartamento');
+const carreraSelectEditar = document.getElementById('editarcarrera');
 
 function cargarAreaSelect(data) {
 
@@ -64,11 +67,13 @@ function cargarAreaSelect(data) {
 
             if (areaSeleccionada) {areaSelectEditar.value = areaSeleccionada.ID_Area;}
             // console.log("Área de conocimiento del evento:", data.area_conocimiento);
+            cargarDepartamentoSelect(data);
         })
         .catch(error => console.error('Error al cargar las áreas:', error));
 }
 
-areaSelectEditar.addEventListener('change', function () { //En caso de cambiar opcion del selector areaSelectEditar
+//En caso de cambiar opcion del selector areaSelectEditar
+areaSelectEditar.addEventListener('change', function () { 
     const areaId = areaSelectEditar.value; //Guardar el ID del selector de areaSelectEditar
     console.log("ID del area Seleccionado:", areaSelectEditar.value);
 
@@ -77,6 +82,17 @@ areaSelectEditar.addEventListener('change', function () { //En caso de cambiar o
     fetch(`/departamentos?idArea=${encodeURIComponent(areaId)}`)
         .then(response => response.json())
         .then(data => {
+            if (data.length === 0) { // Verificar si no hay carreras en el departamento
+                let option = document.createElement('option');
+                option.value = '';
+                option.textContent = 'No hay departamentos disponibles';
+                departamentoSelectEditar.appendChild(option);
+
+                carreraSelectEditar.innerHTML = '';
+                let noCarrerasOption = document.createElement('option');
+                noCarrerasOption.textContent = 'Seleccione un departamento';
+                carreraSelectEditar.appendChild(noCarrerasOption);
+            } else {
             data.forEach(departamento => {
                 let option = document.createElement('option');
                 option.value = departamento.ID_Departamento;
@@ -84,14 +100,16 @@ areaSelectEditar.addEventListener('change', function () { //En caso de cambiar o
                 departamentoSelectEditar.appendChild(option);
             });
             departamentoSelectEditar.selectedIndex = 0; //Autoseleccionar la primera opcion
+            departamentoSelectEditar.dispatchEvent(new Event('change'));
+        }
     })
     .catch(error => console.error('Error fetching departamentos:', error));
 });
 
-
-function cargarDepartamentoSelect(data){
+function cargarDepartamentoSelect(data) {
 
     const areaId = areaSelectEditar.value;
+    departamentoSelectEditar.innerHTML = '';
 
     fetch(`/departamentos?idArea=${encodeURIComponent(areaId)}`)
         .then(response => response.json())
@@ -103,11 +121,73 @@ function cargarDepartamentoSelect(data){
                 departamentoSelectEditar.appendChild(option);
             });
 
-            const departamentoSeleccionada = departamentos.find(departamento => departamento.Nombre === data.departamento); //Autoseleccion del area del evento
-
-            if (departamentoSeleccionada) {areaSelectEditar.value = departamentoSeleccionada.ID_Departamento;}
-            console.log("Departamento del evento:", data.departamento);
+            // Seleccionar automáticamente el departamento asociado al evento
+            const departamentoSeleccionado = departamentos.find(departamento => departamento.Nombre === data.departamento);
+           
+            if (departamentoSeleccionado) {departamentoSelectEditar.value = departamentoSeleccionado.ID_Departamento;
+                //console.log("Departamento seleccionado automáticamente:", departamentoSeleccionado.Nombre);
+            } else if (departamentos.length > 0) {departamentoSelectEditar.selectedIndex = 0;
+                console.log("No se encontró el departamento del evento, se seleccionó el primero.");
+            }
+            cargarCarreraSelect(data);
         })
-        .catch(error => console.error('Error al cargar las áreas:', error));
-
+        .catch(error => console.error('Error al cargar los departamentos:', error));
 }
+
+function cargarCarreraSelect(data){
+
+    const departamentoId = departamentoSelectEditar.value;
+    carreraSelectEditar.innerHTML = '';
+
+    fetch(`/carreras?departamentoId=${encodeURIComponent(departamentoId)}`)
+        .then(response => response.json())
+        .then(carreras => {
+            carreras.forEach(carrera => {
+                let option = document.createElement('option');
+                option.value = carrera.ID_Carrera;
+                option.textContent = carrera.Nombre;
+                carreraSelectEditar.appendChild(option);
+            });
+
+            // Seleccionar automáticamente la carrera asociada al evento
+            const carreraSeleccionada = carreras.find(carrera => carrera.Nombre === data.carrera);
+
+            if (carreraSeleccionada) {carreraSelectEditar.value = carreraSeleccionada.ID_Carrera;
+                console.log("Departamento seleccionado automáticamente:", carreraSeleccionada.Nombre);
+            } else if (carreras.length > 0) {carreraSelectEditar.selectedIndex = 0;
+                console.log("No se encontró el carrera del evento, se seleccionó el primero.");
+            }
+            carreraSelectEditar.dispatchEvent(new Event('change'));
+        })
+        .catch(error => console.error('Error al cargar las carreras:', error));
+}
+
+departamentoSelectEditar.addEventListener('change', function () { 
+    const departamentoId = departamentoSelectEditar.value; //Guardar el ID del selector de departamentoSelectEditar
+    console.log("ID del Departamento Seleccionado:", departamentoSelectEditar.value);
+
+    carreraSelectEditar.innerHTML = ''; //Limpiar el Selector
+
+    if(departamentoId){
+        fetch(`/carreras?departamentoId=${encodeURIComponent(departamentoId)}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.length === 0) { // Verificar si no hay carreras en el departamento
+                    let option = document.createElement('option');
+                    option.value = '';
+                    option.textContent = 'Departamento sin carrera';
+                    carreraSelectEditar.appendChild(option);
+                } else {
+                data.forEach(carrera => {
+                    let option = document.createElement('option');
+                    option.value = carrera.ID_Carrera;
+                    option.textContent = carrera.Nombre;
+                    carreraSelectEditar.appendChild(option);
+                });
+                carreraSelectEditar.selectedIndex = 0; //Autoseleccionar la primera opcion
+            }
+        })
+        .catch(error => console.error('Error fetching departamentos:', error));
+    }
+
+});
