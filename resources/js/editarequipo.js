@@ -48,6 +48,7 @@ function EditarEquipo(id) {
 const areaSelectEditar = document.getElementById('editararea'); 
 const departamentoSelectEditar = document.getElementById('editardepartamento');
 const carreraSelectEditar = document.getElementById('editarcarrera');
+const edificioSelectEditar = document.getElementById('editaredificio');
 
 function cargarAreaSelect(data) {
 
@@ -68,6 +69,7 @@ function cargarAreaSelect(data) {
             if (areaSeleccionada) {areaSelectEditar.value = areaSeleccionada.ID_Area;}
             // console.log("Área de conocimiento del evento:", data.area_conocimiento);
             cargarDepartamentoSelect(data);
+            cargarEdificioSelect(data);
         })
         .catch(error => console.error('Error al cargar las áreas:', error));
 }
@@ -75,7 +77,7 @@ function cargarAreaSelect(data) {
 //En caso de cambiar opcion del selector areaSelectEditar
 areaSelectEditar.addEventListener('change', function () { 
     const areaId = areaSelectEditar.value; //Guardar el ID del selector de areaSelectEditar
-    console.log("ID del area Seleccionado:", areaSelectEditar.value);
+    //console.log("ID del area Seleccionado:", areaSelectEditar.value);
 
     departamentoSelectEditar.innerHTML = ''; //Limpiar el Selector
 
@@ -89,9 +91,9 @@ areaSelectEditar.addEventListener('change', function () {
                 departamentoSelectEditar.appendChild(option);
 
                 carreraSelectEditar.innerHTML = '';
-                let noCarrerasOption = document.createElement('option');
-                noCarrerasOption.textContent = 'Seleccione un departamento';
-                carreraSelectEditar.appendChild(noCarrerasOption);
+                let opcionsincarreras = document.createElement('option');
+                opcionsincarreras.textContent = 'Seleccione un departamento';
+                carreraSelectEditar.appendChild(opcionsincarreras);
             } else {
             data.forEach(departamento => {
                 let option = document.createElement('option');
@@ -104,6 +106,32 @@ areaSelectEditar.addEventListener('change', function () {
         }
     })
     .catch(error => console.error('Error fetching departamentos:', error));
+
+    edificioSelectEditar.innerHTML = '';
+
+    fetch(`/edificio?areaId=${encodeURIComponent(areaId)}`)
+        .then(response => response.json())
+        .then(edificios => {
+            if (edificios.length === 0) {
+               
+                let option = document.createElement('option');
+                option.value = '';
+                option.textContent = 'No hay edificios disponibles';
+                edificioSelectEditar.appendChild(option);
+            } else {
+                edificios.forEach(edificio => {
+                    let option = document.createElement('option');
+                    option.value = edificio.ID_Edificio;
+                    option.textContent = edificio.Nombre_Edificio;
+                    edificioSelectEditar.appendChild(option);
+                });
+
+                // Autoseleccionar la primera opción
+                edificioSelectEditar.selectedIndex = 0;
+                edificioSelectEditar.dispatchEvent(new Event('change'));
+            }
+        })
+        .catch(error => console.error('Error fetching edificios:', error));
 });
 
 function cargarDepartamentoSelect(data) {
@@ -162,6 +190,7 @@ function cargarCarreraSelect(data){
         .catch(error => console.error('Error al cargar las carreras:', error));
 }
 
+//En caso de cambiar opcion del selector departamentoSelectEditar
 departamentoSelectEditar.addEventListener('change', function () { 
     const departamentoId = departamentoSelectEditar.value; //Guardar el ID del selector de departamentoSelectEditar
     console.log("ID del Departamento Seleccionado:", departamentoSelectEditar.value);
@@ -189,5 +218,32 @@ departamentoSelectEditar.addEventListener('change', function () {
         })
         .catch(error => console.error('Error fetching departamentos:', error));
     }
-
 });
+
+function cargarEdificioSelect(data) {
+
+    const areaId = areaSelectEditar.value;
+    edificioSelectEditar.innerHTML = '';
+
+    fetch(`/edificio?areaId=${encodeURIComponent(areaId)}`)
+        .then(response => response.json())
+        .then(edificios => {
+            edificios.forEach(edificio => {
+                let option = document.createElement('option');
+                option.value = edificio.ID_Edificio;
+                option.textContent = edificio.Nombre_Edificio;
+                edificioSelectEditar.appendChild(option);
+            });
+
+            // Seleccionar automáticamente el edificio asociado al evento
+            const edificioSeleccionado = edificios.find(edificio => edificio.Nombre_Edificio === data.edificio);
+           
+            if (edificioSeleccionado) {edificioSelectEditar.value = edificioSeleccionado.ID_Edificio;
+                //console.log("Edificio seleccionado automáticamente:", edificioSeleccionado.Nombre_Edificio);
+            } else if (edificios.length > 0) {edificioSelectEditar.selectedIndex = 0;
+                console.log("No se encontró el edificio del evento, se seleccionó el primero.");
+            }
+            edificioSelectEditar.dispatchEvent(new Event('change'));
+        })
+        .catch(error => console.error('Error al cargar los edificios:', error));
+}
