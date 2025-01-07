@@ -6,7 +6,7 @@ if (editButton) {
         if (!eventId) {
             console.error('No se ha seleccionado ningún evento para editar.');
         } else {
-            console.log("ID del evento: ", eventId);
+            //console.log("ID del evento: ", eventId);
             Verificador();
             EditarEquipo(eventId); // Pasar el eventId para cargar los datos específicos
         }
@@ -36,7 +36,7 @@ function EditarEquipo(id) {
             return response.json();
         })
         .then(data => {
-            console.log("Datos del equipo:", data);
+            //console.log("Datos del equipo:", data);
             cargarAreaSelect(data.data); //Carga las areas y selecciona el area del evento
         })
         .catch(error => console.error('Error al cargar los datos del equipo:', error));
@@ -49,6 +49,7 @@ const areaSelectEditar = document.getElementById('editararea');
 const departamentoSelectEditar = document.getElementById('editardepartamento');
 const carreraSelectEditar = document.getElementById('editarcarrera');
 const edificioSelectEditar = document.getElementById('editaredificio');
+const aulaSelectEditar = document.getElementById('editaraula');
 
 function cargarAreaSelect(data) {
 
@@ -70,6 +71,7 @@ function cargarAreaSelect(data) {
             // console.log("Área de conocimiento del evento:", data.area_conocimiento);
             cargarDepartamentoSelect(data);
             cargarEdificioSelect(data);
+            cargarInputs(data);
         })
         .catch(error => console.error('Error al cargar las áreas:', error));
 }
@@ -181,7 +183,7 @@ function cargarCarreraSelect(data){
             const carreraSeleccionada = carreras.find(carrera => carrera.Nombre === data.carrera);
 
             if (carreraSeleccionada) {carreraSelectEditar.value = carreraSeleccionada.ID_Carrera;
-                console.log("Departamento seleccionado automáticamente:", carreraSeleccionada.Nombre);
+                //console.log("Departamento seleccionado automáticamente:", carreraSeleccionada.Nombre);
             } else if (carreras.length > 0) {carreraSelectEditar.selectedIndex = 0;
                 console.log("No se encontró el carrera del evento, se seleccionó el primero.");
             }
@@ -243,7 +245,85 @@ function cargarEdificioSelect(data) {
             } else if (edificios.length > 0) {edificioSelectEditar.selectedIndex = 0;
                 console.log("No se encontró el edificio del evento, se seleccionó el primero.");
             }
-            edificioSelectEditar.dispatchEvent(new Event('change'));
+            cargarAulaSelect(data);
         })
         .catch(error => console.error('Error al cargar los edificios:', error));
+}
+
+function cargarAulaSelect(data) {
+
+    const edificioId = edificioSelectEditar.value;
+    aulaSelectEditar.innerHTML = '';
+
+    fetch(`/aula?edificioId=${encodeURIComponent(edificioId)}`)
+        .then(response => response.json())
+        .then(aulas => {
+            aulas.forEach(aula => {
+                let option = document.createElement('option');
+                option.value = aula.ID_Aula;
+                option.textContent = aula.Nombre_Aula;
+                aulaSelectEditar.appendChild(option);
+            });
+
+            // Seleccionar automáticamente el aula asociado al evento
+            const aulaSeleccionada = aulas.find(aula => aula.Nombre_Aula === data.aula);
+           
+            if (aulaSeleccionada) {aulaSelectEditar.value = aulaSeleccionada.ID_Aula;
+                //console.log("Aula seleccionada automáticamente:", aulaSeleccionada.Nombre_Aula);
+            } else if (aulas.length > 0) {aulaSelectEditar.selectedIndex = 0;
+                console.log("No se encontró la aula del evento, se seleccionó el primero.");
+            }
+            aulaSelectEditar.dispatchEvent(new Event('change'));
+        })
+        .catch(error => console.error('Error al cargar los aula:', error));
+}
+
+edificioSelectEditar.addEventListener('change', function(){
+    const edificioId = edificioSelectEditar.value; //Guardar el ID del selector de edificioSelectEditar
+
+    aulaSelectEditar.innerHTML = ''; //Limpiar el Selector
+
+    if(edificioId){
+        fetch(`/aula?edificioId=${encodeURIComponent(edificioId)}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.length === 0) { // Verificar si no hay aulas en el edificio
+                    let option = document.createElement('option');
+                    option.value = '';
+                    option.textContent = 'Edificio sin aulas';
+                    aulaSelectEditar.appendChild(option);
+                } else {
+                data.forEach(aula => {
+                    let option = document.createElement('option');
+                    option.value = aula.ID_Carrera;
+                    option.textContent = aula.Nombre_Aula;
+                    aulaSelectEditar.appendChild(option);
+                });
+                aulaSelectEditar.selectedIndex = 0; //Autoseleccionar la primera opcion
+            }
+        })
+        .catch(error => console.error('Error fetching departamentos:', error));
+    }
+});
+
+function cargarInputs(data){
+    
+    const inputTitulo = document.getElementById('editartitulo');
+    if (inputTitulo) {inputTitulo.value = data.titulo;} else{console.error("No se encontró el input con ID 'editartitulo'.");}
+
+    const inputFechaAsignada = document.getElementById('editarfecha_asignada');
+    if (inputFechaAsignada) {inputFechaAsignada.value = data.fecha_asignada;} else{console.error("No se encontró el input con ID 'editarfecha_asignada'.");}
+
+    const inputFechaAprobada = document.getElementById('editarfecha_aprobada');
+    if (inputFechaAprobada) {inputFechaAprobada.value = data.fecha_aprobada;} else{console.error("No se encontró el input con ID 'editarfecha_aprobada'.");}
+
+    const inputHoraInicio = document.getElementById('editarhora_inicio');
+    if (inputHoraInicio) {inputHoraInicio.value = data.hora_inicio;} else {console.error("No se encontró el input con ID 'editarhora_inicio'.");}
+
+    const inputHoraFin = document.getElementById('editarhora_fin');
+    if (inputHoraFin) {inputHoraFin.value = data.hora_fin;} else {console.error("No se encontró el input con ID 'editarhora_fin'.");}
+
+    const inputCalificacion = document.getElementById('editarcalificacion');
+    if (inputCalificacion) {inputCalificacion.value = data.calificacion;} else {console.error("No se encontró el input con ID 'editarcalificacion'.");}
+
 }
