@@ -354,105 +354,71 @@ function cargarTipoExamenSelect(data) {
 }
 
 function CargarEstudiantesSelect(data) {
-    var integranteSelects = [
+
+    const integranteSelects = [
         document.getElementById('editarintegrante1'),
         document.getElementById('editarintegrante2'),
         document.getElementById('editarintegrante3'),
     ];
 
-    var estudiantes = []; // Lista global de estudiantes disponibles
+    let estudiantes = [];
 
-    // Función para llenar un select con opciones
-    function llenarSelectEstudiante(selectElement, estudiantesDisponibles) {
-        selectElement.innerHTML = '';
+    // Rellena un select con estudiantes, quitando "Sin asignar" solo en el primer select
+    const llenarSelect = (select, estudiantesDisponibles = '') => {
+        
+        select.innerHTML = ''; // Primero, limpiamos las opciones del select
 
-        if (estudiantesDisponibles.length > 0) {
-            estudiantesDisponibles.forEach(estudiante => {
-                let option = document.createElement('option');
-                option.value = estudiante.ID_Estudiante;
-                option.textContent = estudiante.Nombre_Completo;
-                selectElement.appendChild(option);
-            });
-        }
-    }
+        // Solo agregamos la opción "Sin asignar" si no es el primer select
+        if (select.id !== 'editarintegrante1') {select.innerHTML += `<option value="">Sin asignar</option>`;}
 
-    // Función para cargar estudiantes según la carrera seleccionada
-    function cargarEstudiantesPorCarrera(carreraId) {
-        if (!carreraId) {
-            console.error("Carrera no seleccionada");
-            return;
-        }
+        // Luego, agregamos las opciones de los estudiantes
+        estudiantesDisponibles.forEach(est => {select.innerHTML += `<option value="${est.ID_Estudiante}">${est.Nombre_Completo}</option>`;});
 
-        fetch(`/estudiante?carreraId=${encodeURIComponent(carreraId)}`)
-            .then(response => response.json())
-            .then(dataEstudiantes => {
-                estudiantes = dataEstudiantes;
-                if (estudiantes.length > 0) {
-                    integrarSelectsConEstudiantes(estudiantes, data); // Pasar también los datos para la selección automática
-                } else {
-                    console.warn("No hay estudiantes disponibles para esta carrera.");
-                }
-            })
-            .catch(error => {
-                console.error('Error al obtener los estudiantes:', error);
-            });
-    }
+        // Si el select es el primero, deshabilitamos la opción "Sin asignar"
+        if (select.id === 'editarintegrante1') {const sinAsignarOption = select.querySelector('option[value=""]');
+            if (sinAsignarOption) {sinAsignarOption.disabled = true;}}
+    };
 
-    // Función para integrar selects con la lista de estudiantes y autoseleccionarlos
-    function integrarSelectsConEstudiantes(estudiantes, data) {
-        integranteSelects.forEach((select, index) => {
-            llenarSelectEstudiante(select, estudiantes);
-
-            // Autoseleccionar si hay datos en `data`
-            const estudianteSeleccionado = estudiantes.find(
-                estudiante => estudiante.ID_Estudiante === data[`integrante${index + 1}`]
-            );
-
-            if (estudianteSeleccionado) {
-                select.value = estudianteSeleccionado.ID_Estudiante;
-            } else {
-                console.warn(`No se encontró el estudiante para el integrante ${index + 1}`);
-            }
-        });
-
-        // Actualizar para evitar duplicados
-        actualizarSelects();
-    }
-
-    // Función para actualizar los selects y evitar duplicados
-    function actualizarSelects() {
-        const seleccionados = integranteSelects.map(select => select.value);
-
+    // Actualiza opciones para evitar duplicados
+    const evitarDuplicados = () => {
+        const seleccionados = integranteSelects.map(select => select.value).filter(id => id);
         integranteSelects.forEach(select => {
             Array.from(select.options).forEach(option => {
-                if (seleccionados.includes(option.value) && option.value !== '') {
-                    option.style.display = 'none'; // Ocultar opciones ya seleccionadas
-                } else {
-                    option.style.display = ''; // Mostrar opciones no seleccionadas
-                }
+                option.style.display = seleccionados.includes(option.value) && option.value !== '' ? 'none' : '';
             });
         });
-    }
+    };
 
-    // Event listener para cuando se cambie la carrera seleccionada
-    carreraSelectEditar.addEventListener('change', function () {
-        const carreraId = carreraSelectEditar.value;
-        cargarEstudiantesPorCarrera(carreraId);
-    });
+    // Asigna estudiantes a los selects basándose en `data`
+    const asignarEstudiantes = () => {
+        integranteSelects.forEach((select, index) => {
+            const nombre = data[`integrante${index + 1}`] || '';
+            const estudiante = estudiantes.find(est => est.Nombre_Completo === nombre);
+            llenarSelect(select, estudiantes, estudiante ? estudiante.ID_Estudiante : '');
+        });
+        evitarDuplicados();
+    };
 
-    // Cargar estudiantes para la carrera seleccionada inicialmente
-    const carreraIdInicial = carreraSelectEditar.value;
-    if (carreraIdInicial) {
-        cargarEstudiantesPorCarrera(carreraIdInicial);
-    }
+    // Carga estudiantes desde el servidor según la carrera seleccionada
+    const cargarEstudiantes = carreraId => {
+        //if (!carreraId) return console.error("Carrera no seleccionada"); console.log(carreraId);
+       
+        fetch(`/estudiante?carreraId=${encodeURIComponent(carreraId)}`)
+            .then(res => res.json())
+            .then(dataEstudiantes => {
+                estudiantes = dataEstudiantes;
+                asignarEstudiantes();
+            })
+            .catch(err => console.error("Error al cargar estudiantes:", err));
+    };
 
-    // Event listeners para actualizar los selects al cambiar un integrante
-    integranteSelects.forEach(select => {
-        select.addEventListener('change', actualizarSelects);
-    });
+    // Listeners para cambios
+    carreraSelectEditar.addEventListener('change', e => cargarEstudiantes(e.target.value));
+    integranteSelects.forEach(select => select.addEventListener('change', evitarDuplicados));
+
+    // Inicializa con la carrera seleccionada
+    cargarEstudiantes(carreraSelectEditar.value);
 }
-
-
 
 function cargarInputs(data){
     
