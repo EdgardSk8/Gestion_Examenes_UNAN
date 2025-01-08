@@ -74,7 +74,6 @@ function cargarAreaSelect(data) {
             cargarEdificioSelect(data);
             cargarInputs(data);
             cargarTipoExamenSelect(data);
-            CargarEstudiantesSelect(data);
         })
         .catch(error => console.error('Error al cargar las áreas:', error));
 }
@@ -161,6 +160,7 @@ function cargarDepartamentoSelect(data) {
                 console.log("No se encontró el departamento del evento, se seleccionó el primero.");
             }
             cargarCarreraSelect(data);
+            CargarProfesoresSelect(data);
         })
         .catch(error => console.error('Error al cargar los departamentos:', error));
 }
@@ -419,6 +419,147 @@ function CargarEstudiantesSelect(data) {
     // Inicializa con la carrera seleccionada
     cargarEstudiantes(carreraSelectEditar.value);
 }
+
+function CargarProfesoresSelect(data) {
+
+    const tutorSelect = document.getElementById('editartutor');
+    const juez1Select = document.getElementById('editarjuez1');
+    const juez2Select = document.getElementById('editarjuez2');
+    const juez3Select = document.getElementById('editarjuez3');
+
+    let profesores = [];
+
+    // Función para llenar un select con profesores
+    const llenarSelectProfesor = (selectElement, profesoresDisponibles = '', mensaje = 'Seleccione Departamento') => {
+        selectElement.innerHTML = ''; // Limpiar opciones
+
+        // Crear opción por defecto
+        let defaultOption = document.createElement('option');
+        defaultOption.value = '';
+        defaultOption.textContent = mensaje;
+        defaultOption.disabled = true;
+        defaultOption.selected = true;
+        selectElement.appendChild(defaultOption);
+
+        // Agregar opciones de profesores si están disponibles
+        if (profesoresDisponibles.length > 0) {
+            profesoresDisponibles.forEach(profesor => {
+                let option = document.createElement('option');
+                option.value = profesor.ID_Profesor;
+                option.textContent = profesor.Nombre_Completo_P;
+                selectElement.appendChild(option);
+            });
+        }
+        console.log(`Se han cargado las opciones para el select: ${selectElement.id}`);
+    };
+
+    // Función para cargar profesores por departamento
+    const cargarProfesoresPorDepartamento = departamentoId => {
+        if (!departamentoId) {
+            console.log("No se seleccionó un departamento, cargando opciones por defecto.");
+            // Mostrar mensaje de "Seleccione Departamento" si no hay departamento seleccionado
+            llenarSelectProfesor(tutorSelect, [], 'Seleccione Departamento');
+            llenarSelectProfesor(juez1Select, [], 'Seleccione Departamento');
+            llenarSelectProfesor(juez2Select, [], 'Seleccione Departamento');
+            llenarSelectProfesor(juez3Select, [], 'Seleccione Departamento');
+            return;
+        }
+
+        console.log(`Cargando profesores para el departamento con ID: ${departamentoId}`);
+        fetch(`/profesorPorDepartamento?DepartamentoId=${encodeURIComponent(departamentoId)}`)
+            .then(response => response.json())
+            .then(data => {
+                profesores = data; // Guardar los datos de los profesores
+                if (profesores.length === 0) {
+                    console.log("No se encontraron profesores para este departamento.");
+                    llenarSelectProfesor(tutorSelect, [], 'Sin Profesores');
+                    llenarSelectProfesor(juez1Select, [], 'Sin Profesores');
+                    llenarSelectProfesor(juez2Select, [], 'Sin Profesores');
+                    llenarSelectProfesor(juez3Select, [], 'Sin Profesores');
+                } else {
+                    console.log("Profesores encontrados y cargados.");
+                    llenarSelectProfesor(tutorSelect, profesores, 'Seleccione Tutor');
+                    llenarSelectProfesor(juez1Select, profesores, 'Seleccione Juez 1');
+                    llenarSelectProfesor(juez2Select, profesores, 'Seleccione Juez 2');
+                    llenarSelectProfesor(juez3Select, profesores, 'Seleccione Juez 3');
+                }
+            })
+            .catch(error => {
+                console.error('Error al obtener los profesores:', error);
+            });
+    };
+
+    // Inicializa los selects de profesores
+    llenarSelectProfesor(tutorSelect, [], 'Seleccione un Departamento');
+    llenarSelectProfesor(juez1Select, [], 'Seleccione un Departamento');
+    llenarSelectProfesor(juez2Select, [], 'Seleccione un Departamento');
+    llenarSelectProfesor(juez3Select, [], 'Seleccione un Departamento');
+
+    // Llamada inicial para cargar los profesores (esto depende de que ya haya un departamento seleccionado)
+    var departamentoIdInicial = departamentoSelectEditar.value;
+    cargarProfesoresPorDepartamento(departamentoIdInicial);
+
+    // Event listener para cuando se cambie el departamento seleccionado
+    departamentoSelectEditar.addEventListener('change', function () {
+        var departamentoId = departamentoSelectEditar.value;
+        console.log(`Departamento seleccionado: ${departamentoId}`);
+        cargarProfesoresPorDepartamento(departamentoId);
+    });
+
+    // Event listener para cuando se cambie el área seleccionada
+    areaSelectEditar.addEventListener('change', function () {
+        console.log('Área seleccionada, restableciendo selects de profesores.');
+        // Restablecer los selects de profesores a su mensaje por defecto
+        llenarSelectProfesor(tutorSelect, [], 'Seleccione Departamento');
+        llenarSelectProfesor(juez1Select, [], 'Seleccione Departamento');
+        llenarSelectProfesor(juez2Select, [], 'Seleccione Departamento');
+        llenarSelectProfesor(juez3Select, [], 'Seleccione Departamento');
+    });
+
+    // Función para actualizar los selects y evitar duplicados
+    function actualizarSelects() {
+        const seleccionados = [
+            tutorSelect.value,
+            juez1Select.value,
+            juez2Select.value,
+            juez3Select.value
+        ];
+
+        // Actualizamos las opciones en los selects de jueces
+        [juez1Select, juez2Select, juez3Select].forEach(select => {
+            Array.from(select.options).forEach(option => {
+                if (seleccionados.includes(option.value) && option.value !== '') {
+                    console.log(`Ocultando la opción ${option.textContent} en el select ${select.id}`);
+                    option.style.display = 'none'; // Ocultar opciones seleccionadas
+                } else {
+                    option.style.display = ''; // Mostrar opciones no seleccionadas
+                }
+            });
+        });
+    }
+
+    // Event listeners para mostrar selección y actualizar los selects
+    tutorSelect.addEventListener('change', function () {
+        actualizarSelects();
+        console.log('Has seleccionado al tutor:', tutorSelect.options[tutorSelect.selectedIndex].text);
+    });
+
+    juez1Select.addEventListener('change', function () {
+        actualizarSelects();
+        console.log('Has seleccionado al Juez 1:', juez1Select.options[juez1Select.selectedIndex].text);
+    });
+
+    juez2Select.addEventListener('change', function () {
+        actualizarSelects();
+        console.log('Has seleccionado al Juez 2:', juez2Select.options[juez2Select.selectedIndex].text);
+    });
+
+    juez3Select.addEventListener('change', function () {
+        actualizarSelects();
+        console.log('Has seleccionado al Juez 3:', juez3Select.options[juez3Select.selectedIndex].text);
+    });
+}
+
 
 function cargarInputs(data){
     
