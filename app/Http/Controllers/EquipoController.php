@@ -134,7 +134,7 @@ class EquipoController extends Controller
                 'integrante2' => 'nullable|integer|exists:estudiantes,ID_Estudiante',
                 'integrante3' => 'nullable|integer|exists:estudiantes,ID_Estudiante',
                 'fechaAsignada' => 'nullable|date|after:fechaAprobada',
-                'fechaAprobada' => 'nullable|date|after_or_equal:fechaAsignada',
+                'fechaAprobada' => 'nullable',
                 'horaInicio' => 'nullable|date_format:H:i',
                 'horaFin' => 'nullable|date_format:H:i',
                 'aula' => 'nullable|integer|min:1|exists:aulas,ID_Aula',

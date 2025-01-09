@@ -73,12 +73,12 @@
             <div style="display: flex; gap: 10px; width: 100%;">
                 <div style="flex: 1;">
                     <label>Hora de Inicio:</label>
-                    <input type="text" id="editarhora_inicio" placeholder="Hora de Inicio" name="Hora_Inicio">
+                    <input type="text" id="editarhora_inicio" placeholder="Hora de Inicio" >
                 </div>
 
                 <div style="flex: 1;">
                     <label>Hora de Fin:</label>
-                    <input type="text" id="editarhora_fin" placeholder="Hora de Fin" name="Hora_Fin">
+                    <input type="text" id="editarhora_fin" placeholder="Hora de Fin">
                 </div>
             </div>
 
@@ -88,8 +88,8 @@
                 <input type="text" id="editarcalificacion" placeholder="Califica" name="calificacion">
             </div><br>
             
-            <h3 id="resultado"></h3>
-            <p id="aviso" style="color:red;"></p>
+            <h3 id="avisoeditardia" style="color:red;"></h3>
+            <h3 id="avisoeditarhora" style="color:red;"></h3>
         
             
             <!-- Ubicación -->

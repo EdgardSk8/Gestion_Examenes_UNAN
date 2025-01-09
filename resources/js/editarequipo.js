@@ -502,6 +502,24 @@ function cargarInputs(data){
 
 document.getElementById('editarequipo-form').addEventListener('submit', function(event) {
     event.preventDefault(); // Prevenir el envío inmediato del formulario
+     // Convertir hora de inicio y fin a formato 24 horas
+     const horaInicio12 = document.getElementById('editarhora_inicio').value;
+     const horaFin12 = document.getElementById('editarhora_fin').value;
+ 
+     // Función para convertir hora de formato 12 horas a formato 24 horas
+     function convertirAHora24(hora12) {
+         const [hora, minuto, periodo] = hora12.split(/[: ]/);
+         let hora24 = parseInt(hora);
+         if (periodo === "PM" && hora24 !== 12) {
+             hora24 += 12;
+         } else if (periodo === "AM" && hora24 === 12) {
+             hora24 = 0; // Para la medianoche
+         }
+         return `${hora24.toString().padStart(2, '0')}:${minuto}`;
+     }
+ 
+     const horaInicio24 = convertirAHora24(horaInicio12);
+     const horaFin24 = convertirAHora24(horaFin12);
 
     // Capturamos todos los datos del formulario
     const formData = {
@@ -514,8 +532,8 @@ document.getElementById('editarequipo-form').addEventListener('submit', function
         integrante3: document.getElementById('editarintegrante3').value,
         fechaAsignada: document.getElementById('editarfecha_asignada').value,
         fechaAprobada: document.getElementById('editarfecha_aprobada').value,
-        horaInicio: document.getElementById('editarhora_inicio').value,
-        horaFin: document.getElementById('editarhora_fin').value,
+        horaInicio: horaInicio24, // Hora de inicio en formato 24 horas
+        horaFin: horaFin24,
         calificacion: document.getElementById('editarcalificacion').value,
         aula: document.getElementById('editaraula').value,
         tipoExamen: document.getElementById('editartipo_examen').value,
@@ -526,8 +544,6 @@ document.getElementById('editarequipo-form').addEventListener('submit', function
     };
 
     const id = editButton.getAttribute('data-event-id');
-    console.log("ID: ", id);
-    // Mostrar un console.log con los datos
     console.log("Datos a subir:", formData);
 
     // Aquí iría el código para subir los datos al servidor
