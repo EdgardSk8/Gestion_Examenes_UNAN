@@ -38,6 +38,8 @@ function EditarEquipo(id) {
         .then(data => {
             //console.log("Datos del equipo:", data);
             cargarAreaSelect(data.data); //Carga las areas y selecciona el area del evento
+            cargarInputs(data.data);
+            cargarTipoExamenSelect(data.data);
         })
         .catch(error => console.error('Error al cargar los datos del equipo:', error));
 }
@@ -72,8 +74,6 @@ function cargarAreaSelect(data) {
             // console.log("Área de conocimiento del evento:", data.area_conocimiento);
             cargarDepartamentoSelect(data);
             cargarEdificioSelect(data);
-            cargarInputs(data);
-            cargarTipoExamenSelect(data);
         })
         .catch(error => console.error('Error al cargar las áreas:', error));
 }
@@ -348,7 +348,8 @@ function cargarTipoExamenSelect(data) {
                     const juez1editar = document.getElementById('editarjuez1'); juez1editar.innerHTML = '';
                     const juez2editar = document.getElementById('editarjuez2'); juez2editar.innerHTML = '';
                     const juez3editar = document.getElementById('editarjuez3'); juez3editar.innerHTML = '';
-                } else {examenDiv.style.display = 'block';} // Muestra el formulario
+                   
+                } else {examenDiv.style.display = 'block'; CargarProfesoresSelect(data);} // Muestra el formulario
                 //console.log(`Opción seleccionada: ${opcionSeleccionadaTE.text} (Valor: ${opcionSeleccionadaTE.value})`);
         });
 }
@@ -421,145 +422,61 @@ function CargarEstudiantesSelect(data) {
 }
 
 function CargarProfesoresSelect(data) {
-
-    const tutorSelect = document.getElementById('editartutor');
-    const juez1Select = document.getElementById('editarjuez1');
-    const juez2Select = document.getElementById('editarjuez2');
-    const juez3Select = document.getElementById('editarjuez3');
-
-    let profesores = [];
-
-    // Función para llenar un select con profesores
-    const llenarSelectProfesor = (selectElement, profesoresDisponibles = '', mensaje = 'Seleccione Departamento') => {
-        selectElement.innerHTML = ''; // Limpiar opciones
-
-        // Crear opción por defecto
-        let defaultOption = document.createElement('option');
-        defaultOption.value = '';
-        defaultOption.textContent = mensaje;
-        defaultOption.disabled = true;
-        defaultOption.selected = true;
-        selectElement.appendChild(defaultOption);
-
-        // Agregar opciones de profesores si están disponibles
-        if (profesoresDisponibles.length > 0) {
-            profesoresDisponibles.forEach(profesor => {
-                let option = document.createElement('option');
-                option.value = profesor.ID_Profesor;
-                option.textContent = profesor.Nombre_Completo_P;
-                selectElement.appendChild(option);
-            });
-        }
-        console.log(`Se han cargado las opciones para el select: ${selectElement.id}`);
+    const selects = {
+        tutor: document.getElementById('editartutor'),
+        juez1: document.getElementById('editarjuez1'),
+        juez2: document.getElementById('editarjuez2'),
+        juez3: document.getElementById('editarjuez3'),
     };
 
-    // Función para cargar profesores por departamento
-    const cargarProfesoresPorDepartamento = departamentoId => {
-        if (!departamentoId) {
-            console.log("No se seleccionó un departamento, cargando opciones por defecto.");
-            // Mostrar mensaje de "Seleccione Departamento" si no hay departamento seleccionado
-            llenarSelectProfesor(tutorSelect, [], 'Seleccione Departamento');
-            llenarSelectProfesor(juez1Select, [], 'Seleccione Departamento');
-            llenarSelectProfesor(juez2Select, [], 'Seleccione Departamento');
-            llenarSelectProfesor(juez3Select, [], 'Seleccione Departamento');
-            return;
-        }
+    const seleccionados = () => Object.values(selects).map(select => select.value);
 
-        console.log(`Cargando profesores para el departamento con ID: ${departamentoId}`);
-        fetch(`/profesorPorDepartamento?DepartamentoId=${encodeURIComponent(departamentoId)}`)
-            .then(response => response.json())
-            .then(data => {
-                profesores = data; // Guardar los datos de los profesores
-                if (profesores.length === 0) {
-                    console.log("No se encontraron profesores para este departamento.");
-                    llenarSelectProfesor(tutorSelect, [], 'Sin Profesores');
-                    llenarSelectProfesor(juez1Select, [], 'Sin Profesores');
-                    llenarSelectProfesor(juez2Select, [], 'Sin Profesores');
-                    llenarSelectProfesor(juez3Select, [], 'Sin Profesores');
-                } else {
-                    console.log("Profesores encontrados y cargados.");
-                    llenarSelectProfesor(tutorSelect, profesores, 'Seleccione Tutor');
-                    llenarSelectProfesor(juez1Select, profesores, 'Seleccione Juez 1');
-                    llenarSelectProfesor(juez2Select, profesores, 'Seleccione Juez 2');
-                    llenarSelectProfesor(juez3Select, profesores, 'Seleccione Juez 3');
-                }
-            })
-            .catch(error => {
-                console.error('Error al obtener los profesores:', error);
-            });
+    const llenarSelect = (select, profesores = [], placeholder = 'Seleccione Departamento', seleccionado = '', sinAsignar = false) => {
+        select.innerHTML = `<option value="" disabled ${!seleccionado ? 'selected' : ''}>${placeholder}</option>`;
+        if (sinAsignar) select.innerHTML += `<option value="sin_asignar" ${seleccionado === 'sin_asignar' ? 'selected' : ''}>Sin Asignar</option>`;
+        profesores.forEach(({ ID_Profesor, Nombre_Completo_P }) => {
+            select.innerHTML += `<option value="${ID_Profesor}" ${ID_Profesor === seleccionado ? 'selected' : ''}>${Nombre_Completo_P}</option>`;
+        });
     };
 
-    // Inicializa los selects de profesores
-    llenarSelectProfesor(tutorSelect, [], 'Seleccione un Departamento');
-    llenarSelectProfesor(juez1Select, [], 'Seleccione un Departamento');
-    llenarSelectProfesor(juez2Select, [], 'Seleccione un Departamento');
-    llenarSelectProfesor(juez3Select, [], 'Seleccione un Departamento');
-
-    // Llamada inicial para cargar los profesores (esto depende de que ya haya un departamento seleccionado)
-    var departamentoIdInicial = departamentoSelectEditar.value;
-    cargarProfesoresPorDepartamento(departamentoIdInicial);
-
-    // Event listener para cuando se cambie el departamento seleccionado
-    departamentoSelectEditar.addEventListener('change', function () {
-        var departamentoId = departamentoSelectEditar.value;
-        console.log(`Departamento seleccionado: ${departamentoId}`);
-        cargarProfesoresPorDepartamento(departamentoId);
-    });
-
-    // Event listener para cuando se cambie el área seleccionada
-    areaSelectEditar.addEventListener('change', function () {
-        console.log('Área seleccionada, restableciendo selects de profesores.');
-        // Restablecer los selects de profesores a su mensaje por defecto
-        llenarSelectProfesor(tutorSelect, [], 'Seleccione Departamento');
-        llenarSelectProfesor(juez1Select, [], 'Seleccione Departamento');
-        llenarSelectProfesor(juez2Select, [], 'Seleccione Departamento');
-        llenarSelectProfesor(juez3Select, [], 'Seleccione Departamento');
-    });
-
-    // Función para actualizar los selects y evitar duplicados
-    function actualizarSelects() {
-        const seleccionados = [
-            tutorSelect.value,
-            juez1Select.value,
-            juez2Select.value,
-            juez3Select.value
-        ];
-
-        // Actualizamos las opciones en los selects de jueces
-        [juez1Select, juez2Select, juez3Select].forEach(select => {
+    const actualizarSelects = () => {
+        const seleccionadosIds = seleccionados();
+        Object.values(selects).forEach(select => {
             Array.from(select.options).forEach(option => {
-                if (seleccionados.includes(option.value) && option.value !== '') {
-                    console.log(`Ocultando la opción ${option.textContent} en el select ${select.id}`);
-                    option.style.display = 'none'; // Ocultar opciones seleccionadas
-                } else {
-                    option.style.display = ''; // Mostrar opciones no seleccionadas
-                }
+                option.style.display = (seleccionadosIds.includes(option.value) && option.value) ? 'none' : '';
             });
         });
-    }
+    };
 
-    // Event listeners para mostrar selección y actualizar los selects
-    tutorSelect.addEventListener('change', function () {
-        actualizarSelects();
-        console.log('Has seleccionado al tutor:', tutorSelect.options[tutorSelect.selectedIndex].text);
-    });
+    const cargarProfesores = (departamentoId) => {
+        const url = `/profesorPorDepartamento?DepartamentoId=${encodeURIComponent(departamentoId)}`;
+        if (!departamentoId) {
+            Object.values(selects).forEach(select => llenarSelect(select, [], 'Seleccione Departamento', '', select === selects.juez2 || select === selects.juez3));
+            return;
+        }
+        fetch(url)
+            .then(res => res.json())
+            .then(profesores => {
+                Object.entries(selects).forEach(([key, select]) => {
+                    const sinAsignar = (key === 'juez2' || key === 'juez3');
+                    llenarSelect(select, profesores, `Seleccione ${key.charAt(0).toUpperCase() + key.slice(1)}`, data[`${key}Id`], sinAsignar);
+                });
+                actualizarSelects();
+            })
+            .catch(err => console.error('Error al obtener los profesores:', err));
+    };
 
-    juez1Select.addEventListener('change', function () {
-        actualizarSelects();
-        console.log('Has seleccionado al Juez 1:', juez1Select.options[juez1Select.selectedIndex].text);
-    });
+    // Inicializar selects y asignar eventos
+    Object.values(selects).forEach(select => select.addEventListener('change', actualizarSelects));
 
-    juez2Select.addEventListener('change', function () {
-        actualizarSelects();
-        console.log('Has seleccionado al Juez 2:', juez2Select.options[juez2Select.selectedIndex].text);
-    });
-
-    juez3Select.addEventListener('change', function () {
-        actualizarSelects();
-        console.log('Has seleccionado al Juez 3:', juez3Select.options[juez3Select.selectedIndex].text);
+    // Cargar profesores inicialmente o al cambiar departamento/área
+    const departamentoIdInicial = departamentoSelectEditar.value;
+    cargarProfesores(departamentoIdInicial);
+    departamentoSelectEditar.addEventListener('change', () => cargarProfesores(departamentoSelectEditar.value));
+    areaSelectEditar.addEventListener('change', () => {
+        Object.values(selects).forEach(select => llenarSelect(select, [], 'Seleccione Departamento', '', select === selects.juez2 || select === selects.juez3));
     });
 }
-
 
 function cargarInputs(data){
     
@@ -582,3 +499,60 @@ function cargarInputs(data){
     if (inputCalificacion) {inputCalificacion.value = data.calificacion;} else {console.error("No se encontró el input con ID 'editarcalificacion'.");}
 
 }
+
+document.getElementById('editarequipo-form').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevenir el envío inmediato del formulario
+
+    // Capturamos todos los datos del formulario
+    const formData = {
+        titulo: document.getElementById('editartitulo').value,
+        area: document.getElementById('editararea').value,
+        departamento: document.getElementById('editardepartamento').value,
+        carrera: document.getElementById('editarcarrera').value,
+        integrante1: document.getElementById('editarintegrante1').value,
+        integrante2: document.getElementById('editarintegrante2').value,
+        integrante3: document.getElementById('editarintegrante3').value,
+        fechaAsignada: document.getElementById('editarfecha_asignada').value,
+        fechaAprobada: document.getElementById('editarfecha_aprobada').value,
+        horaInicio: document.getElementById('editarhora_inicio').value,
+        horaFin: document.getElementById('editarhora_fin').value,
+        calificacion: document.getElementById('editarcalificacion').value,
+        aula: document.getElementById('editaraula').value,
+        tipoExamen: document.getElementById('editartipo_examen').value,
+        tutor: document.getElementById('editartutor').value,
+        juez1: document.getElementById('editarjuez1').value,
+        juez2: document.getElementById('editarjuez2').value,
+        juez3: document.getElementById('editarjuez3').value
+    };
+
+    const id = editButton.getAttribute('data-event-id');
+    console.log("ID: ", id);
+    // Mostrar un console.log con los datos
+    console.log("Datos a subir:", formData);
+
+    // Aquí iría el código para subir los datos al servidor
+    fetch(`/equipo/actualizar/${id}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') // CSRF Token
+        },
+        body: JSON.stringify(formData) // Convertir los datos a formato JSON
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            console.log("Datos guardados correctamente:", data);
+            alert("¡Los cambios se han guardado correctamente!");
+        } else {
+            console.error("Error al guardar los datos:", data);
+            alert("Hubo un error al guardar los cambios. Inténtalo nuevamente.");
+        }
+    })
+    .catch(error => {
+        console.error("Error en la solicitud:", error);
+        alert("Hubo un error al enviar los datos. Inténtalo nuevamente.");
+    });
+});
+
+

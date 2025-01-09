@@ -16,6 +16,7 @@
     @vite(['resources/css/Vista_Secundaria/vista-agregardatos.css'])
     @vite(['resources/css/Vista_Secundaria/acciones.css'])
     @vite(['resources/css/Vista_Secundaria/tabladatos.css'])
+    @vite(['resources/js/fechahora.js']) <!-- logica de fecha y hora con Flatpickr -->
 
     <!-- Libreria DataTables -->
     <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">

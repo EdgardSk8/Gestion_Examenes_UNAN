@@ -28,6 +28,9 @@
 
 <div style="background-color: burlywood; padding: 21px;"> 
 
+
+    <h3>Arreglar actualizar datos a la base de datos y error con la hora en la vista de editarequipo</h3>
+
 <p>1- Revisar el recargado de pagina al navegar (Boton de inicio de sesion) </p>
 <p>Arreglar codigo de agregar equipos, revisar los escuchadores de eventos</p>
 <p>Linea 343</p>

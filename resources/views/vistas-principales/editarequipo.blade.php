@@ -62,30 +62,30 @@
         
             <div>
                 <label>Fecha Asignada:</label>
-                <input type="text" id="editarfecha_asignada" placeholder="Selecciona una fecha" name="Fecha_Asignada" required>
+                <input type="text" id="editarfecha_asignada" placeholder="Selecciona una fecha" name="Fecha_Asignada">
             </div><br>
 
             <div>
                 <label>Fecha Aprobada:</label>
-                <input type="text" id="editarfecha_aprobada" placeholder="Selecciona una fecha" name="Fecha_Aprobada" required>
+                <input type="text" id="editarfecha_aprobada" placeholder="Selecciona una fecha" name="Fecha_Aprobada">
             </div><br>
             
             <div style="display: flex; gap: 10px; width: 100%;">
                 <div style="flex: 1;">
                     <label>Hora de Inicio:</label>
-                    <input type="text" id="editarhora_inicio" placeholder="Hora de Inicio" name="Hora_Inicio" required>
+                    <input type="text" id="editarhora_inicio" placeholder="Hora de Inicio" name="Hora_Inicio">
                 </div>
 
                 <div style="flex: 1;">
                     <label>Hora de Fin:</label>
-                    <input type="text" id="editarhora_fin" placeholder="Hora de Fin" name="Hora_Fin" required>
+                    <input type="text" id="editarhora_fin" placeholder="Hora de Fin" name="Hora_Fin">
                 </div>
             </div>
 
             
             <div>
                 <label>Calificacion:</label>
-                <input type="text" id="editarcalificacion" placeholder="Califica" name="calificacion" required>
+                <input type="text" id="editarcalificacion" placeholder="Califica" name="calificacion">
             </div><br>
             
             <h3 id="resultado"></h3>
@@ -117,7 +117,7 @@
                 <select id="editartipo_examen" required></select>
             </div>
 
-            <div id="tipoexameneditar">
+            <div id="tipoexameneditar" style="margin-bottom: 20px">
         
                 <!-- Tutor y jueces en una fila -->
                 <h3>Tutor y Jueces</h3>
@@ -148,14 +148,9 @@
 
             </div>
         
-            <!-- Botón de subir 
-            <div id="guardar_cambios_equipo" style="text-align: center; margin-top: 10px; margin-bottom: 20px">
-                <button type="submit" class="button"> <
-                    <span class="label">Guardar Cambios</span>
-                    <span class="gradient"></span>
-                    <span class="transition"></span>
-                </button>
-            </div>
+
+
+            <button id="guardar-cambios">guardar-cambios</button>
         
             @if (session('success') || session('error'))
                 <script>
@@ -165,8 +160,6 @@
                     };
                 </script>
             @endif
-        -->
-        <button id="guardar-cambios">Guardar Cambios</button>
 
         </form>
 
