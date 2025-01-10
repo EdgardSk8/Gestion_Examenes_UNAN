@@ -23,22 +23,8 @@
     }
 </style>
 
-
-
-
 <div style="background-color: burlywood; padding: 21px;"> 
 
-
-    <h3>Arreglar actualizar datos a la base de datos y error con la hora en la vista de editarequipo</h3>
-
-<p>1- Revisar el recargado de pagina al navegar (Boton de inicio de sesion) </p>
-<p>Arreglar codigo de agregar equipos, revisar los escuchadores de eventos</p>
-<p>Linea 343</p>
-<p>6- Agregar un boton de editar equipo</p>
-<p>8- Creacion de Login </p>
-<p>9- Usar los Perfiles</p>
-<p>Poner en idioma espaniol la tabla JQuery</p>
-<p>validaciones para evitar choques entre horas y aulas</p>
-<p>Login para que el profesor al entrar pueda entrar a su departamento automanticamente</p>
+    <p>Login para que el profesor al entrar pueda entrar a su departamento automanticamente</p>
 
 </div>

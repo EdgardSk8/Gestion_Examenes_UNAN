@@ -117,11 +117,11 @@ areaSelectEditar.addEventListener('change', function () {
         .then(response => response.json())
         .then(edificios => {
             if (edificios.length === 0) {
-               
                 let option = document.createElement('option');
                 option.value = '';
                 option.textContent = 'No hay edificios disponibles';
                 edificioSelectEditar.appendChild(option);
+                edificioSelectEditar.dispatchEvent(new Event('change'));
             } else {
                 edificios.forEach(edificio => {
                     let option = document.createElement('option');
@@ -252,6 +252,35 @@ function cargarEdificioSelect(data) {
         .catch(error => console.error('Error al cargar los edificios:', error));
 }
 
+edificioSelectEditar.addEventListener('change', function(){
+    const edificioId = edificioSelectEditar.value; //Guardar el ID del selector de edificioSelectEditar
+
+    aulaSelectEditar.innerHTML = ''; //Limpiar el Selector
+
+    
+        fetch(`/aula?edificioId=${encodeURIComponent(edificioId)}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.length === 0) { // Verificar si no hay aulas en el edificio
+                    let option = document.createElement('option');
+                    option.value = '';
+                    option.textContent = 'Edificio sin aulas';
+                    aulaSelectEditar.appendChild(option);
+                } else {
+                data.forEach(aula => {
+                    let option = document.createElement('option');
+                    option.value = aula.ID_Aula;
+                    option.textContent = aula.Nombre_Aula;
+                    aulaSelectEditar.appendChild(option);
+                });
+                aulaSelectEditar.selectedIndex = 0; //Autoseleccionar la primera opcion
+                //
+            }
+        })
+        .catch(error => console.error('Error fetching departamentos:', error));
+    
+});
+
 function cargarAulaSelect(data) {
 
     const edificioId = edificioSelectEditar.value;
@@ -279,34 +308,6 @@ function cargarAulaSelect(data) {
         })
         .catch(error => console.error('Error al cargar los aula:', error));
 }
-
-edificioSelectEditar.addEventListener('change', function(){
-    const edificioId = edificioSelectEditar.value; //Guardar el ID del selector de edificioSelectEditar
-
-    aulaSelectEditar.innerHTML = ''; //Limpiar el Selector
-
-    if(edificioId){
-        fetch(`/aula?edificioId=${encodeURIComponent(edificioId)}`)
-            .then(response => response.json())
-            .then(data => {
-                if (data.length === 0) { // Verificar si no hay aulas en el edificio
-                    let option = document.createElement('option');
-                    option.value = '';
-                    option.textContent = 'Edificio sin aulas';
-                    aulaSelectEditar.appendChild(option);
-                } else {
-                data.forEach(aula => {
-                    let option = document.createElement('option');
-                    option.value = aula.ID_Carrera;
-                    option.textContent = aula.Nombre_Aula;
-                    aulaSelectEditar.appendChild(option);
-                });
-                aulaSelectEditar.selectedIndex = 0; //Autoseleccionar la primera opcion
-            }
-        })
-        .catch(error => console.error('Error fetching departamentos:', error));
-    }
-});
 
 function cargarTipoExamenSelect(data) {
 
@@ -500,29 +501,63 @@ function cargarInputs(data){
 
 }
 
-document.getElementById('editarequipo-form').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevenir el envío inmediato del formulario
-     // Convertir hora de inicio y fin a formato 24 horas
-     const horaInicio12 = document.getElementById('editarhora_inicio').value;
-     const horaFin12 = document.getElementById('editarhora_fin').value;
- 
-     // Función para convertir hora de formato 12 horas a formato 24 horas
-     function convertirAHora24(hora12) {
-         const [hora, minuto, periodo] = hora12.split(/[: ]/);
-         let hora24 = parseInt(hora);
-         if (periodo === "PM" && hora24 !== 12) {
-             hora24 += 12;
-         } else if (periodo === "AM" && hora24 === 12) {
-             hora24 = 0; // Para la medianoche
-         }
-         return `${hora24.toString().padStart(2, '0')}:${minuto}`;
-     }
- 
-     const horaInicio24 = convertirAHora24(horaInicio12);
-     const horaFin24 = convertirAHora24(horaFin12);
+function validacionesBD() {
+    const horaInicio12 = document.getElementById('editarhora_inicio').value;
+    const horaFin12 = document.getElementById('editarhora_fin').value;
+    const fechaAsignada = document.getElementById('editarfecha_asignada').value;
+    const fechaAprobada = document.getElementById('editarfecha_aprobada').value;
+    const calificacion = document.getElementById('editarcalificacion').value;
 
-    // Capturamos todos los datos del formulario
-    const formData = {
+    if(calificacion > 100){alert("La Calificacion maxima no puede ser mayor de 100"); return false;}
+    else if(calificacion < 0){alert("La Calificacion minima no puede ser menor de 0"); return false;}
+
+    // Convertir horas de 12 horas a 24 horas
+    function convertirAHora24(hora12) {
+        const [hora, minuto, periodo] = hora12.split(/[: ]/);
+        let hora24 = parseInt(hora);
+        if (periodo === "PM" && hora24 !== 12) {hora24 += 12;} 
+        else if (periodo === "AM" && hora24 === 12) {hora24 = 0;}
+        return `${hora24.toString().padStart(2, '0')}:${minuto}`;
+    }
+
+    const horaInicio24 = convertirAHora24(horaInicio12);
+    const horaFin24 = convertirAHora24(horaFin12);
+
+    // Validación de horas
+    if (horaInicio24 == horaFin24) {alert("La hora de inicio no puede ser igual a la hora de fin");return false;}
+    if (horaInicio24 >= horaFin24) {alert("La hora de fin debe ser posterior a la hora de inicio.");return false;}
+
+    // Validación de fechas
+    if (fechaAsignada && fechaAprobada && fechaAsignada > fechaAprobada) {alert("La fecha de asignación no puede ser posterior a la fecha de aprobación.");
+        return false;}
+
+    return { horaInicio: horaInicio24, horaFin: horaFin24 }; 
+}
+
+document.getElementById('editarequipo-form').addEventListener('submit', function(event) {
+
+    event.preventDefault();
+
+    if (!validacionesBD()) {
+        return; 
+    }
+
+    const horaInicio12 = document.getElementById('editarhora_inicio').value;
+    const horaFin12 = document.getElementById('editarhora_fin').value;
+
+    function convertirAHora24(hora12) {
+        const [hora, minuto, periodo] = hora12.split(/[: ]/);
+        let hora24 = parseInt(hora);
+        if (periodo === "PM" && hora24 !== 12) { hora24 += 12; } 
+        else if (periodo === "AM" && hora24 === 12) { hora24 = 0; }
+        return `${hora24.toString().padStart(2, '0')}:${minuto}`;
+    }
+
+    const horaInicio24 = convertirAHora24(horaInicio12);
+    const horaFin24 = convertirAHora24(horaFin12);
+
+
+    const formData = {// Capturar todos los datos del formulario
         titulo: document.getElementById('editartitulo').value,
         area: document.getElementById('editararea').value,
         departamento: document.getElementById('editardepartamento').value,
@@ -532,7 +567,7 @@ document.getElementById('editarequipo-form').addEventListener('submit', function
         integrante3: document.getElementById('editarintegrante3').value,
         fechaAsignada: document.getElementById('editarfecha_asignada').value,
         fechaAprobada: document.getElementById('editarfecha_aprobada').value,
-        horaInicio: horaInicio24, // Hora de inicio en formato 24 horas
+        horaInicio: horaInicio24,
         horaFin: horaFin24,
         calificacion: document.getElementById('editarcalificacion').value,
         aula: document.getElementById('editaraula').value,
@@ -543,10 +578,9 @@ document.getElementById('editarequipo-form').addEventListener('submit', function
         juez3: document.getElementById('editarjuez3').value
     };
 
-    const id = editButton.getAttribute('data-event-id');
-    console.log("Datos a subir:", formData);
+     const id = editButton.getAttribute('data-event-id');
+     console.log("Datos a subir:", formData);
 
-    // Aquí iría el código para subir los datos al servidor
     fetch(`/equipo/actualizar/${id}`, {
         method: 'POST',
         headers: {
@@ -560,6 +594,7 @@ document.getElementById('editarequipo-form').addEventListener('submit', function
         if (data.success) {
             console.log("Datos guardados correctamente:", data);
             alert("¡Los cambios se han guardado correctamente!");
+            location.reload();
         } else {
             console.error("Error al guardar los datos:", data);
             alert("Hubo un error al guardar los cambios. Inténtalo nuevamente.");
@@ -569,6 +604,7 @@ document.getElementById('editarequipo-form').addEventListener('submit', function
         console.error("Error en la solicitud:", error);
         alert("Hubo un error al enviar los datos. Inténtalo nuevamente.");
     });
+
 });
 
 

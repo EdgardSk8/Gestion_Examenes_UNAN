@@ -62,7 +62,7 @@
         
             <div>
                 <label>Fecha Asignada:</label>
-                <input type="text" id="editarfecha_asignada" placeholder="Selecciona una fecha" name="Fecha_Asignada">
+                <input type="text" id="editarfecha_asignada" placeholder="Selecciona una fecha" name="Fecha_Asignada" required>
             </div><br>
 
             <div>
@@ -73,19 +73,19 @@
             <div style="display: flex; gap: 10px; width: 100%;">
                 <div style="flex: 1;">
                     <label>Hora de Inicio:</label>
-                    <input type="text" id="editarhora_inicio" placeholder="Hora de Inicio" >
+                    <input type="text" id="editarhora_inicio" placeholder="Hora de Inicio" required>
                 </div>
 
                 <div style="flex: 1;">
                     <label>Hora de Fin:</label>
-                    <input type="text" id="editarhora_fin" placeholder="Hora de Fin">
+                    <input type="text" id="editarhora_fin" placeholder="Hora de Fin" required>
                 </div>
             </div>
 
             
             <div>
                 <label>Calificacion:</label>
-                <input type="text" id="editarcalificacion" placeholder="Califica" name="calificacion">
+                <input type="number" id="editarcalificacion" placeholder="Califica" name="calificacion">
             </div><br>
             
             <h3 id="avisoeditardia" style="color:red;"></h3>
@@ -147,11 +147,16 @@
                 </div>
 
             </div>
-        
 
+            <!-- Botón de guardar -->
+            <div id="guardar-cambios" style="text-align: center; margin-top: 30px; margin-bottom: 30px">
+                <button type="submit" class="button"> <!-- clase en equipoagregar.css -->
+                    <span class="label">Guardar Cambios</span>
+                    <span class="gradient"></span>
+                    <span class="transition"></span>
+                </button>
+            </div>
 
-            <button id="guardar-cambios">guardar-cambios</button>
-        
             @if (session('success') || session('error'))
                 <script>
                     window.onload = function() {
