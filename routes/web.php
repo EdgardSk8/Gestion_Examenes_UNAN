@@ -37,7 +37,8 @@ Route::get('/login', function () { return view('vistas-principales/login'); });
 
 Route::get('/VistaAgregarDatos', function () { return view('vistas-principales/VistaAgregarDatos'); })->name('VistaAgregarDatos');
 
-Route::get('/events', action: [EventoController::class, 'MostrarEquiposEnCalendario']); //Muestra los equipos en el FullCalendar
+Route::get('/events', [EventoController::class, 'MostrarEquiposEnCalendario']); //Muestra los equipos en el FullCalendar
+Route::get('/departamento_evento/{id}', [EventoController::class, 'EventosPorDepartamentos']);
 Route::get('/events/{id}', [EventoController::class, 'MostrarDetallesPorId']); //Muestra los detalles de cada Evento
 Route::put('/events/{id}', [EventoController::class, 'ActualizarEventoEnCalendario']); //Actualiza los cambios del evento hacia la BD
 

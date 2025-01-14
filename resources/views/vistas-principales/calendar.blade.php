@@ -23,6 +23,7 @@
     @vite(['resources/js/fullcalendar_copy.js']) <!-- js del fullcalendar -->
     @vite(['resources/js/fechahora.js']) <!-- logica de fecha y hora con Flatpickr -->
     @vite(['resources/js/editarequipo.js'])
+    @vite(['resources/js/filtroequipo.js'])
 
     @vite(['resources/js/agregarequipo.js']) <!-- archivo js personalizado -->
     @vite(['resources/js/profesor.js'])
@@ -76,11 +77,11 @@
 
             <!-- Contenedores para las diferentes vistas -->
 
-            <div id="vista-equipos" class="vista" style="display: none">
+            <div id="vista-equipos" class="vista" style="display: block">
                 @include('vistas-principales.vista-lateral-derecha.equipo')
             </div>
 
-            <div id="vista-detalles" class="vista" > <!-- mover el style al div que desea mostrar al cargar la pagina -->
+            <div id="vista-detalles" class="vista" style="display: none"> <!-- mover el style al div que desea mostrar al cargar la pagina -->
                  @include('vistas-principales.vista-lateral-derecha.equipodetalle') <!-- /views/cuadro-equipos/equipodetalle.blade.php -->
             </div>
 

@@ -13,6 +13,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var calendarEl = document.getElementById('calendar'); // Selecciona el elemento donde se renderiza el calendario
 
+    const ID_Departamento = localStorage.getItem('departamentoId');
+
+    console.log(ID_Departamento);
+
     var calendar = new Calendar(calendarEl, { // Inicializa FullCalendar
         plugins: [dayGridPlugin, interactionPlugin, timeGridPlugin], // Configura los plugins a usar
         locales: [esLocale], // Configura el calendario para usar el idioma español
@@ -23,11 +27,9 @@ document.addEventListener('DOMContentLoaded', function () {
             center: 'title', // Título (mes y año) en el centro
             right: 'dayGridYear,dayGridMonth,timeGridWeek,timeGridDay' // Vistas del calendario a la derecha
         },
-
         editable: true, // Permite arrastrar y soltar los eventos
         droppable: true, // Permite soltar elementos externos en el calendario
-        events: '/events', // Ruta para obtener eventos del servidor
-
+        events: '/departamento_evento/' + ID_Departamento, // Ruta para obtener eventos del servidor
         views: {
             timeGridDay: {
                 slotMinTime: '08:00:00', // Hora mínima (8:00 AM)
@@ -237,6 +239,8 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
     });
+    
+    
 
     if(calendar){
         calendar.render(); //Mostrar Calendario en la interfaz
@@ -245,3 +249,4 @@ document.addEventListener('DOMContentLoaded', function () {
     
 
 });
+

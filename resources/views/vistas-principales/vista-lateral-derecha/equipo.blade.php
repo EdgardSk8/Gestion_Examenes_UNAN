@@ -25,6 +25,13 @@
 
 <div style="background-color: burlywood; padding: 21px;"> 
 
-    <p>Login para que el profesor al entrar pueda entrar a su departamento automanticamente</p>
+    <h3 style="margin: 0px">Area de conocimiento</h3>
+    <select id="filtrar_Area_Equipo"></select>
+
+    </p \n>
+    <h3 style="margin: 0px">Departamento</h3>
+    <select id="filtrar_Departamento_Equipo"></select>
+
+    <button id="actualizar">Actualizar</button>
 
 </div>

@@ -22,6 +22,25 @@ class EventoController extends Controller
     }
 
 
+    public function EventosPorDepartamentos($idDepartamento)
+    {
+        $equipos = Equipo::whereHas('carrera.departamento', function ($query) use ($idDepartamento) {
+            $query->where('ID_Departamento', $idDepartamento);
+        })->get()->map(function ($equipo) {
+            return [
+                'id' => $equipo->ID_Equipo,
+                'title' => $equipo->Titulo,
+                'start' => $equipo->Fecha_Asignada . 'T' . $equipo->Hora_Inicio,
+                'end' => $equipo->Fecha_Asignada . 'T' . $equipo->Hora_Fin,
+            ];
+        });
+    
+        return response()->json(data: $equipos);
+    }
+    
+
+
+
     public function ActualizarEventoEnCalendario(Request $request, $id) { // Funcion Actualizar Fecha Asignada
         $equipo = Equipo::find($id); // Encuentra el equipo por ID
         if ($equipo) {

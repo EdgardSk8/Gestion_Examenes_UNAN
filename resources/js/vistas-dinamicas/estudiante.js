@@ -1,3 +1,5 @@
+import { upperFirst } from "lodash";
+
 document.addEventListener('DOMContentLoaded', function () {
     const estudianteTableBody = document.querySelector('#estudianteTable tbody');
     const table = $('#estudianteTable').DataTable({ 
