@@ -1,8 +1,3 @@
-
-<p style="text-align: center">Vista sin funcionalidad</p>
-
-
-
 <style>
     .delete-button {
         width: 60px;
@@ -25,13 +20,13 @@
 
 <div style="background-color: burlywood; padding: 21px;"> 
 
+    <h2>Buscador</h2>
+
     <h3 style="margin: 0px">Area de conocimiento</h3>
     <select id="filtrar_Area_Equipo"></select>
 
     </p \n>
     <h3 style="margin: 0px">Departamento</h3>
     <select id="filtrar_Departamento_Equipo"></select>
-
-    <button id="actualizar">Actualizar</button>
 
 </div>

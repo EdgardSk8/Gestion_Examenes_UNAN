@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function(){
     fetch('/area-conocimiento')
         .then(response => response.json())
         .then(areas => {
+            areas.sort((a, b) => a.ID_Area - b.ID_Area);
             areas.forEach(area => {
                 let option = document.createElement('option');
                 option.value = area.ID_Area;
@@ -39,9 +40,9 @@ document.addEventListener('DOMContentLoaded', function(){
                             option.textContent = departamento.Nombre;
                             filtro_Departamento_Equipo.appendChild(option);
                         });
-                            const departamentoId = filtro_Departamento_Equipo.value;
-                            console.log("ID del departamento autoseleccionado: ", departamentoId); // Mostrar el ID del departamento seleccionado automáticamente
-                            //localStorage.setItem('departamentoId', departamentoId);
+                            //const departamentoId = filtro_Departamento_Equipo.value;
+                            //console.log("ID del departamento autoseleccionado: ", departamentoId); // Mostrar el ID del departamento seleccionado automáticamente
+                            filtro_Departamento_Equipo.dispatchEvent(new Event('change'));
                         }
                 })
                 .catch(error => console.error('Error al cargar los departamentos:', error));
@@ -51,8 +52,9 @@ document.addEventListener('DOMContentLoaded', function(){
 
         filtro_Departamento_Equipo.addEventListener('change', function() {
             const departamentoId = filtro_Departamento_Equipo.value;
-            console.log("ID del departamento autoseleccionado: ", departamentoId); // Mostrar el ID del departamento seleccionado automáticamente
-            //localStorage.setItem('departamentoId', departamentoId);
+            //console.log("ID del departamento autoseleccionado: ", departamentoId); // Mostrar el ID del departamento seleccionado automáticamente
         });
+
+        
 
 })
