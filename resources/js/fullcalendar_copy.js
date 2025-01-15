@@ -277,7 +277,5 @@ document.addEventListener('DOMContentLoaded', function () {
         calendar.render(); //Mostrar Calendario en la interfaz
     } else { console.log("Error al Mostrar el Calendario"); }
 
-    
-
 });
 

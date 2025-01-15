@@ -331,7 +331,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Función para cargar estudiantes según la carrera seleccionada
     function cargarEstudiantesPorCarrera(carreraId) {
         if (!carreraId) {
-            integrarSelectsConMensaje('Seleccione Carrera');
+            integrarSelectsConMensajeEst('Seleccione Carrera');
             return;
         }
 
@@ -340,7 +340,7 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(data => {
                 estudiantes = data;
                 if (estudiantes.length === 0) {
-                    integrarSelectsConMensaje('Sin Estudiantes');
+                    integrarSelectsConMensajeEst('Sin Estudiantes');
                 } else {
                     integrarSelectsConEstudiantes(estudiantes);
                 }
@@ -360,7 +360,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Función para integrar selects con estudiantes
     function integrarSelectsConEstudiantes(estudiantes) {
         integranteSelects.forEach(select => {
-            llenarSelectEstudiante(select, estudiantes, `Integrante de ${select.id.charAt(select.id.length - 1)}`);
+            llenarSelectEstudiante(select, estudiantes, `Integrante numero ${select.id.charAt(select.id.length - 1)}`);
         });
     }
 

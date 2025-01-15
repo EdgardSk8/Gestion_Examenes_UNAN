@@ -129,7 +129,7 @@
                 <select id="tipoexamen-select" name="ID_Tipo_Examen" required></select>
             </div>
 
-            <div id="examen">
+            <div id="examen" style="display: none">
                  <!-- Tutor y jueces en una fila -->
                 <h3>Tutor y Jueces</h3>
             
