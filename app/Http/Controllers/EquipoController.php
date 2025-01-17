@@ -40,7 +40,7 @@ class EquipoController extends Controller
                 'Juez3_ID' => 'nullable|integer|exists:profesores,ID_Profesor'
                 
             ]);
-
+            
             // Crear el equipo en la base de datos
             $equipo = Equipo::create($validatedData);
 

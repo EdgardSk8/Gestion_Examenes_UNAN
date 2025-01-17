@@ -258,7 +258,6 @@ document.addEventListener('DOMContentLoaded', function () {
                         end: evento.end
                     }));
                     callback(eventos); // Devuelve los eventos al calendario
-                    sindepartamentos.innerHTML = '';
                 }
             },
             error: function(error) {

@@ -58,30 +58,6 @@
         
             </div>
         
-            <!-- Fecha y hora -->
-            
-            <!-- 
-            <div>
-                <label>Fecha Asignada:</label>
-                <input type="date" id="fecha_asignada" name="Fecha_Asignada" required>
-            </div>
-        
-            <div style="display: flex; gap: 10px; width: 100%;">
-        
-                <div style="flex: 1;">
-                    <label>Hora de Inicio:</label>
-                    <input type="time" id="hora_inicio" name="Hora_Inicio" required>
-                </div>
-        
-                <div style="flex: 1;">
-                    <label>Hora de Fin:</label>
-                    <input type="time" id="hora_fin" name="Hora_Fin" required>
-                </div>
-        
-            </div> -->
-        
-            <!-- Fecha y hora -->
-        
             <h3>Fecha y Hora</h3>
         
             <div>
@@ -161,7 +137,7 @@
     
             <!-- Botón de guardar -->
             <div style="text-align: center; margin-top: 50px; margin-bottom: 20px">
-                <button type="submit" class="button"> <!-- clase en equipoagregar.css -->
+                <button id="botonagregarequipo" type="submit" class="button"> <!-- clase en equipoagregar.css -->
                     <span class="label">Guardar Equipo</span>
                     <span class="gradient"></span>
                     <span class="transition"></span>
@@ -176,9 +152,7 @@
                     };
                 </script>
             @endif
-        
-            
-        
+
         </form>
 
     </div>

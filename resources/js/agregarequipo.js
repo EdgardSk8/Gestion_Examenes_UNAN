@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', function () {
     var aulaSelect = document.getElementById('aula-select');
     var tipoexamenSelect = document.getElementById('tipoexamen-select');
 
-
     // Añade la opción por defecto al área de conocimiento
     let defaultOption = document.createElement('option');
     defaultOption.value = '';
