@@ -365,22 +365,38 @@ function CargarEstudiantesSelect(data) {
 
     let estudiantes = [];
 
-    // Rellena un select con estudiantes, quitando "Sin asignar" solo en el primer select
-    const llenarSelect = (select, estudiantesDisponibles = '') => {
-        
-        select.innerHTML = ''; // Primero, limpiamos las opciones del select
-
-        // Solo agregamos la opción "Sin asignar" si no es el primer select
-        if (select.id !== 'editarintegrante1') {select.innerHTML += `<option value="">Sin asignar</option>`;}
-
+    const llenarSelect = (select, estudiantesDisponibles = '', estudianteSeleccionado = '') => {
+        select.innerHTML = ''; // Limpiamos las opciones del select
+    
+        // Verificar si el select tiene un estudiante asignado
+        const asignado = estudianteSeleccionado ? true : false;
+    
+        // Si no hay estudiante asignado, agregamos la opción "Asignar"
+        if (!asignado) {
+            select.innerHTML += `<option value="">Asignar</option>`;
+        }
+    
+        // Luego, agregamos la opción "Sin asignar" solo en los selects adicionales
+        if (select.id !== 'editarintegrante1' && select.id !== 'editarintegrante2' && select.id !== 'editarintegrante3') {
+            select.innerHTML += `<option value="">Sin asignar</option>`;
+        }
+    
         // Luego, agregamos las opciones de los estudiantes
-        estudiantesDisponibles.forEach(est => {select.innerHTML += `<option value="${est.ID_Estudiante}">${est.Nombre_Completo}</option>`;});
-
+        estudiantesDisponibles.forEach(est => {
+            const isSelected = est.ID_Estudiante === estudianteSeleccionado ? 'selected' : '';
+            console.log(`Añadiendo estudiante: ${est.Nombre_Completo}, seleccionado: ${isSelected}`);
+            select.innerHTML += `<option value="${est.ID_Estudiante}" ${isSelected}>${est.Nombre_Completo}</option>`;
+        });
+    
         // Si el select es el primero, deshabilitamos la opción "Sin asignar"
-        if (select.id === 'editarintegrante1') {const sinAsignarOption = select.querySelector('option[value=""]');
-            if (sinAsignarOption) {sinAsignarOption.disabled = true;}}
+        if (select.id === 'editarintegrante1') {
+            const sinAsignarOption = select.querySelector('option[value=""]');
+            if (sinAsignarOption) {
+                sinAsignarOption.disabled = true;
+            }
+        }
     };
-
+    
     // Actualiza opciones para evitar duplicados
     const evitarDuplicados = () => {
         const seleccionados = integranteSelects.map(select => select.value).filter(id => id);
@@ -391,15 +407,30 @@ function CargarEstudiantesSelect(data) {
         });
     };
 
-    // Asigna estudiantes a los selects basándose en `data`
     const asignarEstudiantes = () => {
+        console.log("Asignando estudiantes:", estudiantes);  // Verifica los estudiantes disponibles
+    
         integranteSelects.forEach((select, index) => {
             const nombre = data[`integrante${index + 1}`] || '';
+            console.log(`Buscando estudiante para: ${nombre}`);
+    
+            // Busca al estudiante correspondiente
             const estudiante = estudiantes.find(est => est.Nombre_Completo === nombre);
+    
+            // Verifica si se encontró un estudiante
+            if (estudiante) {
+                console.log(`Estudiante encontrado: ${estudiante.Nombre_Completo}`);
+            } else {
+                console.log("Estudiante no encontrado para", nombre);
+            }
+    
+            // Llama a la función para llenar el select con los estudiantes
             llenarSelect(select, estudiantes, estudiante ? estudiante.ID_Estudiante : '');
         });
+    
         evitarDuplicados();
     };
+    
 
     // Carga estudiantes desde el servidor según la carrera seleccionada
     const cargarEstudiantes = carreraId => {
