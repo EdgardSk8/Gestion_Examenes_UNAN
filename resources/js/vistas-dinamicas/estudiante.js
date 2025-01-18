@@ -15,11 +15,17 @@ document.addEventListener('DOMContentLoaded', function () {
     const departamentoSelect = document.getElementById('departamento-vista-estudiante');
     const carreraSelect = document.getElementById('carrera-vista-estudiante');
     const localidadSelect = document.getElementById('localidad-vista-estudiante');
-    const carnetInput = document.getElementById('Carnet');
+    const carnetInput = document.getElementById('Carnet'); 
     const correoInput = document.getElementById('Correo_Institucional');
     const mensajeCarnet = document.getElementById('mensaje-carnet');
     const mensajeCorreo = document.getElementById('mensaje-correo');
-    const mensajeExito = document.getElementById('mensaje-exito'); // Mensaje de éxito para formato correcto del carnet
+    const carnetexistente = document.getElementById('carnet-existente'); // Mensaje de éxito para formato correcto del carnet
+
+    // Añadir las opciones predeterminadas
+    areaSelect.appendChild(createDefaultOption('Seleccione un área de conocimiento'));
+    departamentoSelect.appendChild(createDefaultOption('Seleccione un departamento'));
+    carreraSelect.appendChild(createDefaultOption('Seleccione una carrera'));
+    localidadSelect.appendChild(createDefaultOption('Seleccione una localidad'));
 
     // Función para crear la opción predeterminada de "Seleccione..."
     function createDefaultOption(text) {
@@ -31,54 +37,54 @@ document.addEventListener('DOMContentLoaded', function () {
         return option;
     }
 
-    // Añadir las opciones predeterminadas
-    areaSelect.appendChild(createDefaultOption('Seleccione un área de conocimiento'));
-    departamentoSelect.appendChild(createDefaultOption('Seleccione un departamento'));
-    carreraSelect.appendChild(createDefaultOption('Seleccione una carrera'));
-    localidadSelect.appendChild(createDefaultOption('Seleccione una localidad'));
+    carnetInput.addEventListener('input', async function(event) {await validateInput(event.target);});
 
-    // Función para validar el formato del carnet
-    async function validateCarnet() {
-        const carnet = carnetInput.value.trim();
-        const carnetRegex = /^[0-9]{2}-[0-9]{5}-[0-9]{1}$/; // Formato 00-00000-0
+    async function validateInput(target) {
+        let value = target.value;
+        
+        value = value.replace(/[^0-9-]/g, '');// Remover cualquier carácter que no sea un número o guion
+        
+        // Validar el patrón y agregar los guiones donde corresponda
+        if (value.length > 2 && value[2] !== '-') {value = value.slice(0, 2) + '-' + value.slice(2);}
+        if (value.length > 8 && value[8] !== '-') {value = value.slice(0, 8) + '-' + value.slice(8);}
+        
+        if (value.length > 10) {value = value.slice(0, 10);} //limitar a 10 caracteres
 
-        if (carnet === '') {
-            mensajeCarnet.style.display = 'none';  // Si el campo está vacío, no mostramos el mensaje
-            mensajeExito.style.display = 'none';   // Esconde el mensaje de éxito si está vacío
-            return;
-        }
-
-        if (!carnetRegex.test(carnet)) {
-            mensajeCarnet.textContent = "El formato del carnet debe ser 00-00000-00";
-            mensajeCarnet.style.display = 'block';
-            mensajeExito.style.display = 'none';  // Esconde el mensaje de éxito si el formato es incorrecto
-        } else {
-            mensajeCarnet.style.display = 'none';  // Si el formato es correcto, se oculta el mensaje de error
-            // Llamamos a la validación en backend (para verificar si ya está registrado)
-            validateCarnetBackend(carnet);
-        }
+        target.value = value;
     }
 
+    carnetInput.addEventListener('blur', function() {
+        const carnet = carnetInput.value.trim();
+    
+        if (carnet.length < 10) {
+            mensajeCarnet.textContent = "Carnet Incompleto";
+            mensajeCarnet.style.display = 'block';  // Muestra el mensaje de que faltan datos
+        } else {
+            mensajeCarnet.style.display = 'none';  // Ocultamos el mensaje si el carnet tiene 10 o más caracteres
+        }
+    });
+    
     // Función para validar el carnet (en backend, para verificar si ya está registrado)
-    async function validateCarnetBackend(carnet) {
+    async function validateCarnet() {
+        const carnet = carnetInput.value.trim();
+
         try {
             const response = await fetch(`/validar-carnet?carnet=${carnet}`);
             const data = await response.json();
-
+    
             if (data.exists) {
-                mensajeCarnet.textContent = "El carnet ya está registrado.";
-                mensajeCarnet.style.display = 'block';
-                mensajeExito.style.display = 'none';  // Esconde el mensaje de éxito si el carnet ya está registrado
+                carnetexistente.textContent = "El carnet ya está registrado.";
+                carnetexistente.style.display = 'block';
             } else {
-                mensajeCarnet.style.display = 'none';  // Si el carnet no está registrado, ocultamos el mensaje de error
-                mensajeExito.textContent = "El formato del carnet es correcto y no está registrado.";
-                mensajeExito.style.display = 'block';  // Muestra el mensaje de éxito
+                carnetexistente.style.display = 'none';
             }
         } catch (error) {
             console.error('Error al validar el carnet:', error);
         }
     }
 
+    carnetInput.addEventListener('input', validateCarnet); 
+    
     // Función para validar el correo
     async function validateCorreo() {
         const correo = correoInput.value.trim();
@@ -102,10 +108,6 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error('Error al validar el correo:', error);
         }
     }
-
-    // Detectar cuando el usuario termina de escribir en el carnet
-    carnetInput.addEventListener('input', validateCarnet);  // Llamamos a la función para validar el formato del carnet
-
     // Detectar cuando el usuario termina de escribir en el correo
     correoInput.addEventListener('input', validateCorreo); 
 
@@ -645,134 +647,67 @@ document.addEventListener('DOMContentLoaded', function () {
             const departamentoId = row.querySelector('.departamento-select').value;
             const carreraId = row.querySelector('.carrera-select').value;
             const localidadId = row.querySelector('.localidad-select').value;
-            const carnet = row.querySelector('.input-carnet').value;
-            const correo = row.querySelector('.input-correo').value;
+            const carnetbackend = row.querySelector('.input-carnet').value;
+            const correobackend = row.querySelector('.input-correo').value;
             const genero = row.querySelector('.select-genero').value;
-        
-            // Obtener los valores actuales del carnet y correo
-            const carnetAnterior = row.querySelector('.carnet').textContent.trim();
-            const correoAnterior = row.querySelector('.correo').textContent.trim();
-        
-            let isCarnetValid = true;
-            let isCorreoValid = true;
-        
-            // Validación del formato del carnet (si se ha cambiado)
-            if (carnet !== carnetAnterior) {
-                const carnetRegex = /^[0-9]{2}-[0-9]{5}-[0-9]{1}$/; // Formato 00-00000-0
-                if (!carnetRegex.test(carnet)) {
-                    alert("El formato del carnet debe ser 00-00000-0");
-                    return;
+
+
+        // Crear un objeto con los nuevos datos
+        const datosEstudiante = {
+            ID_Estudiante: estudianteId,
+            Nombre_Completo: nombre,
+            Carnet: carnetbackend,
+            Correo_Institucional: correobackend,
+            Genero: genero,
+            ID_Localidad: localidadId,
+            ID_Carrera: carreraId,
+            ID_Departamento: departamentoId,
+            ID_Area: areaId
+        };
+    
+        // Enviar los datos al servidor para actualizar el estudiante
+        fetch(`/estudiante/actualizar/ajax/${estudianteId}`, {
+            method: 'PUT', // Asumimos que se usa PUT para actualizar
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify(datosEstudiante)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Si la actualización es exitosa, actualizamos la tabla
+                row.querySelector('.nombre').textContent = nombre;
+                row.querySelector('.carnet').textContent = carnetbackend;
+                row.querySelector('.genero').textContent = genero;
+                row.querySelector('.correo').textContent = correobackend;
+                row.querySelector('.localidad').textContent = row.querySelector('.localidad-select').selectedOptions[0].textContent;
+                row.querySelector('.area').textContent = row.querySelector('.area-select').selectedOptions[0].textContent;
+                row.querySelector('.departamento').textContent = row.querySelector('.departamento-select').selectedOptions[0].textContent;
+                row.querySelector('.carrera').textContent = row.querySelector('.carrera-select').selectedOptions[0].textContent;
+    
+                // Mostrar los botones de edición
+                const btnAceptar = row.querySelector('.btn-aceptar');
+                const btnEditar = row.querySelector('.btn-editar');
+                const btnEliminar = row.querySelector('.btn-eliminar');
+                
+                if (btnAceptar && btnEditar) {
+                    btnAceptar.style.display = 'none';
+                    btnEditar.style.display = 'inline';
+                    btnEliminar.style.display = 'inline';
                 }
-                // Validar en el backend si el carnet ya está registrado
-                isCarnetValid = validateCarnetBackend(carnet);
+                // Informar al usuario que la actualización fue exitosa
+                //alert('Estudiante actualizado correctamente');
+            } else {
+                // Si la actualización falla, mostrar un error
+                alert('Error al actualizar el estudiante');
             }
-        
-            // Validación de correo electrónico (si se ha cambiado)
-            if (correo !== correoAnterior) {
-                const correoRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-                if (!correoRegex.test(correo)) {
-                    alert("El correo institucional no es válido.");
-                    return;
-                }
-                // Validar en el backend si el correo ya está registrado
-                isCorreoValid = validateCorreoBackend(correo);
-            }
-        
-            // Solo continuar si las validaciones son exitosas
-            if (!isCarnetValid || !isCorreoValid) {
-                return; // Si alguna validación falla, detener el proceso
-            }
-        
-            // Crear un objeto con los nuevos datos
-            const datosEstudiante = {
-                ID_Estudiante: estudianteId,
-                Nombre_Completo: nombre,
-                Carnet: carnet,
-                Correo_Institucional: correo,
-                Genero: genero,
-                ID_Localidad: localidadId,
-                ID_Carrera: carreraId,
-                ID_Departamento: departamentoId,
-                ID_Area: areaId
-            };
-        
-            // Enviar los datos al servidor para actualizar el estudiante
-            fetch(`/estudiante/actualizar/ajax/${estudianteId}`, {
-                method: 'PUT', // Asumimos que se usa PUT para actualizar
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                },
-                body: JSON.stringify(datosEstudiante)
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    // Si la actualización es exitosa, actualizamos la tabla
-                    row.querySelector('.nombre').textContent = nombre;
-                    row.querySelector('.carnet').textContent = carnet;
-                    row.querySelector('.genero').textContent = genero;
-                    row.querySelector('.correo').textContent = correo;
-                    row.querySelector('.localidad').textContent = row.querySelector('.localidad-select').selectedOptions[0].textContent;
-                    row.querySelector('.area').textContent = row.querySelector('.area-select').selectedOptions[0].textContent;
-                    row.querySelector('.departamento').textContent = row.querySelector('.departamento-select').selectedOptions[0].textContent;
-                    row.querySelector('.carrera').textContent = row.querySelector('.carrera-select').selectedOptions[0].textContent;
-        
-                    // Mostrar los botones de edición
-                    const btnAceptar = row.querySelector('.btn-aceptar');
-                    const btnEditar = row.querySelector('.btn-editar');
-                    const btnEliminar = row.querySelector('.btn-eliminar');
-                    
-                    if (btnAceptar && btnEditar) {
-                        btnAceptar.style.display = 'none';
-                        btnEditar.style.display = 'inline';
-                        btnEliminar.style.display = 'inline';
-                    }
-                    // Informar al usuario que la actualización fue exitosa
-                    //alert('Estudiante actualizado correctamente');
-                } else {
-                    // Si la actualización falla, mostrar un error
-                    alert('Error al actualizar el estudiante');
-                }
-            })
-            .catch(error => {
-                console.error('Error al actualizar el estudiante:', error);
-                alert('Hubo un error al intentar guardar los cambios.');
-            });
-        }
-        
-        // Función para validar el carnet en backend
-        async function validateCarnetBackend(carnet) {
-            try {
-                const response = await fetch(`/validar-carnet?carnet=${carnet}`);
-                const data = await response.json();
-        
-                if (data.exists) {
-                    //alert("El carnet ya está registrado.");
-                    return false;
-                }
-                return true;
-            } catch (error) {
-                console.error('Error al validar el carnet:', error);
-                return false;
-            }
-        }
-        
-        // Función para validar el correo en backend
-        async function validateCorreoBackend(correo) {
-            try {
-                const response = await fetch(`/validar-correo?correo=${correo}`);
-                const data = await response.json();
-        
-                if (data.exists) {
-                    //alert("El correo institucional ya está registrado.");
-                    return false;
-                }
-                return true;
-            } catch (error) {
-                console.error('Error al validar el correo:', error);
-                return false;
-            }
-        }
+        })
+        .catch(error => {
+            console.error('Error al actualizar el estudiante:', error);
+            alert('Hubo un error al intentar guardar los cambios.');
+        });
+    }
         
 });

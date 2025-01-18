@@ -33,6 +33,24 @@ h2 {
     margin-bottom: 1rem;
 }
 
+.select-group {
+    width: 100%;
+    padding: 7px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 12px;
+    box-sizing: border-box;
+    background-color: #fff;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+.select-group:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+
 label {
     display: block;
     margin-bottom: 0.5rem;
@@ -40,7 +58,7 @@ label {
 }
 
 input {
-    width: 100%;
+    width: 94%;
     padding: 0.5rem;
     border: 1px solid #ddd;
     border-radius: 4px;

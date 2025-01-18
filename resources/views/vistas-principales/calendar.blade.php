@@ -57,6 +57,8 @@
 
 <body>
 
+    <style>body {visibility: hidden;}</style> <!-- En caso de no tener rol -->
+
     <div id='calendar-container'> <!-- Obtenido de fullcalendar.css -->
 
         <div id="vista-agregar" class="vista" style="display: none" >
@@ -87,19 +89,10 @@
                  @include('vistas-principales.vista-lateral-derecha.equipodetalle') <!-- /views/cuadro-equipos/equipodetalle.blade.php -->
             </div>
 
-
-
-            <div id="login" class="vista" style="margin-top: 10px; display: none" > 
+            <div id="nuevodatos" class="vista" style="margin-top: 10px; display: none" > 
                 
                 <h2>Agregar Nuevos Datos</h2>
-                <!-- 
-                    
-                <div style="margin-top: 10px; text-align: center;">
-                    <input type="text" placeholder="Nombre de Usuario" style="padding: 0.5em; width: 80%; margin-bottom: 10px;">
-                    <input type="password" placeholder="Contraseña" style="padding: 0.5em; width: 80%;">
-                </div>
-                -->
-
+           
                 <!-- Nueva Vista -->
                 <form action="{{ route('VistaAgregarDatos') }}" method="GET">
                     <div style="text-align: center; margin-top: 10px; margin-bottom: 20px">
@@ -118,3 +111,7 @@
 </body>
 
 </html>
+<script>
+    
+</script>
+

@@ -29,4 +29,12 @@
     <h3 style="margin: 0px">Departamento</h3>
     <select id="filtrar_Departamento_Equipo"></select>
 
+    <div id="logoutButton" style="text-align: center; margin-top: 10px; margin-bottom: 20px">
+        <button type="submit" class="button">
+            <span class="label">Cerrar Sesión</span>
+            <span class="gradient"></span>
+            <span class="transition"></span>
+        </button>
+    </div>
+
 </div>

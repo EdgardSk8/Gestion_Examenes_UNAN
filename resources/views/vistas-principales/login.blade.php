@@ -4,43 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-
     @vite(['resources/css/Vista_Principal/login.css'])
-
+    @vite(['resources/js/login.js'])
 </head>
 
 <body>
     <div class="login-card">
 
-        <h2>Gestion de Examenes UNAN-LEON</h2>
+        <h2>Gestión de Exámenes UNAN-León</h2>
 
         <form id="loginForm">
-
-            <div class="input-group">
-                <input type="text" id="usuario" required placeholder="Nombre de usuario">
+            <!-- Selector de roles -->
+            <div>
+                <select class="select-group" id="usuario" required>
+                    <option value="" disabled selected>Selecciona un rol</option>
+                    <option value="admin">Administrador</option>
+                    <option value="secretario">Secretario</option>
+                    <option value="profesor">Profesor</option>
+                </select>
+                <span id="roleError" class="error-message" style="display: none; color: red;">Selecciona un rol.</span>
             </div>
 
+            <!-- Campo de contraseña -->
             <div class="input-group">
                 <input type="password" id="password" required placeholder="••••••••">
+                <span id="passwordError" class="error-message" style="display: none; color: red;">Introduce tu contraseña.</span>
             </div>
 
+            <!-- Botón de inicio de sesión -->
+            <button id="submitButton" type="button">Iniciar Sesión</button>
         </form>
 
-        <form action="{{ url('/') }}" method="GET">
-            <button type="submit" id="submitButton">Iniciar Sesion</button>
-        </form>
+        <script>
+            const loginCard = document.querySelector('.login-card');
+            setTimeout(() => {loginCard.classList.add('visible');}, 100);
+        </script>
 
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const loginCard = document.querySelector('.login-card');
-            // Animate login card on load
-            setTimeout(() => {
-                loginCard.classList.add('visible');
-            }, 100);
-        });
-    </script>
 
 </body>
 </html>

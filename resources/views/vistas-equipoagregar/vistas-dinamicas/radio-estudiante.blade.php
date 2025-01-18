@@ -45,8 +45,8 @@
         <div>
             <label for="Carnet">Carnet:</label>
             <input type="text" id="Carnet" name="Carnet" required>
-            <div id="mensaje-carnet" style="color: red; display: none;"></div>
-            <div id="mensaje-exito" style="color: green; display: none; font-weight: bold;">¡Formato correcto!</div>
+            <div id="mensaje-carnet" style="color: red; display: none; margin: 5px;"></div>
+            <div id="carnet-existente" style="color: red; display: block; font-weight: bold; margin: 5px;"></div>
         </div>
 
         <div>
