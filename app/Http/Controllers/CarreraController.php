@@ -73,7 +73,6 @@ class CarreraController extends Controller
                 'message' => 'Error al obtener carrera.',
             ], 500);
         }
-        
     }
 
     public function AgregarCarreraAJAX(Request $request)

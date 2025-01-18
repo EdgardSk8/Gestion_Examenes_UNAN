@@ -24,7 +24,6 @@ class RolController extends Controller
     }
 
     //Con AJAX
-
     public function AgregarRolAJAX(Request $request)
     {
         // Validar los datos

@@ -30,7 +30,6 @@ class PerfilController extends Controller
     }
 
     // Con AJAX
-
     public function AgregarPerfilAJAX(Request $request)
     {
         // Validar los datos

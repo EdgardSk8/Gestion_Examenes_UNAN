@@ -50,7 +50,6 @@ class ProfesorController extends Controller
     }
 
     //Metodos AJAX
-
     public function ObtenerTodosLosProfesoresAJAX()
     {
         try {
@@ -117,95 +116,91 @@ class ProfesorController extends Controller
     }
     
         // Eliminar un profesor
-        public function EliminarProfesorAJAX($id)
-        {
-            $profesor = Profesor::find($id);
-    
-            if ($profesor) {
-                try {
-                    // Eliminar el profesor
-                    $profesor->delete();
-    
-                    return response()->json([
-                        'success' => true,
-                        'message' => 'profesor eliminada exitosamente.',
-                    ]);
-                } catch (\Exception $e) {
-                    return response()->json([
-                        'success' => false,
-                        'message' => 'Ocurrió un error al eliminar el profesor: ' . $e->getMessage()
-                    ], 500);
-                }
+    public function EliminarProfesorAJAX($id)
+    {
+        $profesor = Profesor::find($id);
+
+        if ($profesor) {
+            try {
+                // Eliminar el profesor
+                $profesor->delete();
+
+                return response()->json([
+                    'success' => true,
+                    'message' => 'profesor eliminada exitosamente.',
+                ]);
+            } catch (\Exception $e) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Ocurrió un error al eliminar el profesor: ' . $e->getMessage()
+                ], 500);
             }
-    
+        }
+
+        return response()->json([
+            'success' => false,
+            'message' => 'profesor no encontrada.'
+        ], 404);
+    }
+
+    public function EditarProfesorAJAX($id)
+    {
+        try {
+            // Cargar el profesor con su departamento y perfil asociado
+            $profesor = Profesor::with('departamento.areaConocimiento', 'perfil')->findOrFail($id);
+
+            // Verificar si el departamento tiene un área de conocimiento
+            $areaConocimiento = $profesor->departamento && $profesor->departamento->areaConocimiento
+                ? $profesor->departamento->areaConocimiento
+                : null;
+
+            return response()->json([
+                'success' => true,
+                'data' => [
+                    'ID_Profesor' => $profesor->ID_Profesor,
+                    'Nombre_Completo_P' => $profesor->Nombre_Completo_P,
+                    'Correo' => $profesor->Correo,
+                    'ID_Departamento' => $profesor->ID_Departamento,
+                    'Departamento' => $profesor->departamento,
+                    'Contrasenia' => $profesor->Contrasenia,
+                    'ID_Area' => $areaConocimiento ? $areaConocimiento->ID_Area : null, // Solo devolver el ID_Area si existe
+                    'Perfil' => $profesor->perfil,
+                ]
+            ]);
+        } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'profesor no encontrada.'
-            ], 404);
+                'message' => 'Error al obtener el profesor: ' . $e->getMessage()
+            ], 500);
         }
+    }
 
-        public function EditarProfesorAJAX($id)
-        {
-            try {
-                // Cargar el profesor con su departamento y perfil asociado
-                $profesor = Profesor::with('departamento.areaConocimiento', 'perfil')->findOrFail($id);
+    public function ActualizarProfesorAJAX(Request $request, $id)
+    {
+        $request->validate([
+            'Nombre_Completo_P' => 'required|string|max:255',
+            'Correo' => 'required|email|max:255',
+            'ID_Departamento' => 'required|exists:departamento,ID_Departamento',
+            'ID_Perfil' => 'required|exists:perfil,ID_Perfil',
+        ]);
 
-                // Verificar si el departamento tiene un área de conocimiento
-                $areaConocimiento = $profesor->departamento && $profesor->departamento->areaConocimiento
-                    ? $profesor->departamento->areaConocimiento
-                    : null;
+        try {
+            $profesor = Profesor::findOrFail($id);
+            $profesor->update($request->only(['Nombre_Completo_P', 'Correo', 'Contrasenia', 'ID_Departamento', 'ID_Perfil']));
 
-                return response()->json([
-                    'success' => true,
-                    'data' => [
-                        'ID_Profesor' => $profesor->ID_Profesor,
-                        'Nombre_Completo_P' => $profesor->Nombre_Completo_P,
-                        'Correo' => $profesor->Correo,
-                        'ID_Departamento' => $profesor->ID_Departamento,
-                        'Departamento' => $profesor->departamento,
-                        'Contrasenia' => $profesor->Contrasenia,
-                        'ID_Area' => $areaConocimiento ? $areaConocimiento->ID_Area : null, // Solo devolver el ID_Area si existe
-                        'Perfil' => $profesor->perfil,
-                    ]
-                ]);
-            } catch (\Exception $e) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Error al obtener el profesor: ' . $e->getMessage()
-                ], 500);
-            }
-        }
+            // Cargar el departamento, área de conocimiento y perfil después de la actualización
+            $profesor->load('departamento', 'departamento.areaConocimiento', 'perfil');
 
-
-        public function ActualizarProfesorAJAX(Request $request, $id)
-        {
-            $request->validate([
-                'Nombre_Completo_P' => 'required|string|max:255',
-                'Correo' => 'required|email|max:255',
-                'ID_Departamento' => 'required|exists:departamento,ID_Departamento',
-                'ID_Perfil' => 'required|exists:perfil,ID_Perfil',
+            return response()->json([
+                'success' => true,
+                'message' => 'Profesor actualizado exitosamente.',
+                'data' => $profesor
             ]);
-
-            try {
-                $profesor = Profesor::findOrFail($id);
-                $profesor->update($request->only(['Nombre_Completo_P', 'Correo', 'Contrasenia', 'ID_Departamento', 'ID_Perfil']));
-
-                // Cargar el departamento, área de conocimiento y perfil después de la actualización
-                $profesor->load('departamento', 'departamento.areaConocimiento', 'perfil');
-
-                return response()->json([
-                    'success' => true,
-                    'message' => 'Profesor actualizado exitosamente.',
-                    'data' => $profesor
-                ]);
-            } catch (\Exception $e) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Error al actualizar el profesor: ' . $e->getMessage()
-                ], 500);
-            }
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error al actualizar el profesor: ' . $e->getMessage()
+            ], 500);
         }
-
-
-
+    }
 }

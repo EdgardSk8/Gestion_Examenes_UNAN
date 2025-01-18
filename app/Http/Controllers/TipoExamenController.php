@@ -114,7 +114,6 @@ class TipoExamenController extends Controller
             'message' => 'Tipo de Examen no encontrado.'
         ]);
     }
-    
 }
 
 

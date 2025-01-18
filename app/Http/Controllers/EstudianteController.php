@@ -8,7 +8,6 @@ use App\Models\Departamento;
 use App\Models\AreaConocimiento;
 use Illuminate\Http\Request;
 
-
 class EstudianteController extends Controller
 {
     public function ObtenerEstudiantePorCarrera(Request $request)
@@ -195,7 +194,6 @@ class EstudianteController extends Controller
         }
     }
     
-
     public function ActualizarEstudianteAJAX(Request $request, $id)
     {
         $request->validate([
@@ -257,6 +255,4 @@ class EstudianteController extends Controller
             ], 500);
         }
     }
-    
-    
 }

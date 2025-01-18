@@ -38,7 +38,6 @@ class EquipoController extends Controller
                 'Juez1_ID' => 'nullable|integer|exists:profesores,ID_Profesor',
                 'Juez2_ID' => 'nullable|integer|exists:profesores,ID_Profesor',
                 'Juez3_ID' => 'nullable|integer|exists:profesores,ID_Profesor'
-                
             ]);
             
             // Crear el equipo en la base de datos
@@ -171,7 +170,6 @@ class EquipoController extends Controller
                 'Juez3_ID' => $validatedData['juez3'] ?? null
             ];
     
-            // Actualizar los datos del equipo con los datos validados
             $equipo->update($updateData);
     
             // Retornar respuesta JSON de éxito
@@ -183,9 +181,5 @@ class EquipoController extends Controller
             // Manejar errores generales
             return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
         }
-    }
-    
-
-    
-    
+    }    
 }

@@ -32,8 +32,7 @@ class EdificioController extends Controller
             $edificio->Nombre_Edificio = $validatedData['Nombre_Edificio'];
             $edificio->ID_Area = $validatedData['ID_Area']; // Relación con el área de conocimiento
 
-            // Guardar el edificio en la base de datos
-            $edificio->save();
+            $edificio->save();// Guardar el edificio en la bD
 
             // Retornar una respuesta de éxito
             return redirect()->back()->with('success', 'Edificio agregado exitosamente.');
@@ -82,11 +81,6 @@ class EdificioController extends Controller
         }
     }
 
-// Las demás mejoras seguirían el mismo esquema mostrado anteriormente.
-
-    
-
-
     public function ObtenerEdificioPorAreaAJAX(Request $request)
     {
         $areaId = $request->input('areaId'); // Obtiene el ID del área
@@ -127,8 +121,6 @@ class EdificioController extends Controller
         }
     }
     
-
-
     public function EditarEdificioAJAX($id)
     {
         $edificio = Edificio::find($id);
@@ -141,7 +133,6 @@ class EdificioController extends Controller
         return response()->json(['success' => true, 'data' => $edificio]);
     }
     
-
     // Actualizar un edificio existente
     public function ActualizarEdificioAJAX(Request $request, $id)
     {
@@ -170,7 +161,6 @@ class EdificioController extends Controller
         ]);
     }
 
-
     // Eliminar un edificio
     public function EliminarEdificioAJAX($id)
     {
@@ -192,5 +182,4 @@ class EdificioController extends Controller
             ]);
         }
     }
-
 }

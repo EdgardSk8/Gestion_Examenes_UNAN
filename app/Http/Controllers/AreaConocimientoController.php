@@ -116,6 +116,4 @@ class AreaConocimientoController extends Controller
             ]);
         }
     }
-
-
 }

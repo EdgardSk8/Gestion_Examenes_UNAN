@@ -21,7 +21,6 @@ class EventoController extends Controller
         return response()->json(data: $equipos); // Retorna la colección de equipos en formato JSON para que pueda ser utilizada en el calendario
     }
 
-
     public function EventosPorDepartamentos($idDepartamento)
     {
         $equipos = Equipo::whereHas('carrera.departamento', function ($query) use ($idDepartamento) {
@@ -38,9 +37,6 @@ class EventoController extends Controller
         return response()->json(data: $equipos);
     }
     
-
-
-
     public function ActualizarEventoEnCalendario(Request $request, $id) { // Funcion Actualizar Fecha Asignada
         $equipo = Equipo::find($id); // Encuentra el equipo por ID
         if ($equipo) {

@@ -66,8 +66,7 @@ class AulaController extends Controller
             'Nombre_Aula' => 'required|string|max:255',
         ]);
     
-        try {
-            // Crear el nuevo aula usando los datos validados
+        try {// Crear el nuevo aula usando los datos validados
             $aula = new Aula();
             $aula->ID_Edificio = $validated['ID_Edificio'];
             $aula->Nombre_Aula = $validated['Nombre_Aula'];
@@ -129,8 +128,7 @@ class AulaController extends Controller
         // Buscar el aula en la base de datos
         $aula = Aula::find($id);
     
-        // Verificar si el aula existe
-        if ($aula) {
+        if ($aula) { // Verificar si el aula existe
             try {
                 // Actualizar los campos con los datos validados
                 $aula->update([
@@ -160,7 +158,6 @@ class AulaController extends Controller
         ], 404);
     }
     
-
     // Eliminar un aula
     public function EliminarAulaAJAX($id)
     {
@@ -168,8 +165,7 @@ class AulaController extends Controller
 
         if ($aula) {
             try {
-                // Eliminar el aula
-                $aula->delete();
+                $aula->delete();// Eliminar el aula
 
                 return response()->json([
                     'success' => true,
@@ -188,5 +184,4 @@ class AulaController extends Controller
             'message' => 'Aula no encontrada.'
         ], 404);
     }
-
 }
