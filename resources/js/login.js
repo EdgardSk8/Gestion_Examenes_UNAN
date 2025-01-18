@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Verificar si ya existe un rol guardado en localStorage
     const storedRole = localStorage.getItem('role');
     if (storedRole) {
-        window.location.href = `/`; // Redirige automáticamente al dashboard del rol almacenado
+        window.location.href = `/calendar`; // Redirige automáticamente al dashboard del rol almacenado
     }
 
     // Manejar el evento de clic en el botón de inicio de sesión
@@ -49,13 +49,13 @@ document.addEventListener('DOMContentLoaded', function () {
             // Simular redirección según el rol
             switch (selectedRole) {
                 case 'admin':
-                    window.location.href = '/';
+                    window.location.href = '/calendar';
                     break;
                 case 'secretario':
-                    window.location.href = '/';
+                    window.location.href = '/calendar';
                     break;
                 case 'profesor':
-                    window.location.href = '/';
+                    window.location.href = '/calendar';
                     break;
             }
         } else {

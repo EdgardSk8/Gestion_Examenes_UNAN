@@ -171,17 +171,17 @@
             console.log('El usuario es Secretario');
             document.body.style.visibility = 'none';
             alert('No disponible');
-            window.location.href = '/login';
+            window.location.href = '/';
         },
         profesor: () => {
             console.log('El usuario es Profesor');
             document.body.style.visibility = 'none';
             alert('No disponible');
-            window.location.href = '/login';
+            window.location.href = '/';
         },
         default: () => {
             alert('El usuario no está logueado');
-            window.location.href = '/login';
+            window.location.href = '/';
         }
     };
 
@@ -200,7 +200,7 @@
         inactivityTimer = setTimeout(() => {
             alert('Has estado inactivo por mucho tiempo. Redirigiendo al login...');
             localStorage.removeItem('role'); // Eliminar rol de localStorage
-            window.location.href = '/login'; // Redirigir al login
+            window.location.href = '/'; // Redirigir al login
         }, 10 * 60 * 1000); // 10 minutos en milisegundos
     };
 

@@ -30,10 +30,10 @@ use App\Http\Controllers\TipoExamenController;
 |
 */
 
-Route::get('/', function () { return view('vistas-principales/calendar'); }); //Vista Principal
 
-Route::get('/login', function () { return view('vistas-principales/login'); });
 
+Route::get('/', function () { return view('vistas-principales/login'); });
+Route::get('/calendar', function () { return view('vistas-principales/calendar'); }); //Vista Principal
 
 Route::get('/VistaAgregarDatos', function () { return view('vistas-principales/VistaAgregarDatos'); })->name('VistaAgregarDatos');
 

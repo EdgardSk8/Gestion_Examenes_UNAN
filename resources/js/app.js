@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
     logoutButton.addEventListener('click', () => {
         localStorage.removeItem('role');
         alert('Has cerrado sesión.');
-        window.location.href = '/login';
+        window.location.href = '/';
     });
 
     // Comprobar el valor de 'role' en localStorage
@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         default: () => {
             alert('El usuario no está logueado');
-            window.location.href = '/login';
+            window.location.href = '/';
         }
     };
 
@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function() {
         inactivityTimer = setTimeout(() => {
             alert('Has estado inactivo por mucho tiempo. Redirigiendo al login...');
             localStorage.removeItem('role'); // Eliminar rol de localStorage
-            window.location.href = '/login'; // Redirigir al login
+            window.location.href = '/'; // Redirigir al login
         }, 10 * 60 * 1000); // 10 minutos en milisegundos
     };
 
