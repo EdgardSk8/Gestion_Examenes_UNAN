@@ -18,7 +18,7 @@
     }
 </style>
 
-<div style="background-color: burlywood; padding: 21px;"> 
+<div style="background-color: burlywood; padding: 20px;"> 
 
     <h2>Buscador</h2>
 
@@ -29,7 +29,7 @@
     <h3 style="margin: 0px">Departamento</h3>
     <select id="filtrar_Departamento_Equipo"></select>
 
-    <div id="logoutButton" style="text-align: center; margin-top: 10px; margin-bottom: 20px">
+    <div id="logoutButton" style="text-align: center; margin-top: 10px;">
         <button type="submit" class="button">
             <span class="label">Cerrar Sesión</span>
             <span class="gradient"></span>

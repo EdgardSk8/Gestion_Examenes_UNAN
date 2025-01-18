@@ -34,26 +34,21 @@ use App\Http\Controllers\TipoExamenController;
 
 Route::get('/', function () { return view('vistas-principales/login'); });
 Route::get('/calendar', function () { return view('vistas-principales/calendar'); }); //Vista Principal
-
 Route::get('/VistaAgregarDatos', function () { return view('vistas-principales/VistaAgregarDatos'); })->name('VistaAgregarDatos');
 
 Route::get('/events', [EventoController::class, 'MostrarEquiposEnCalendario']); //Muestra los equipos en el FullCalendar
-Route::get('/departamento_evento/{id}', [EventoController::class, 'EventosPorDepartamentos']);
+Route::get('/departamento_evento/{id}', [EventoController::class, 'EventosPorDepartamentos']); //Muestra los equipos por departamento
 Route::get('/events/{id}', [EventoController::class, 'MostrarDetallesPorId']); //Muestra los detalles de cada Evento
 Route::put('/events/{id}', [EventoController::class, 'ActualizarEventoEnCalendario']); //Actualiza los cambios del evento hacia la BD
 
 Route::get('/equipo/editar/{id}', [EquipoController::class, 'EditarEquipo'])->name('equipo.editar');
 Route::post('/equipo/actualizar/{id}', [EquipoController::class, 'ActualizarEquipo'])->name('equipo.actualizar');
 
-
-
 /*          ----- Rutas que retornan datos -----          */
-
-Route::get('/departamentosajax', [DepartamentoController::class, 'ObtenerDepartamentoPorAreaAJAX']);
-
 
 Route::get('/area-conocimiento', [AreaConocimientoController::class, 'ObtenerAreaConocimiento'])->name('area-conocimiento.mostrar');
 Route::get('/departamentos', [DepartamentoController::class, 'ObtenerDepartamentoPorArea']);
+Route::get('/departamentosajax', [DepartamentoController::class, 'ObtenerDepartamentoPorAreaAJAX']);
 Route::get('/carreras', [CarreraController::class, 'ObtenerCarreraPorDepartamento']);
 Route::get('/equipos', [EquipoController::class, 'ObtenerTodosLosEquipos']);
 Route::get('/profesor', [ProfesorController::class, 'ObtenerProfesor']);
@@ -64,7 +59,6 @@ Route::get('/aula', [AulaController::class, 'ObtenerAulaPorEdificio']);
 Route::get('/perfil', [PerfilController::class, 'ObtenerPerfil']);
 Route::get('/tipoexamen', [TipoExamenController::class, 'ObtenerTipoExamen']);
 Route::get('/localidades', [LocalidadController::class, 'obtenerLocalidad']);
-
 
 /*          ----- Rutas que Suben datos -----          */
 
@@ -77,11 +71,9 @@ Route::post('/aula/agregar', [AulaController::class, 'AgregarAula'])->name('aula
 Route::post('/rol/agregar', [RolController::class, 'AgregarRol'])->name('rol.agregar');
 Route::post('/perfil/agregar', [PerfilController::class, 'AgregarPerfil'])->name('perfil.agregar');
 Route::post('/tipoexamen/agregar', [TipoExamenController::class, 'AgregarTipoExamen'])->name('tipoexamen.agregar');
-
 Route::post('/estudiante/agregar', [EstudianteController::class, 'AgregarEstudiante'])->name('estudiante.agregar');
 Route::post('/profesor/agregar', [ProfesorController::class, 'AgregarProfesor'])->name('profesor.agregar');
-
-Route::post('/equipo/crear', [EquipoController::class, 'CrearNuevoEquipo'])->name('crearEquipo'); //Crea un nuevo equipo
+Route::post('/equipo/crear', [EquipoController::class, 'CrearNuevoEquipo'])->name('crearEquipo');
 
 /*          ----- Rutas que eliminan datos -----          */
 
@@ -112,13 +104,11 @@ Route::delete('/estudiante/eliminar/ajax/{id}', [EstudianteController::class, 'E
 Route::get('/estudiante/editar/ajax/{id}', [EstudianteController::class, 'EditarEstudianteAJAX'])->name('estudiante.editar.ajax');
 Route::put('/estudiante/actualizar/ajax/{id}', [EstudianteController::class, 'ActualizarEstudianteAJAX'])->name('estudiante.actualizar.ajax');
 
-
 Route::get('/profesor/ajax', [ProfesorController::class, 'ObtenerTodosLosProfesoresAJAX'])->name('profesor.ajax');
 Route::post('/profesor/agregar/ajax', [ProfesorController::class, 'AgregarProfesorAJAX'])->name('profesor.agregar.ajax');
 Route::delete('/profesor/eliminar/ajax/{id}', [ProfesorController::class, 'EliminarProfesorAJAX'])->name('profesor.eliminar.ajax');
 Route::get('/profesor/editar/ajax/{id}', [ProfesorController::class, 'EditarProfesorAJAX'])->name('profesor.editar.ajax');
 Route::put('/profesor/actualizar/ajax/{id}', [ProfesorController::class, 'ActualizarProfesorAJAX'])->name('profesor.actualizar.ajax');
-
 
 Route::get('/aulas/ajax', [AulaController::class, 'ObtenerTodasAulasAJAX'])->name('aulas.ajax');
 Route::post('/aulas/agregar/ajax', [AulaController::class, 'AgregarAulaAJAX'])->name('aulas.agregar.ajax');
@@ -156,22 +146,6 @@ Route::get('/perfil/obtener/ajax', [PerfilController::class, 'ObtenerPerfilAJAX'
 Route::get('/perfil/editar/ajax/{id}', [PerfilController::class, 'EditarPerfilAJAX'])->name('perfil.editar.ajax');
 Route::put('/perfil/actualizar/ajax/{id}', [PerfilController::class, 'ActualizarPerfilAJAX'])->name('perfil.actualizar.ajax');
 Route::delete('/perfil/eliminar/ajax/{id}', [PerfilController::class, 'EliminarPerfilAJAX'])->name('perfil.eliminar.ajax');
-
-
-
-// Rutas para cargar vistas dinámicamente en 'agregar nuevos datos'. Logica en /cuadro-equipos/equipoagregar.blade.php NO SIRVE
-Route::get('/vista-area-conocimiento', function() {return view('vistas-equipoagregar.agregardatos.radio-area-conocimiento');});
-Route::get('/vista-departamento', function() {return view('vistas-equipoagregar.agregardatos.radio-departamento');});
-Route::get('/vista-carrera', function() {return view('vistas-equipoagregar.agregardatos.radio-carrera');});
-Route::get('/vista-estudiante', function() {return view('vistas-equipoagregar.agregardatos.radio-estudiante');});
-Route::get('/vista-profesor', function() {return view('vistas-equipoagregar.agregardatos.radio-profesor');});
-Route::get('/vista-localidades', function() {return view('vistas-equipoagregar.agregardatos.radio-localidades');});
-Route::get('/vista-edificio', function() {return view('vistas-equipoagregar.agregardatos.radio-edificio');});
-Route::get('/vista-aula', function() {return view('vistas-equipoagregar.agregardatos.radio-aula');});
-Route::get('/vista-tipo-examen', function() {return view('vistas-equipoagregar.agregardatos.radio-tipo-examen');});
-Route::get('/vista-rol', function() {return view('vistas-equipoagregar.agregardatos.radio-rol');});
-Route::get('/vista-perfil', function() {return view('vistas-equipoagregar.agregardatos.radio-perfil');});
-
 
 Route::get('/validar-carnet', [EstudianteController::class, 'validarCarnet']);
 Route::get('/validar-correo', [EstudianteController::class, 'validarCorreo']);

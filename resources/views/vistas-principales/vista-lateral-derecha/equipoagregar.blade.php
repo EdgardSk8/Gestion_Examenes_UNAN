@@ -136,7 +136,7 @@
             </div>
     
             <!-- Botón de guardar -->
-            <div style="text-align: center; margin-top: 50px; margin-bottom: 20px">
+            <div style="text-align: center; margin-top: 30px; margin-bottom: 30px">
                 <button id="botonagregarequipo" type="submit" class="button"> <!-- clase en equipoagregar.css -->
                     <span class="label">Guardar Equipo</span>
                     <span class="gradient"></span>

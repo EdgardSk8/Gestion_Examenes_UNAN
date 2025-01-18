@@ -11,7 +11,6 @@
             <div>
                 <label>Área de Conocimiento:</label>
                 <select class="area-vista-carrera" id="area-vista-carrera" name="ID_Area" required>
-                    <!-- Las opciones de áreas se cargarán dinámicamente -->
                     <option value="">Seleccione un área de conocimiento</option>
                     <!-- Aquí se añadirán las áreas dinámicamente con JS -->
                 </select>

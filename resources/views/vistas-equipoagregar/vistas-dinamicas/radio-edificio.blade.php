@@ -10,8 +10,7 @@
     <form id="agregarEdificioForm" action="{{ route('edificio.agregar.ajax') }}" method="POST">
         @csrf
 
-        <!-- Selector de Área de Conocimiento -->
-        <div>
+        <div><!-- Selector de Área de Conocimiento -->
             <label>Área de Conocimiento:</label>
             <select class="area-vista-edificio" name="ID_Area" required>
                 <option value="" disabled selected>Seleccione un área de conocimiento</option>
@@ -19,8 +18,7 @@
             </select>
         </div>
 
-        <!-- Campo para el Nombre del Edificio -->
-        <div>
+        <div> <!-- Campo para el Nombre del Edificio -->
             <label>Nuevo Edificio:</label>
             <input type="text" name="Nombre_Edificio" placeholder="Nuevo Edificio" required>
         </div>
