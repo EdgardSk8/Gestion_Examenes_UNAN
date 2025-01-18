@@ -4,10 +4,12 @@ html, body {
     justify-content: center;
     align-items: center;
     height: 100%;
+    margin: 0; /* Elimina cualquier margen predeterminado */
     background: linear-gradient(180deg, #fc74a1, #958fe2);
-  }
+    position: relative; /* Asegura que el botón fijo se comporte correctamente */
+}
 
-  .login-card {
+.login-card {
     background-color: white;
     padding: 2rem;
     border-radius: 8px;
@@ -45,11 +47,11 @@ h2 {
     outline: none;
     transition: border-color 0.3s ease;
 }
+
 .select-group:focus {
     border-color: #007bff;
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
-
 
 label {
     display: block;
@@ -110,8 +112,12 @@ button:disabled {
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 .signup-link {

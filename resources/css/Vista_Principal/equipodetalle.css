@@ -1,10 +1,12 @@
-#equipo-detalle{
+#equipo-detalle {
     margin-top: 5px; /* Espacio superior */
     padding: 5px; /* Espacio interno */
     border: 1px solid #000; /* Bordes del contenedor */
     background-color: #d9dfdf; /* Color de fondo */
     overflow-y: auto; /* Habilita el scroll cuando los equipos exceden el espacio disponible */
-    height: 550px; /* Ajusta la altura para ocupar el resto del espacio dentro de equipos-list */
+    min-height: 550px; /* Altura mínima */
+    max-height: calc(100vh - 100px); /* Altura máxima basada en la altura de la pantalla, ajusta 100px según el diseño */
+    height: 100%; /* Altura flexible dentro de su contenedor */
     box-sizing: border-box; /* Asegura que el padding y los bordes se incluyan en el tamaño */
 }
 
