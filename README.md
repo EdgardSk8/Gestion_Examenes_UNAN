@@ -25,6 +25,10 @@ Xampp Version Panel V3.3.0<br>
 PHP Version PHP 8.2.12<br>
 npm installation<br>
 
+<h3>Comandos para uso<h3>
+npm run dev<br>
+php artisan serve<br>
+
 <h2>About Laravel</h2>
 <p>
     Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
